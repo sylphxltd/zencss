@@ -1,0 +1,41 @@
+{
+  "name": "@sylphx/swc-plugin-silk",
+  "version": "0.1.0",
+  "description": "SWC plugin for Silk - zero-runtime CSS-in-TypeScript",
+  "keywords": [
+    "swc",
+    "swc-plugin",
+    "css",
+    "css-in-js",
+    "typescript",
+    "zero-runtime",
+    "silk"
+  ],
+  "author": "SylphX Ltd",
+  "license": "MIT",
+  "homepage": "https://sylphx.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sylphxltd/silk.git",
+    "directory": "packages/swc-plugin"
+  },
+  "bugs": {
+    "url": "https://github.com/sylphxltd/silk/issues"
+  },
+  "files": [
+    "target/wasm32-wasip1/release/*.wasm",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "cargo build --release --target wasm32-wasip1",
+    "test": "cargo test",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
