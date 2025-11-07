@@ -20,18 +20,18 @@ type StylableElements = keyof JSX.IntrinsicElements
 type StyledComponentProps<
   Element extends ElementType,
   Config extends DesignConfig,
-> = ComponentProps<Element> &
+> = Omit<ComponentProps<Element>, keyof TypedStyleProps<Config>> &
   TypedStyleProps<Config> & {
     as?: ElementType
   }
 
-// Styled component type
-type StyledComponent<
-  Element extends ElementType,
-  Config extends DesignConfig,
-> = ForwardRefExoticComponent<
-  PropsWithoutRef<StyledComponentProps<Element, Config>> & RefAttributes<any>
->
+// Styled component type - use a function component with explicit prop types
+interface StyledComponent<Element extends ElementType, Config extends DesignConfig>
+  extends React.ForwardRefExoticComponent<
+    StyledComponentProps<Element, Config> & React.RefAttributes<any>
+  > {
+  (props: StyledComponentProps<Element, Config> & React.RefAttributes<any>): React.ReactElement | null
+}
 
 /**
  * Create React bindings for a style system
@@ -130,7 +130,7 @@ export function createReactStyleSystem<C extends DesignConfig>(styleSystem: Styl
       const { styleProps, elementProps } = extractStyleProps(rest)
 
       // Merge base styles with prop styles
-      const mergedStyles = { ...baseStyles, ...styleProps }
+      const mergedStyles = { ...baseStyles, ...styleProps } as TypedStyleProps<C>
       const { className, style } = css(mergedStyles)
 
       // Merge classNames
@@ -146,7 +146,7 @@ export function createReactStyleSystem<C extends DesignConfig>(styleSystem: Styl
 
     StyledComponent.displayName = `Styled(${String(element)})`
 
-    return StyledComponent
+    return StyledComponent as StyledComponent<Element, C>
   }
 
   /**

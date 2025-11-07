@@ -143,11 +143,16 @@ const styleSystem = createStyleSystem<Config>(config)
 // Create React bindings with explicit type - export as a whole object first
 const reactSystem = createReactStyleSystem<Config>(styleSystem)
 
-// Then export individual items for better type preservation
+// Type helper for styled components
+type ZenStyledComponent<E extends keyof JSX.IntrinsicElements> = ReturnType<
+  typeof reactSystem.styled<E>
+>
+
+// Then export individual items with explicit types for better type preservation
 export const styled = reactSystem.styled
-export const Box = reactSystem.Box
-export const Flex = reactSystem.Flex
-export const Grid = reactSystem.Grid
-export const Text = reactSystem.Text
+export const Box: ZenStyledComponent<'div'> = reactSystem.Box
+export const Flex: ZenStyledComponent<'div'> = reactSystem.Flex
+export const Grid: ZenStyledComponent<'div'> = reactSystem.Grid
+export const Text: ZenStyledComponent<'span'> = reactSystem.Text
 export const css = reactSystem.css
 export const cx = reactSystem.cx
