@@ -1,5 +1,54 @@
 # @sylphx/silk
 
+## 1.1.1
+
+### Patch Changes
+
+- # Fix: Browser Compatibility - Remove lightningcss Native Binding from Client Bundle
+
+  ## 🐛 Critical Bug Fix
+
+  Fixed a critical issue where `lightningcss` native bindings were being bundled into client-side code, causing build failures in Next.js 16 (Turbopack) and browser environments.
+
+  ### Problem
+
+  - `lightningcss` is a Rust-compiled native addon (`.node` files)
+  - Static imports caused bundlers to include native bindings in browser bundles
+  - Turbopack and browser environments cannot handle native Node.js addons
+  - Error: `Module not found: Can't resolve '../lightningcss.<dynamic>.node'`
+
+  ### Solution
+
+  - ✅ Changed to **dynamic imports** - lightningcss only loads when actually needed
+  - ✅ **Environment detection** - automatically detects Node.js vs browser
+  - ✅ **Graceful fallback** - uses manual CSS optimization in browser environments
+  - ✅ **Zero breaking changes** - fully backward compatible
+
+  ### Impact
+
+  - `optimizeCSSWithLightning()` is now `async` (returns Promise)
+  - `smartOptimizeCSS()` is now `async` (returns Promise)
+  - Automatic fallback in browser environments
+  - Works with Next.js 16 Turbopack, Remix, Astro, and all frameworks
+
+  ### Migration
+
+  Most users won't need to change anything. If you directly call these functions:
+
+  **Before:**
+
+  ```typescript
+  const result = optimizeCSSWithLightning(css, config);
+  ```
+
+  **After:**
+
+  ```typescript
+  const result = await optimizeCSSWithLightning(css, config);
+  ```
+
+  **Note:** These functions are typically only used in build tools (Vite plugin, Next.js plugin), which already handle async operations.
+
 ## 1.1.0
 
 ### Minor Changes

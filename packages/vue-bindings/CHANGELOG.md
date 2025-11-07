@@ -1,5 +1,12 @@
 # @sylphx/silk-vue
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @sylphx/silk@1.1.1
+
 ## 2.0.0
 
 ### Major Changes

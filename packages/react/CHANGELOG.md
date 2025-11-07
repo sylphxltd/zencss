@@ -1,5 +1,12 @@
 # @sylphx/silk-react
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @sylphx/silk@1.1.1
+
 ## 1.0.1
 
 ### Patch Changes

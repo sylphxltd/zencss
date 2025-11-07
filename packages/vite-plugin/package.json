@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/silk-vite-plugin",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Vite plugin for Silk - Build-time CSS extraction with production optimizations",
   "keywords": [
     "silk",

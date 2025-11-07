@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/silk",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Type-safe CSS-in-TypeScript without codegen. 45-65% smaller CSS in production with modern color functions (oklch, color-mix) and native nesting.",
   "keywords": [
     "css",

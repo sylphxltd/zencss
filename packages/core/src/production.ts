@@ -5,7 +5,28 @@
  * - Multi-stage minification
  */
 
-import { transform, browserslistToTargets } from 'lightningcss'
+// Dynamic import to avoid bundling native dependencies in browser builds
+type LightningCSS = typeof import('lightningcss')
+let lightningcss: LightningCSS | null = null
+
+// Lazy load lightningcss only when needed (Node.js environment)
+async function loadLightningCSS(): Promise<LightningCSS | null> {
+  if (lightningcss) return lightningcss
+
+  // Check if we're in Node.js environment
+  if (typeof process !== 'undefined' && process.versions?.node) {
+    try {
+      lightningcss = await import('lightningcss')
+      return lightningcss
+    } catch (error) {
+      // LightningCSS not available (development without devDependencies)
+      return null
+    }
+  }
+
+  // Browser environment - lightningcss cannot run
+  return null
+}
 
 export interface ProductionConfig {
   /** Enable production mode optimizations */
@@ -20,8 +41,8 @@ export interface ProductionConfig {
   classPrefix?: string
   /** Use LightningCSS for optimization (recommended, 5-10x faster) */
   useLightningCSS?: boolean
-  /** Browserslist targets for LightningCSS */
-  targets?: ReturnType<typeof browserslistToTargets>
+  /** Browser targets for LightningCSS (e.g., { chrome: 90 << 16 }) */
+  targets?: Record<string, number>
 }
 
 // Short class name generator (a0, a1, ..., z9, aa0, aa1, ...)
@@ -277,23 +298,33 @@ export function getShortNameCount(): number {
  * - Better minification (5-10% smaller)
  * - CSS nesting support
  * - Modern CSS transpilation
+ *
+ * Note: Automatically falls back to manual optimization in browser environments
+ * or when LightningCSS is not available.
  */
-export function optimizeCSSWithLightning(
+export async function optimizeCSSWithLightning(
   css: string,
   config: ProductionConfig = {}
-): CSSOptimizationResult {
-  const originalSize = Buffer.byteLength(css, 'utf-8')
+): Promise<CSSOptimizationResult> {
+  const originalSize = new TextEncoder().encode(css).length
 
   try {
-    const { code } = transform({
+    const lightning = await loadLightningCSS()
+
+    if (!lightning) {
+      // LightningCSS not available (browser or missing devDependency)
+      return optimizeCSS(css)
+    }
+
+    const { code } = lightning.transform({
       filename: 'silk.css',
-      code: Buffer.from(css, 'utf-8'),
+      code: new TextEncoder().encode(css),
       minify: config.minify ?? true,
       ...(config.targets && { targets: config.targets }),
     })
 
-    const optimized = code.toString()
-    const optimizedSize = Buffer.byteLength(optimized, 'utf-8')
+    const optimized = new TextDecoder().decode(code)
+    const optimizedSize = new TextEncoder().encode(optimized).length
     const percentage = ((originalSize - optimizedSize) / originalSize) * 100
 
     return {
@@ -306,22 +337,27 @@ export function optimizeCSSWithLightning(
     }
   } catch (error) {
     // Fallback to manual optimization if LightningCSS fails
-    console.warn('LightningCSS optimization failed, falling back to manual optimization', error)
+    if (typeof console !== 'undefined' && console.warn) {
+      console.warn('LightningCSS optimization failed, falling back to manual optimization:', error)
+    }
     return optimizeCSS(css)
   }
 }
 
 /**
  * Smart CSS optimization - uses LightningCSS if enabled, otherwise manual
+ *
+ * Automatically detects environment and falls back to manual optimization
+ * in browser environments or when LightningCSS is not available.
  */
-export function smartOptimizeCSS(
+export async function smartOptimizeCSS(
   css: string,
   config: ProductionConfig = {}
-): CSSOptimizationResult {
+): Promise<CSSOptimizationResult> {
   const useLightning = config.useLightningCSS ?? true  // Default to Lightning
 
   if (useLightning) {
-    return optimizeCSSWithLightning(css, config)
+    return await optimizeCSSWithLightning(css, config)
   }
 
   return optimizeCSS(css)

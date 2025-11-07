@@ -1,5 +1,13 @@
 # @sylphx/silk-nextjs
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @sylphx/silk@1.1.1
+  - @sylphx/silk-react@1.0.2
+
 ## 2.0.0
 
 ### Major Changes

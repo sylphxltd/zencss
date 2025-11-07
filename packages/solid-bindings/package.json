@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/silk-solid",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Solid.js bindings for Silk - zero-runtime CSS-in-TypeScript with fine-grained reactivity",
   "keywords": [
     "css",
