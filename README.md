@@ -761,10 +761,10 @@ const { css } = createStyleSystem(monochromePreset)
 ```typescript
 // silk.config.ts
 import { defineConfig } from '@sylphx/silk'
-import { createZenReact } from '@sylphx/silk-react'
+import { createSilkReact } from '@sylphx/silk-react'
 
 // ✨ One-line setup with full type inference
-export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(
+export const { styled, Box, Flex, Grid, Text, css, cx } = createSilkReact(
   defineConfig({
     colors: {
       brand: { 500: '#3b82f6', 600: '#2563eb' },
@@ -896,7 +896,7 @@ const config = defineConfig({
 - ❌ Panda requires `panda codegen` to generate `styled-system/` directory
 - ❌ Panda allows arbitrary strings by default (less strict)
 - ✅ Silk: zero codegen, instant autocomplete, stricter type safety
-- ✅ Simpler setup: just `export const { Box, ... } = createZenReact(config)`
+- ✅ Simpler setup: just `export const { Box, ... } = createSilkReact(config)`
 
 ### Critical CSS Extraction
 

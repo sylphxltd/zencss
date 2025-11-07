@@ -58,6 +58,8 @@ function App() {
 - **[@sylphx/silk-vue](https://www.npmjs.com/package/@sylphx/silk-vue)** - Vue 3 Composition API
 - **[@sylphx/silk-svelte](https://www.npmjs.com/package/@sylphx/silk-svelte)** - Svelte reactive stores
 - **[@sylphx/silk-solid](https://www.npmjs.com/package/@sylphx/silk-solid)** - Solid.js fine-grained reactivity
+- **[@sylphx/silk-qwik](https://www.npmjs.com/package/@sylphx/silk-qwik)** - Qwik resumability & zero hydration
+- **[@sylphx/silk-preact](https://www.npmjs.com/package/@sylphx/silk-preact)** - Preact 3KB React alternative
 
 ### Meta-Framework Plugins
 - **[@sylphx/silk-nextjs](https://www.npmjs.com/package/@sylphx/silk-nextjs)** - Next.js App Router & RSC
@@ -66,6 +68,10 @@ function App() {
 
 ### Build Tools
 - **[@sylphx/silk-vite-plugin](https://www.npmjs.com/package/@sylphx/silk-vite-plugin)** - Vite plugin for build-time extraction
+
+### Design System Presets
+- **[@sylphx/silk-preset-material](https://www.npmjs.com/package/@sylphx/silk-preset-material)** - Material Design 3 preset (~2KB)
+- **[@sylphx/silk-preset-minimal](https://www.npmjs.com/package/@sylphx/silk-preset-minimal)** - Minimal design system (~1KB)
 
 ## Documentation
 

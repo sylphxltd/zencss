@@ -140,5 +140,5 @@ export const { styled, Box, Flex, Grid, Text, css, cx } = createSilkReact(
 // Note: If you need to reference the config type elsewhere, use Option 2:
 //
 // const config = defineConfig({ ... } as const)
-// export const { styled, Box, ... } = createZenReact(config)
+// export const { styled, Box, ... } = createSilkReact(config)
 // export type Config = typeof config
