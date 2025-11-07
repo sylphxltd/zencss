@@ -103,9 +103,7 @@ function App() {
         </Text>
 
         <Flex gap={4} alignItems="center">
-          <Button onClick={() => setCount(count + 1)}>
-            Count: {count}
-          </Button>
+          <Button onClick={() => setCount(count + 1)}>Count: {count}</Button>
 
           <Button
             bg="gray.200"

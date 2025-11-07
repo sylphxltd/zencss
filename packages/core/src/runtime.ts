@@ -64,11 +64,7 @@ function hash(str: string): string {
 /**
  * Resolve token value from config
  */
-function resolveToken<C extends DesignConfig>(
-  config: C,
-  category: keyof C,
-  value: string
-): string {
+function resolveToken<C extends DesignConfig>(config: C, category: keyof C, value: string): string {
   const scale = config[category]
   if (!scale || typeof scale !== 'object') return value
 
@@ -96,10 +92,27 @@ function getCSSValue<C extends DesignConfig>(
   if (typeof value === 'number') {
     // Properties that should have 'px' appended
     const needsPx = [
-      'width', 'height', 'minWidth', 'maxWidth', 'minHeight', 'maxHeight',
-      'margin', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft',
-      'padding', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
-      'gap', 'borderRadius', 'borderWidth', 'fontSize', 'letterSpacing'
+      'width',
+      'height',
+      'minWidth',
+      'maxWidth',
+      'minHeight',
+      'maxHeight',
+      'margin',
+      'marginTop',
+      'marginRight',
+      'marginBottom',
+      'marginLeft',
+      'padding',
+      'paddingTop',
+      'paddingRight',
+      'paddingBottom',
+      'paddingLeft',
+      'gap',
+      'borderRadius',
+      'borderWidth',
+      'fontSize',
+      'letterSpacing',
     ]
     if (needsPx.includes(prop)) {
       return `${value}px`
@@ -196,7 +209,12 @@ export function createStyleSystem<C extends DesignConfig>(config: C) {
           // Recursively process pseudo styles
           for (const [nestedKey, nestedValue] of Object.entries(value)) {
             const prop = propertyMap[nestedKey] ?? nestedKey
-            const className = generateAtomicClass(config, prop, nestedValue as string | number, pseudo)
+            const className = generateAtomicClass(
+              config,
+              prop,
+              nestedValue as string | number,
+              pseudo
+            )
             classNames.push(className)
           }
         }

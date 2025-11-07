@@ -1,0 +1,14 @@
+[install]
+# Install all dependencies
+auto = true
+exact = false
+production = false
+
+[install.cache]
+# Cache directory
+dir = ".bun/cache"
+
+[install.lockfile]
+# Save lockfile
+save = true
+print = "yarn"

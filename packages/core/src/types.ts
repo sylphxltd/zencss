@@ -58,7 +58,13 @@ export type CSSProperties = {
   // Layout
   display?: 'flex' | 'block' | 'inline' | 'inline-block' | 'grid' | 'none'
   flexDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse'
-  justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly'
+  justifyContent?:
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly'
   alignItems?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'
 
   // Typography
@@ -110,22 +116,36 @@ export type TypedStyleProps<Config extends DesignConfig> = {
   mt?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
   marginTop?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
   mr?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
-  marginRight?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
+  marginRight?: Config['spacing'] extends infer S
+    ? keyof S | (string & {}) | number
+    : string | number
   mb?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
-  marginBottom?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
+  marginBottom?: Config['spacing'] extends infer S
+    ? keyof S | (string & {}) | number
+    : string | number
   ml?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
-  marginLeft?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
+  marginLeft?: Config['spacing'] extends infer S
+    ? keyof S | (string & {}) | number
+    : string | number
 
   p?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
   padding?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
   pt?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
-  paddingTop?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
+  paddingTop?: Config['spacing'] extends infer S
+    ? keyof S | (string & {}) | number
+    : string | number
   pr?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
-  paddingRight?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
+  paddingRight?: Config['spacing'] extends infer S
+    ? keyof S | (string & {}) | number
+    : string | number
   pb?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
-  paddingBottom?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
+  paddingBottom?: Config['spacing'] extends infer S
+    ? keyof S | (string & {}) | number
+    : string | number
   pl?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
-  paddingLeft?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
+  paddingLeft?: Config['spacing'] extends infer S
+    ? keyof S | (string & {}) | number
+    : string | number
 
   gap?: Config['spacing'] extends infer S ? keyof S | (string & {}) | number : string | number
 
@@ -144,13 +164,21 @@ export type TypedStyleProps<Config extends DesignConfig> = {
   maxHeight?: Config['sizes'] extends infer S ? keyof S | (string & {}) | number : string | number
 
   // Typography
-  fontSize?: Config['fontSizes'] extends infer F ? keyof F | (string & {}) | number : string | number
-  fontWeight?: Config['fontWeights'] extends infer F ? keyof F | (string & {}) | number : string | number
-  lineHeight?: Config['lineHeights'] extends infer L ? keyof L | (string & {}) | number : string | number
+  fontSize?: Config['fontSizes'] extends infer F
+    ? keyof F | (string & {}) | number
+    : string | number
+  fontWeight?: Config['fontWeights'] extends infer F
+    ? keyof F | (string & {}) | number
+    : string | number
+  lineHeight?: Config['lineHeights'] extends infer L
+    ? keyof L | (string & {}) | number
+    : string | number
   letterSpacing?: Config['letterSpacings'] extends infer L ? keyof L | (string & {}) : string
 
   // Border
-  borderRadius?: Config['radii'] extends infer R ? keyof R | (string & {}) | number : string | number
+  borderRadius?: Config['radii'] extends infer R
+    ? keyof R | (string & {}) | number
+    : string | number
   rounded?: Config['radii'] extends infer R ? keyof R | (string & {}) | number : string | number
 
   // Layout

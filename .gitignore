@@ -3,6 +3,10 @@ node_modules
 .pnp
 .pnp.js
 
+# Bun
+.bun
+bun.lockb
+
 # Build outputs
 dist
 build

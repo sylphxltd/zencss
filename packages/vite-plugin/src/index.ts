@@ -35,12 +35,7 @@ export interface ZenCSSPluginOptions {
 }
 
 export function zenCSS(options: ZenCSSPluginOptions = {}): Plugin {
-  const {
-    outputFile = 'zencss.css',
-    inject = true,
-    minify,
-    watch = true,
-  } = options
+  const { outputFile = 'zencss.css', inject = true, minify, watch = true } = options
 
   let server: ViteDevServer | undefined
   let isBuild = false

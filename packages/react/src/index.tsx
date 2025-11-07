@@ -4,7 +4,13 @@
  */
 
 import React, { createElement, forwardRef } from 'react'
-import type { ComponentProps, ElementType, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react'
+import type {
+  ComponentProps,
+  ElementType,
+  ForwardRefExoticComponent,
+  PropsWithoutRef,
+  RefAttributes,
+} from 'react'
 import type { DesignConfig, TypedStyleProps, StyleSystem } from '@zencss/core'
 
 // HTML elements that can be styled
@@ -13,15 +19,16 @@ type StylableElements = keyof JSX.IntrinsicElements
 // Props for styled components
 type StyledComponentProps<
   Element extends ElementType,
-  Config extends DesignConfig
-> = ComponentProps<Element> & TypedStyleProps<Config> & {
-  as?: ElementType
-}
+  Config extends DesignConfig,
+> = ComponentProps<Element> &
+  TypedStyleProps<Config> & {
+    as?: ElementType
+  }
 
 // Styled component type
 type StyledComponent<
   Element extends ElementType,
-  Config extends DesignConfig
+  Config extends DesignConfig,
 > = ForwardRefExoticComponent<
   PropsWithoutRef<StyledComponentProps<Element, Config>> & RefAttributes<any>
 >
@@ -44,14 +51,60 @@ export function createReactStyleSystem<C extends DesignConfig>(styleSystem: Styl
 
     // Known style prop keys (could be auto-generated from TypedStyleProps)
     const stylePropKeys = new Set([
-      'color', 'bg', 'backgroundColor', 'borderColor',
-      'm', 'margin', 'mt', 'marginTop', 'mr', 'marginRight', 'mb', 'marginBottom', 'ml', 'marginLeft',
-      'p', 'padding', 'pt', 'paddingTop', 'pr', 'paddingRight', 'pb', 'paddingBottom', 'pl', 'paddingLeft',
-      'gap', 'w', 'width', 'h', 'height', 'minW', 'minWidth', 'maxW', 'maxWidth', 'minH', 'minHeight', 'maxH', 'maxHeight',
-      'fontSize', 'fontWeight', 'lineHeight', 'letterSpacing', 'textAlign',
-      'borderRadius', 'rounded', 'opacity', 'boxShadow', 'shadow',
-      'display', 'flexDirection', 'justifyContent', 'alignItems',
-      '_hover', '_focus', '_active',
+      'color',
+      'bg',
+      'backgroundColor',
+      'borderColor',
+      'm',
+      'margin',
+      'mt',
+      'marginTop',
+      'mr',
+      'marginRight',
+      'mb',
+      'marginBottom',
+      'ml',
+      'marginLeft',
+      'p',
+      'padding',
+      'pt',
+      'paddingTop',
+      'pr',
+      'paddingRight',
+      'pb',
+      'paddingBottom',
+      'pl',
+      'paddingLeft',
+      'gap',
+      'w',
+      'width',
+      'h',
+      'height',
+      'minW',
+      'minWidth',
+      'maxW',
+      'maxWidth',
+      'minH',
+      'minHeight',
+      'maxH',
+      'maxHeight',
+      'fontSize',
+      'fontWeight',
+      'lineHeight',
+      'letterSpacing',
+      'textAlign',
+      'borderRadius',
+      'rounded',
+      'opacity',
+      'boxShadow',
+      'shadow',
+      'display',
+      'flexDirection',
+      'justifyContent',
+      'alignItems',
+      '_hover',
+      '_focus',
+      '_active',
     ])
 
     for (const [key, value] of Object.entries(props)) {
