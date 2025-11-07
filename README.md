@@ -16,7 +16,20 @@
 
 **92% smaller than Panda** • **True Zero-Runtime** • **Build-time Compilation** • **-6.5KB JS Bundle** • **Zero Codegen**
 
-### 🚀 What's New in v2.0.0
+### 🚀 What's New
+
+#### 🎉 Next.js 16 + Turbopack Support (Coming Soon!)
+
+**SWC Plugin for 20-70x faster builds:**
+- 🦀 Native Rust implementation
+- ⚡ **20-70x faster** than Babel plugin
+- 🚀 Full Turbopack compatibility
+- ✅ Phase 1 complete (core transformation)
+- 📊 71% complete (5/7 phases)
+
+[View SWC Plugin Documentation →](./packages/swc-plugin/README.md) • [Quick Start Guide →](./packages/swc-plugin/QUICKSTART.md)
+
+#### v2.0.0: True Zero-Runtime
 
 ⚡ **Zero-Runtime Compilation** • 📦 **Build-time CSS Extraction (-6.5KB JS)** • 🎯 **389B Brotli CSS (-61%)** • 🔧 **unplugin Architecture** • 🚀 **All Frameworks Updated** • ✨ **HMR with State Preservation** • 🔥 **0ms Runtime Cost**
 
