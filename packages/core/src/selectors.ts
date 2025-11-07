@@ -126,8 +126,12 @@ export function compareSpecificity(a: string, b: string): -1 | 0 | 1 {
   const specB = calculateSpecificity(b)
 
   for (let i = 0; i < 4; i++) {
-    if (specA[i] > specB[i]) return 1
-    if (specA[i] < specB[i]) return -1
+    const a = specA[i]
+    const b = specB[i]
+    if (a !== undefined && b !== undefined) {
+      if (a > b) return 1
+      if (a < b) return -1
+    }
   }
 
   return 0
@@ -204,7 +208,7 @@ export class ClassNameGenerator {
 
     if (this.config.minifyClassNames) {
       // Minified: z0, z1, ..., zz, z10, z11
-      className = minifyClassName(this.counter++, this.counter)
+      className = minifyClassName(key, this.counter++)
     } else {
       // Human-readable: zen-abc123
       className = `${this.config.prefix}-${this.hash(key)}`
