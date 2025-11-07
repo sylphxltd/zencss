@@ -15,7 +15,7 @@
     },
     "examples/react-demo": {
       "name": "react-demo",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "dependencies": {
         "@sylphx/silk": "workspace:*",
         "@sylphx/silk-react": "workspace:*",
@@ -33,7 +33,7 @@
     },
     "packages/astro-integration": {
       "name": "@sylphx/silk-astro",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "dependencies": {
         "@sylphx/silk": "workspace:*",
         "@sylphx/silk-react": "workspace:*",
@@ -49,7 +49,7 @@
     },
     "packages/core": {
       "name": "@sylphx/silk",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "devDependencies": {
         "lightningcss": "^1.30.2",
         "typescript": "^5.3.0",
@@ -58,7 +58,7 @@
     },
     "packages/nextjs-plugin": {
       "name": "@sylphx/silk-nextjs",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "dependencies": {
         "@sylphx/silk": "workspace:*",
         "@sylphx/silk-react": "workspace:*",
@@ -75,9 +75,63 @@
         "react": "^18.0.0 || ^19.0.0",
       },
     },
+    "packages/preact-bindings": {
+      "name": "@sylphx/silk-preact",
+      "version": "1.0.0",
+      "dependencies": {
+        "@sylphx/silk": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/node": "^20.0.0",
+        "preact": "^10.19.0",
+        "typescript": "^5.3.0",
+      },
+      "peerDependencies": {
+        "preact": "^10.0.0",
+      },
+    },
+    "packages/preset-material": {
+      "name": "@sylphx/silk-preset-material",
+      "version": "1.0.0",
+      "devDependencies": {
+        "@sylphx/silk": "workspace:*",
+        "@types/node": "^20.0.0",
+        "typescript": "^5.3.0",
+      },
+      "peerDependencies": {
+        "@sylphx/silk": "^1.0.0",
+      },
+    },
+    "packages/preset-minimal": {
+      "name": "@sylphx/silk-preset-minimal",
+      "version": "1.0.0",
+      "devDependencies": {
+        "@sylphx/silk": "workspace:*",
+        "@types/node": "^20.0.0",
+        "typescript": "^5.3.0",
+      },
+      "peerDependencies": {
+        "@sylphx/silk": "^1.0.0",
+      },
+    },
+    "packages/qwik-bindings": {
+      "name": "@sylphx/silk-qwik",
+      "version": "1.0.0",
+      "dependencies": {
+        "@sylphx/silk": "workspace:*",
+      },
+      "devDependencies": {
+        "@builder.io/qwik": "^1.5.0",
+        "@types/node": "^20.0.0",
+        "typescript": "^5.3.0",
+      },
+      "peerDependencies": {
+        "@builder.io/qwik": "^1.0.0",
+      },
+    },
     "packages/react": {
       "name": "@sylphx/silk-react",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "dependencies": {
         "@sylphx/silk": "workspace:*",
       },
@@ -93,7 +147,7 @@
     },
     "packages/remix-plugin": {
       "name": "@sylphx/silk-remix",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "dependencies": {
         "@sylphx/silk": "workspace:*",
         "@sylphx/silk-react": "workspace:*",
@@ -114,7 +168,7 @@
     },
     "packages/solid-bindings": {
       "name": "@sylphx/silk-solid",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "dependencies": {
         "@sylphx/silk": "workspace:*",
       },
@@ -129,7 +183,7 @@
     },
     "packages/svelte-bindings": {
       "name": "@sylphx/silk-svelte",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "dependencies": {
         "@sylphx/silk": "workspace:*",
       },
@@ -144,7 +198,7 @@
     },
     "packages/vite-plugin": {
       "name": "@sylphx/silk-vite-plugin",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "dependencies": {
         "@sylphx/silk": "workspace:*",
       },
@@ -159,7 +213,7 @@
     },
     "packages/vue-bindings": {
       "name": "@sylphx/silk-vue",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "dependencies": {
         "@sylphx/silk": "workspace:*",
       },
@@ -249,6 +303,8 @@
     "@biomejs/cli-win32-arm64": ["@biomejs/cli-win32-arm64@1.9.4", "", { "os": "win32", "cpu": "arm64" }, "sha512-tlbhLk+WXZmgwoIKwHIHEBZUwxml7bRJgk0X2sPyNR3S93cdRq6XulAZRQJ17FYGGzWne0fgrXBKpl7l4M87Hg=="],
 
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@1.9.4", "", { "os": "win32", "cpu": "x64" }, "sha512-8Y5wMhVIPaWe6jw2H+KlEm4wP/f7EW3810ZLmDlrEEy5KvBsb9ECEfu/kMWD484ijfQ8+nIi0giMgu9g1UAuuA=="],
+
+    "@builder.io/qwik": ["@builder.io/qwik@1.17.2", "", { "dependencies": { "csstype": "^3.1.3", "launch-editor": "^2.11.1", "rollup": "^4.52.4" }, "peerDependencies": { "vite": ">=5 <8" }, "bin": { "qwik": "qwik-cli.cjs" } }, "sha512-RLtiF0cA1ZSEV/o05cM38V0vkW/cP+O3pCjqcjxPWl/TYgPqZSPhy2MaT0tBDpwx5gOhq53uaRiq+/Gq8+oFqA=="],
 
     "@changesets/apply-release-plan": ["@changesets/apply-release-plan@7.0.13", "", { "dependencies": { "@changesets/config": "^3.1.1", "@changesets/get-version-range-type": "^0.4.0", "@changesets/git": "^3.0.4", "@changesets/should-skip-package": "^0.1.2", "@changesets/types": "^6.1.0", "@manypkg/get-packages": "^1.1.3", "detect-indent": "^6.0.0", "fs-extra": "^7.0.1", "lodash.startcase": "^4.4.0", "outdent": "^0.5.0", "prettier": "^2.7.1", "resolve-from": "^5.0.0", "semver": "^7.5.3" } }, "sha512-BIW7bofD2yAWoE8H4V40FikC+1nNFEKBisMECccS16W1rt6qqhNTBDmIw5HaqmMgtLNz9e7oiALiEUuKrQ4oHg=="],
 
@@ -507,6 +563,14 @@
     "@sylphx/silk-astro": ["@sylphx/silk-astro@workspace:packages/astro-integration"],
 
     "@sylphx/silk-nextjs": ["@sylphx/silk-nextjs@workspace:packages/nextjs-plugin"],
+
+    "@sylphx/silk-preact": ["@sylphx/silk-preact@workspace:packages/preact-bindings"],
+
+    "@sylphx/silk-preset-material": ["@sylphx/silk-preset-material@workspace:packages/preset-material"],
+
+    "@sylphx/silk-preset-minimal": ["@sylphx/silk-preset-minimal@workspace:packages/preset-minimal"],
+
+    "@sylphx/silk-qwik": ["@sylphx/silk-qwik@workspace:packages/qwik-bindings"],
 
     "@sylphx/silk-react": ["@sylphx/silk-react@workspace:packages/react"],
 
@@ -938,6 +1002,8 @@
 
     "kleur": ["kleur@4.1.5", "", {}, "sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ=="],
 
+    "launch-editor": ["launch-editor@2.12.0", "", { "dependencies": { "picocolors": "^1.1.1", "shell-quote": "^1.8.3" } }, "sha512-giOHXoOtifjdHqUamwKq6c49GzBdLjvxrd2D+Q4V6uOHopJv7p9VJxikDsQ/CBXZbEITgUqSVHXLTG3VhPP1Dg=="],
+
     "lightningcss": ["lightningcss@1.30.2", "", { "dependencies": { "detect-libc": "^2.0.3" }, "optionalDependencies": { "lightningcss-android-arm64": "1.30.2", "lightningcss-darwin-arm64": "1.30.2", "lightningcss-darwin-x64": "1.30.2", "lightningcss-freebsd-x64": "1.30.2", "lightningcss-linux-arm-gnueabihf": "1.30.2", "lightningcss-linux-arm64-gnu": "1.30.2", "lightningcss-linux-arm64-musl": "1.30.2", "lightningcss-linux-x64-gnu": "1.30.2", "lightningcss-linux-x64-musl": "1.30.2", "lightningcss-win32-arm64-msvc": "1.30.2", "lightningcss-win32-x64-msvc": "1.30.2" } }, "sha512-utfs7Pr5uJyyvDETitgsaqSyjCb2qNRAtuqUeWIAKztsOYdcACf2KtARYXg2pSvhkt+9NfoaNY7fxjl6nuMjIQ=="],
 
     "lightningcss-android-arm64": ["lightningcss-android-arm64@1.30.2", "", { "os": "android", "cpu": "arm64" }, "sha512-BH9sEdOCahSgmkVhBLeU7Hc9DWeZ1Eb6wNS6Da8igvUwAe0sqROHddIlvU06q3WyXVEOYDZ6ykBZQnjTbmo4+A=="],
@@ -1158,6 +1224,8 @@
 
     "postcss": ["postcss@8.4.31", "", { "dependencies": { "nanoid": "^3.3.6", "picocolors": "^1.0.0", "source-map-js": "^1.0.2" } }, "sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ=="],
 
+    "preact": ["preact@10.27.2", "", {}, "sha512-5SYSgFKSyhCbk6SrXyMpqjb5+MQBgfvEKE/OC+PujcY34sOpqtr+0AZQtPYx5IA6VxynQ7rUPCtKzyovpj9Bpg=="],
+
     "preferred-pm": ["preferred-pm@4.1.1", "", { "dependencies": { "find-up-simple": "^1.0.0", "find-yarn-workspace-root2": "1.2.16", "which-pm": "^3.0.1" } }, "sha512-rU+ZAv1Ur9jAUZtGPebQVQPzdGhNzaEiQ7VL9+cjsAWPHFYOccNXPNiev1CCDSOg/2j7UujM7ojNhpkuILEVNQ=="],
 
     "prettier": ["prettier@2.8.8", "", { "bin": { "prettier": "bin-prettier.js" } }, "sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q=="],
@@ -1255,6 +1323,8 @@
     "shebang-command": ["shebang-command@2.0.0", "", { "dependencies": { "shebang-regex": "^3.0.0" } }, "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA=="],
 
     "shebang-regex": ["shebang-regex@3.0.0", "", {}, "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A=="],
+
+    "shell-quote": ["shell-quote@1.8.3", "", {}, "sha512-ObmnIF4hXNg1BqhnHmgbDETF8dLPCggZWBjkQfhZpbszZnYur5DUljTcCHii5LC3J5E0yeO/1LIMyH+UvHQgyw=="],
 
     "shiki": ["shiki@1.29.2", "", { "dependencies": { "@shikijs/core": "1.29.2", "@shikijs/engine-javascript": "1.29.2", "@shikijs/engine-oniguruma": "1.29.2", "@shikijs/langs": "1.29.2", "@shikijs/themes": "1.29.2", "@shikijs/types": "1.29.2", "@shikijs/vscode-textmate": "^10.0.1", "@types/hast": "^3.0.4" } }, "sha512-njXuliz/cP+67jU2hukkxCNuH1yUi4QfdZZY+sMr5PPrIyXSu5iTb/qYC4BiWWB0vZ+7TbdvYUCeL23zpwCfbg=="],
 

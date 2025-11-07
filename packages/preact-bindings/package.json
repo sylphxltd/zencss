@@ -1,0 +1,61 @@
+{
+  "name": "@sylphx/silk-preact",
+  "version": "2.0.0",
+  "description": "Preact bindings for Silk - zero-runtime CSS-in-TypeScript with 3KB runtime",
+  "keywords": [
+    "css",
+    "css-in-js",
+    "typescript",
+    "preact",
+    "preact-hooks",
+    "lightweight",
+    "3kb",
+    "silk"
+  ],
+  "author": "SylphX Ltd",
+  "license": "MIT",
+  "homepage": "https://sylphx.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sylphxltd/silk.git",
+    "directory": "packages/preact-bindings"
+  },
+  "bugs": {
+    "url": "https://github.com/sylphxltd/silk/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.d.ts.map",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "bun run build"
+  },
+  "peerDependencies": {
+    "preact": "^10.0.0"
+  },
+  "dependencies": {
+    "@sylphx/silk": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "preact": "^10.19.0",
+    "typescript": "^5.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

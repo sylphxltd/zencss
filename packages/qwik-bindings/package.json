@@ -1,0 +1,61 @@
+{
+  "name": "@sylphx/silk-qwik",
+  "version": "2.0.0",
+  "description": "Qwik bindings for Silk - zero-runtime CSS-in-TypeScript with resumability",
+  "keywords": [
+    "css",
+    "css-in-js",
+    "typescript",
+    "qwik",
+    "qwik-city",
+    "resumable",
+    "zero-hydration",
+    "silk"
+  ],
+  "author": "SylphX Ltd",
+  "license": "MIT",
+  "homepage": "https://sylphx.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sylphxltd/silk.git",
+    "directory": "packages/qwik-bindings"
+  },
+  "bugs": {
+    "url": "https://github.com/sylphxltd/silk/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.d.ts.map",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "bun run build"
+  },
+  "peerDependencies": {
+    "@builder.io/qwik": "^1.0.0"
+  },
+  "dependencies": {
+    "@sylphx/silk": "workspace:*"
+  },
+  "devDependencies": {
+    "@builder.io/qwik": "^1.5.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

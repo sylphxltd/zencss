@@ -542,22 +542,215 @@ bun add @sylphx/silk-svelte
 
 [View Full Svelte Documentation →](./packages/svelte-bindings/README.md)
 
+### ⚡ Qwik - Resumability & Zero Hydration
+
+```bash
+bun add @sylphx/silk-qwik
+```
+
+**Features:**
+- ✅ Qwik's resumability - zero hydration overhead
+- ✅ Server-side style computation with client resumability
+- ✅ Fine-grained reactivity with `useSilkStyle` hook
+- ✅ Optimal performance with progressive loading
+
+```typescript
+import { component$ } from '@builder.io/qwik'
+import { createSilkQwik } from '@sylphx/silk-qwik'
+
+export const { styled, Box, css } = createSilkQwik(config)
+
+export const Button = styled('button', {
+  bg: 'primary.40',
+  px: 6,
+  py: 3,
+  rounded: 'md'
+})
+
+// Reactive styles with useSilkStyle
+export default component$(() => {
+  const count = useSignal(0)
+  const dynamicClass = useSilkStyle(css, () => ({
+    bg: count.value > 5 ? 'red.500' : 'blue.500'
+  }))
+
+  return <div class={dynamicClass.value}>Count: {count.value}</div>
+})
+```
+
+[View Full Qwik Documentation →](./packages/qwik-bindings/README.md)
+
+### 🔷 Preact - 3KB React Alternative
+
+```bash
+bun add @sylphx/silk-preact
+```
+
+**Features:**
+- ✅ 3KB runtime - smallest React alternative
+- ✅ React-compatible API with hooks support
+- ✅ Perfect for lightweight applications
+- ✅ Full type safety with design tokens
+
+```typescript
+import { h } from 'preact'
+import { useState } from 'preact/hooks'
+import { createSilkPreact } from '@sylphx/silk-preact'
+
+export const { styled, Box, css } = createSilkPreact(config)
+
+export const Button = styled('button', {
+  bg: 'brand.500',
+  px: 4,
+  py: 2,
+  _hover: {
+    bg: 'brand.600'
+  }
+})
+```
+
+[View Full Preact Documentation →](./packages/preact-bindings/README.md)
+
 ### 📊 Framework Integration Comparison
 
-| Feature | Next.js | Remix | Astro | Solid | Vue | Svelte |
-|---------|---------|-------|-------|-------|-----|--------|
-| **App Router** | ✅ | N/A | N/A | N/A | N/A | N/A |
-| **RSC** | ✅ | N/A | N/A | N/A | N/A | N/A |
-| **Streaming SSR** | ✅ | ✅ | N/A | ✅ | N/A | N/A |
-| **Islands** | N/A | N/A | ✅ | N/A | N/A | N/A |
-| **Composition API** | N/A | N/A | N/A | N/A | ✅ | N/A |
-| **Reactive Stores** | N/A | N/A | N/A | N/A | ✅ | ✅ |
-| **Critical CSS** | ✅ | ✅ | ✅ | N/A | N/A | N/A |
-| **Brotli** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Zero Runtime** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Bundle Size** | **500B** | **500B** | **500B** | **500B** | **500B** | **500B** |
+| Feature | Next.js | Remix | Astro | Solid | Vue | Svelte | Qwik | Preact |
+|---------|---------|-------|-------|-------|-----|--------|------|--------|
+| **App Router** | ✅ | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| **RSC** | ✅ | N/A | N/A | N/A | N/A | N/A | N/A | N/A |
+| **Resumability** | N/A | N/A | N/A | N/A | N/A | N/A | ✅ | N/A |
+| **Zero Hydration** | N/A | N/A | N/A | N/A | N/A | N/A | ✅ | N/A |
+| **Streaming SSR** | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
+| **Islands** | N/A | N/A | ✅ | N/A | N/A | N/A | N/A | N/A |
+| **Composition API** | N/A | N/A | N/A | N/A | ✅ | N/A | N/A | N/A |
+| **Reactive Stores** | N/A | N/A | N/A | N/A | ✅ | ✅ | N/A | N/A |
+| **React Compatible** | ✅ | ✅ | N/A | N/A | N/A | N/A | N/A | ✅ |
+| **Runtime Size** | Standard | Standard | Standard | Standard | Standard | Standard | Standard | **3KB** |
+| **Critical CSS** | ✅ | ✅ | ✅ | N/A | N/A | N/A | N/A | N/A |
+| **Brotli** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Zero Runtime** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Bundle Size** | **500B** | **500B** | **500B** | **500B** | **500B** | **500B** | **500B** | **500B** |
 
 **All integrations maintain Silk's industry-leading 500B gzipped bundle size** with framework-specific optimizations.
+
+---
+
+## 🎨 Design System Presets (v1.3.0+)
+
+Pre-configured design systems for rapid prototyping and production applications. Install only what you need - presets are separate packages to keep the core lightweight.
+
+### 🎨 Material Design 3 Preset
+
+Google's official Material Design 3 system with dynamic color and modern typography.
+
+```bash
+bun add @sylphx/silk-preset-material
+```
+
+**Features:**
+- ✅ Full Material You dynamic color palette (13-tone system)
+- ✅ Primary, Secondary, Tertiary colors with tonal variants
+- ✅ Material typography scale (Display, Headline, Title, Body, Label)
+- ✅ Material elevation system (6 levels)
+- ✅ Material shape system (rounded corners)
+- ✅ Dark theme variant included
+- ✅ ~2KB gzipped
+
+```typescript
+import { createStyleSystem } from '@sylphx/silk'
+import { materialPreset } from '@sylphx/silk-preset-material'
+
+const { css } = createStyleSystem(materialPreset)
+
+// Material Design button
+const button = css({
+  bg: 'primary.40',
+  color: 'primary.100',
+  fontSize: 'label-large',
+  fontWeight: 'medium',
+  px: 6,
+  py: 3,
+  rounded: 'medium',
+  shadow: 'level1'
+})
+```
+
+**Dark Theme:**
+```typescript
+import { materialDarkPreset } from '@sylphx/silk-preset-material'
+
+const { css } = createStyleSystem(materialDarkPreset)
+```
+
+[View Full Material Preset Documentation →](./packages/preset-material/README.md)
+
+### ✨ Minimal Preset
+
+Clean, simple, and elegant design system - the smallest preset available.
+
+```bash
+bun add @sylphx/silk-preset-minimal
+```
+
+**Features:**
+- ✅ 14-shade grayscale palette (pure black to pure white)
+- ✅ Single accent color with 5 tones
+- ✅ Simple typography (8 font sizes, 3 weights)
+- ✅ Minimal shadows (only 3 levels)
+- ✅ Clean spacing scale (4px base unit)
+- ✅ Dark theme variant included
+- ✅ Monochrome variant (pure black & white only)
+- ✅ ~1KB gzipped - **smallest preset**
+
+```typescript
+import { createStyleSystem } from '@sylphx/silk'
+import { minimalPreset } from '@sylphx/silk-preset-minimal'
+
+const { css } = createStyleSystem(minimalPreset)
+
+// Minimal button
+const button = css({
+  bg: 'gray.10',
+  color: 'gray.100',
+  fontSize: 'base',
+  px: 6,
+  py: 3,
+  rounded: 'md'
+})
+```
+
+**Dark Theme:**
+```typescript
+import { minimalDarkPreset } from '@sylphx/silk-preset-minimal'
+
+const { css } = createStyleSystem(minimalDarkPreset)
+```
+
+**Monochrome Variant:**
+```typescript
+import { monochromePreset } from '@sylphx/silk-preset-minimal'
+
+const { css } = createStyleSystem(monochromePreset)
+// Pure black and white only
+```
+
+**Perfect for:**
+- 📝 Documentation sites
+- 💼 Portfolio websites
+- 🚀 Startup landing pages
+- 📱 Minimal mobile apps
+- 🎨 Clean admin dashboards
+
+[View Full Minimal Preset Documentation →](./packages/preset-minimal/README.md)
+
+### 📊 Preset Comparison
+
+| Preset | Colors | Typography | Shadows | Bundle Size | Use Case |
+|--------|--------|------------|---------|-------------|----------|
+| **Minimal** | **30** | **8 sizes** | **3 levels** | **~1KB** | Minimal UIs, docs, portfolios |
+| **Material** | **150+** | **15 sizes** | **6 levels** | **~2KB** | Material Design apps |
+| Custom | ∞ | ∞ | ∞ | Variable | Your own design system |
+
+**All presets are optional** - use them for rapid prototyping or extend them with your own brand colors.
 
 ---
 

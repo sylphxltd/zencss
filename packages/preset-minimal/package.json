@@ -1,0 +1,57 @@
+{
+  "name": "@sylphx/silk-preset-minimal",
+  "version": "2.0.0",
+  "description": "Minimal preset for Silk - clean, simple, and elegant design system",
+  "keywords": [
+    "css",
+    "design-system",
+    "minimal",
+    "minimalist",
+    "preset",
+    "theme",
+    "silk"
+  ],
+  "author": "SylphX Ltd",
+  "license": "MIT",
+  "homepage": "https://sylphx.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sylphxltd/silk.git",
+    "directory": "packages/preset-minimal"
+  },
+  "bugs": {
+    "url": "https://github.com/sylphxltd/silk/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.d.ts.map",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "bun run build"
+  },
+  "peerDependencies": {
+    "@sylphx/silk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@sylphx/silk": "workspace:*",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
