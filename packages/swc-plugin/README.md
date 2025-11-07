@@ -173,6 +173,21 @@ npm run test:coverage
 
 See [TESTING.md](./TESTING.md) for detailed testing guide.
 
+## Documentation
+
+- **[QUICKSTART.md](./QUICKSTART.md)** - Get started in 5 minutes
+- **[DEVELOPMENT.md](./DEVELOPMENT.md)** - Development roadmap and progress
+- **[BUILD.md](./BUILD.md)** - Comprehensive build guide
+- **[TESTING.md](./TESTING.md)** - Testing guide and strategies
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - How to contribute
+- **[RELEASE_CHECKLIST.md](./RELEASE_CHECKLIST.md)** - Pre-release checklist
+
+## Community
+
+- **GitHub:** [sylphxltd/silk](https://github.com/sylphxltd/silk)
+- **Issues:** [Report bugs](https://github.com/sylphxltd/silk/issues)
+- **Discussions:** [Ask questions](https://github.com/sylphxltd/silk/discussions)
+
 ## License
 
 MIT © SylphX Ltd

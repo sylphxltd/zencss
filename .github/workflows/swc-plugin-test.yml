@@ -1,0 +1,185 @@
+name: SWC Plugin Test
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'packages/swc-plugin/**'
+      - '.github/workflows/swc-plugin-test.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'packages/swc-plugin/**'
+      - '.github/workflows/swc-plugin-test.yml'
+
+jobs:
+  test:
+    name: Build and Test SWC Plugin
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: wasm32-wasip1
+          override: true
+          components: rustfmt, clippy
+
+      - name: Cache Rust dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            packages/swc-plugin/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: packages/swc-plugin/package-lock.json
+
+      - name: Check Rust formatting
+        run: |
+          cd packages/swc-plugin
+          cargo fmt -- --check
+
+      - name: Run Clippy lints
+        run: |
+          cd packages/swc-plugin
+          cargo clippy --target wasm32-wasip1 -- -D warnings
+
+      - name: Build WASM binary (debug)
+        run: |
+          cd packages/swc-plugin
+          cargo build --target wasm32-wasip1
+        env:
+          CARGO_TERM_COLOR: always
+
+      - name: Build WASM binary (release)
+        run: |
+          cd packages/swc-plugin
+          cargo build --release --target wasm32-wasip1
+        env:
+          CARGO_TERM_COLOR: always
+
+      - name: Run Rust unit tests
+        run: |
+          cd packages/swc-plugin
+          cargo test --verbose
+        env:
+          CARGO_TERM_COLOR: always
+
+      - name: Install Node dependencies
+        run: |
+          cd packages/swc-plugin
+          npm ci
+
+      - name: Run Vitest integration tests
+        run: |
+          cd packages/swc-plugin
+          npm run test:vitest
+        env:
+          CI: true
+
+      - name: Generate test coverage
+        run: |
+          cd packages/swc-plugin
+          npm run test:coverage
+        continue-on-error: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./packages/swc-plugin/coverage/lcov.info
+          flags: swc-plugin
+          name: swc-plugin-coverage
+        continue-on-error: true
+
+      - name: Check WASM binary size
+        run: |
+          cd packages/swc-plugin
+          ls -lh target/wasm32-wasip1/release/swc_plugin_silk.wasm
+          SIZE=$(stat -f%z target/wasm32-wasip1/release/swc_plugin_silk.wasm 2>/dev/null || stat -c%s target/wasm32-wasip1/release/swc_plugin_silk.wasm)
+          echo "WASM binary size: $(($SIZE / 1024))KB"
+
+      - name: Upload WASM artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: swc-plugin-wasm
+          path: |
+            packages/swc-plugin/target/wasm32-wasip1/release/swc_plugin_silk.wasm
+            packages/swc-plugin/target/wasm32-wasip1/debug/swc_plugin_silk.wasm
+          retention-days: 30
+
+      - name: Test with Next.js example
+        run: |
+          cd examples/nextjs-16-turbopack
+          npm ci
+          # Just check that it compiles, don't run dev server in CI
+          npm run build
+        continue-on-error: true
+
+  benchmark:
+    name: Performance Benchmark
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: wasm32-wasip1
+
+      - name: Build release binary
+        run: |
+          cd packages/swc-plugin
+          cargo build --release --target wasm32-wasip1
+
+      - name: Run benchmarks
+        run: |
+          cd packages/swc-plugin
+          cargo bench
+        continue-on-error: true
+
+  lint:
+    name: Lint and Format Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          components: rustfmt, clippy
+
+      - name: Check Rust formatting
+        run: |
+          cd packages/swc-plugin
+          cargo fmt -- --check
+
+      - name: Run Clippy
+        run: |
+          cd packages/swc-plugin
+          cargo clippy --all-targets --all-features -- -D warnings
