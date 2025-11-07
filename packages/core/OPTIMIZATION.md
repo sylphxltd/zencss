@@ -214,7 +214,7 @@ Both support shorthand CSS, but ZenCSS does it automatically without configurati
 You can manually call the optimizer:
 
 ```typescript
-import { getMinimalProps } from '@zencss/core'
+import { getMinimalProps } from '@sylphx/zencss'
 
 const optimized = getMinimalProps({
   mt: 4,
@@ -235,7 +235,7 @@ import {
   mergeProperties,   // Merge into shorthand
   optimizeProps,     // Full optimization
   resolveConflicts,  // Resolve property conflicts
-} from '@zencss/core'
+} from '@sylphx/zencss'
 ```
 
 ## FAQ

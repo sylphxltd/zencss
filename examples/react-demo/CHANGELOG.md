@@ -6,4 +6,4 @@
 
 - Updated dependencies
   - @sylphx/zencss@0.1.0
-  - @zencss/react@0.0.2
+  - @sylphx/zencss-react@0.0.2

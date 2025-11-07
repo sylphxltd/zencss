@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import React from 'react'
-import { createStyleSystem } from '@zencss/core'
+import { createStyleSystem } from '@sylphx/zencss'
 import { createReactStyleSystem } from './index'
 
 describe('createReactStyleSystem', () => {

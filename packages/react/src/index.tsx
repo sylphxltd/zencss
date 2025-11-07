@@ -1,5 +1,5 @@
 /**
- * @zencss/react
+ * @sylphx/zencss-react
  * React bindings for ZenCSS
  */
 
@@ -11,7 +11,7 @@ import type {
   PropsWithoutRef,
   RefAttributes,
 } from 'react'
-import type { DesignConfig, TypedStyleProps, StyleSystem } from '@zencss/core'
+import type { DesignConfig, TypedStyleProps, StyleSystem } from '@sylphx/zencss'
 
 // HTML elements that can be styled
 type StylableElements = keyof JSX.IntrinsicElements

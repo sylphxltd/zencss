@@ -1,5 +1,5 @@
 /**
- * @zencss/core
+ * @sylphx/zencss
  * Zero-codegen, type-safe CSS-in-TS with build-time extraction
  */
 

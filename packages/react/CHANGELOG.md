@@ -1,4 +1,4 @@
-# @zencss/react
+# @sylphx/zencss-react
 
 ## 0.0.2
 

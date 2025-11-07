@@ -1,10 +1,10 @@
 /**
- * @zencss/vite-plugin
+ * @sylphx/zencss-vite-plugin
  * Build-time CSS extraction for zero runtime overhead
  */
 
 import type { Plugin, ViteDevServer } from 'vite'
-import { cssRules } from '@zencss/core'
+import { cssRules } from '@sylphx/zencss'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 

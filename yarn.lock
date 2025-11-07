@@ -225,31 +225,31 @@
   resolved "https://registry.npmjs.org/@changesets/apply-release-plan/-/apply-release-plan-7.0.13.tgz"
   integrity sha512-BIW7bofD2yAWoE8H4V40FikC+1nNFEKBisMECccS16W1rt6qqhNTBDmIw5HaqmMgtLNz9e7oiALiEUuKrQ4oHg==
   dependencies:
-    semver "^7.5.3"
-    outdent "^0.5.0"
+    "@changesets/config" "^3.1.1"
+    "@changesets/get-version-range-type" "^0.4.0"
+    "@changesets/git" "^3.0.4"
+    "@changesets/should-skip-package" "^0.1.2"
+    "@changesets/types" "^6.1.0"
+    "@manypkg/get-packages" "^1.1.3"
+    detect-indent "^6.0.0"
     fs-extra "^7.0.1"
+    lodash.startcase "^4.4.0"
+    outdent "^0.5.0"
     prettier "^2.7.1"
     resolve-from "^5.0.0"
-    detect-indent "^6.0.0"
-    "@changesets/git" "^3.0.4"
-    lodash.startcase "^4.4.0"
-    "@changesets/types" "^6.1.0"
-    "@changesets/config" "^3.1.1"
-    "@manypkg/get-packages" "^1.1.3"
-    "@changesets/should-skip-package" "^0.1.2"
-    "@changesets/get-version-range-type" "^0.4.0"
+    semver "^7.5.3"
 
 "@changesets/assemble-release-plan@^6.0.9":
   version "6.0.9"
   resolved "https://registry.npmjs.org/@changesets/assemble-release-plan/-/assemble-release-plan-6.0.9.tgz"
   integrity sha512-tPgeeqCHIwNo8sypKlS3gOPmsS3wP0zHt67JDuL20P4QcXiw/O4Hl7oXiuLnP9yg+rXLQ2sScdV1Kkzde61iSQ==
   dependencies:
-    semver "^7.5.3"
-    "@changesets/types" "^6.1.0"
     "@changesets/errors" "^0.2.0"
-    "@manypkg/get-packages" "^1.1.3"
-    "@changesets/should-skip-package" "^0.1.2"
     "@changesets/get-dependents-graph" "^2.1.3"
+    "@changesets/should-skip-package" "^0.1.2"
+    "@changesets/types" "^6.1.0"
+    "@manypkg/get-packages" "^1.1.3"
+    semver "^7.5.3"
 
 "@changesets/changelog-git@^0.2.1":
   version "0.2.1"
@@ -263,47 +263,47 @@
   resolved "https://registry.npmjs.org/@changesets/cli/-/cli-2.29.7.tgz"
   integrity sha512-R7RqWoaksyyKXbKXBTbT4REdy22yH81mcFK6sWtqSanxUCbUi9Uf+6aqxZtDQouIqPdem2W56CdxXgsxdq7FLQ==
   dependencies:
-    mri "^1.2.0"
-    semver "^7.5.3"
-    ci-info "^3.7.0"
-    p-limit "^2.2.0"
-    enquirer "^2.4.1"
-    fs-extra "^7.0.1"
-    term-size "^2.1.0"
-    picocolors "^1.1.0"
-    ansi-colors "^4.1.3"
-    spawndamnit "^3.0.1"
-    resolve-from "^5.0.0"
-    "@changesets/git" "^3.0.4"
-    "@changesets/pre" "^2.0.2"
-    "@changesets/read" "^0.6.5"
-    "@changesets/types" "^6.1.0"
-    "@changesets/write" "^0.4.0"
+    "@changesets/apply-release-plan" "^7.0.13"
+    "@changesets/assemble-release-plan" "^6.0.9"
+    "@changesets/changelog-git" "^0.2.1"
     "@changesets/config" "^3.1.1"
     "@changesets/errors" "^0.2.0"
-    "@changesets/logger" "^0.1.1"
-    "@manypkg/get-packages" "^1.1.3"
-    package-manager-detector "^0.2.0"
-    "@changesets/changelog-git" "^0.2.1"
-    "@inquirer/external-editor" "^1.0.0"
-    "@changesets/get-release-plan" "^4.0.13"
-    "@changesets/apply-release-plan" "^7.0.13"
-    "@changesets/should-skip-package" "^0.1.2"
     "@changesets/get-dependents-graph" "^2.1.3"
-    "@changesets/assemble-release-plan" "^6.0.9"
+    "@changesets/get-release-plan" "^4.0.13"
+    "@changesets/git" "^3.0.4"
+    "@changesets/logger" "^0.1.1"
+    "@changesets/pre" "^2.0.2"
+    "@changesets/read" "^0.6.5"
+    "@changesets/should-skip-package" "^0.1.2"
+    "@changesets/types" "^6.1.0"
+    "@changesets/write" "^0.4.0"
+    "@inquirer/external-editor" "^1.0.0"
+    "@manypkg/get-packages" "^1.1.3"
+    ansi-colors "^4.1.3"
+    ci-info "^3.7.0"
+    enquirer "^2.4.1"
+    fs-extra "^7.0.1"
+    mri "^1.2.0"
+    p-limit "^2.2.0"
+    package-manager-detector "^0.2.0"
+    picocolors "^1.1.0"
+    resolve-from "^5.0.0"
+    semver "^7.5.3"
+    spawndamnit "^3.0.1"
+    term-size "^2.1.0"
 
 "@changesets/config@^3.1.1":
   version "3.1.1"
   resolved "https://registry.npmjs.org/@changesets/config/-/config-3.1.1.tgz"
   integrity sha512-bd+3Ap2TKXxljCggI0mKPfzCQKeV/TU4yO2h2C6vAihIo8tzseAn2e7klSuiyYYXvgu53zMN1OeYMIQkaQoWnA==
   dependencies:
+    "@changesets/errors" "^0.2.0"
+    "@changesets/get-dependents-graph" "^2.1.3"
+    "@changesets/logger" "^0.1.1"
+    "@changesets/types" "^6.1.0"
+    "@manypkg/get-packages" "^1.1.3"
     fs-extra "^7.0.1"
     micromatch "^4.0.8"
-    "@changesets/types" "^6.1.0"
-    "@changesets/errors" "^0.2.0"
-    "@changesets/logger" "^0.1.1"
-    "@manypkg/get-packages" "^1.1.3"
-    "@changesets/get-dependents-graph" "^2.1.3"
 
 "@changesets/errors@^0.2.0":
   version "0.2.0"
@@ -317,22 +317,22 @@
   resolved "https://registry.npmjs.org/@changesets/get-dependents-graph/-/get-dependents-graph-2.1.3.tgz"
   integrity sha512-gphr+v0mv2I3Oxt19VdWRRUxq3sseyUpX9DaHpTUmLj92Y10AGy+XOtV+kbM6L/fDcpx7/ISDFK6T8A/P3lOdQ==
   dependencies:
-    semver "^7.5.3"
-    picocolors "^1.1.0"
     "@changesets/types" "^6.1.0"
     "@manypkg/get-packages" "^1.1.3"
+    picocolors "^1.1.0"
+    semver "^7.5.3"
 
 "@changesets/get-release-plan@^4.0.13":
   version "4.0.13"
   resolved "https://registry.npmjs.org/@changesets/get-release-plan/-/get-release-plan-4.0.13.tgz"
   integrity sha512-DWG1pus72FcNeXkM12tx+xtExyH/c9I1z+2aXlObH3i9YA7+WZEVaiHzHl03thpvAgWTRaH64MpfHxozfF7Dvg==
   dependencies:
+    "@changesets/assemble-release-plan" "^6.0.9"
+    "@changesets/config" "^3.1.1"
     "@changesets/pre" "^2.0.2"
     "@changesets/read" "^0.6.5"
     "@changesets/types" "^6.1.0"
-    "@changesets/config" "^3.1.1"
     "@manypkg/get-packages" "^1.1.3"
-    "@changesets/assemble-release-plan" "^6.0.9"
 
 "@changesets/get-version-range-type@^0.4.0":
   version "0.4.0"
@@ -344,11 +344,11 @@
   resolved "https://registry.npmjs.org/@changesets/git/-/git-3.0.4.tgz"
   integrity sha512-BXANzRFkX+XcC1q/d27NKvlJ1yf7PSAgi8JG6dt8EfbHFHi4neau7mufcSca5zRhwOL8j9s6EqsxmT+s+/E6Sw==
   dependencies:
+    "@changesets/errors" "^0.2.0"
+    "@manypkg/get-packages" "^1.1.3"
     is-subdir "^1.1.1"
     micromatch "^4.0.8"
     spawndamnit "^3.0.1"
-    "@changesets/errors" "^0.2.0"
-    "@manypkg/get-packages" "^1.1.3"
 
 "@changesets/logger@^0.1.1":
   version "0.1.1"
@@ -362,31 +362,31 @@
   resolved "https://registry.npmjs.org/@changesets/parse/-/parse-0.4.1.tgz"
   integrity sha512-iwksMs5Bf/wUItfcg+OXrEpravm5rEd9Bf4oyIPL4kVTmJQ7PNDSd6MDYkpSJR1pn7tz/k8Zf2DhTCqX08Ou+Q==
   dependencies:
-    js-yaml "^3.13.1"
     "@changesets/types" "^6.1.0"
+    js-yaml "^3.13.1"
 
 "@changesets/pre@^2.0.2":
   version "2.0.2"
   resolved "https://registry.npmjs.org/@changesets/pre/-/pre-2.0.2.tgz"
   integrity sha512-HaL/gEyFVvkf9KFg6484wR9s0qjAXlZ8qWPDkTyKF6+zqjBe/I2mygg3MbpZ++hdi0ToqNUF8cjj7fBy0dg8Ug==
   dependencies:
-    fs-extra "^7.0.1"
-    "@changesets/types" "^6.1.0"
     "@changesets/errors" "^0.2.0"
+    "@changesets/types" "^6.1.0"
     "@manypkg/get-packages" "^1.1.3"
+    fs-extra "^7.0.1"
 
 "@changesets/read@^0.6.5":
   version "0.6.5"
   resolved "https://registry.npmjs.org/@changesets/read/-/read-0.6.5.tgz"
   integrity sha512-UPzNGhsSjHD3Veb0xO/MwvasGe8eMyNrR/sT9gR8Q3DhOQZirgKhhXv/8hVsI0QpPjR004Z9iFxoJU6in3uGMg==
   dependencies:
+    "@changesets/git" "^3.0.4"
+    "@changesets/logger" "^0.1.1"
+    "@changesets/parse" "^0.4.1"
+    "@changesets/types" "^6.1.0"
     fs-extra "^7.0.1"
     p-filter "^2.1.0"
     picocolors "^1.1.0"
-    "@changesets/git" "^3.0.4"
-    "@changesets/parse" "^0.4.1"
-    "@changesets/types" "^6.1.0"
-    "@changesets/logger" "^0.1.1"
 
 "@changesets/should-skip-package@^0.1.2":
   version "0.1.2"
@@ -411,10 +411,10 @@
   resolved "https://registry.npmjs.org/@changesets/write/-/write-0.4.0.tgz"
   integrity sha512-CdTLvIOPiCNuH71pyDu3rA+Q0n65cmAbXnwWH84rKGiFumFzkmHNT8KHTMEchcxN+Kl8I54xGUhJ7l3E7X396Q==
   dependencies:
+    "@changesets/types" "^6.1.0"
     fs-extra "^7.0.1"
     human-id "^4.1.1"
     prettier "^2.7.1"
-    "@changesets/types" "^6.1.0"
 
 "@esbuild/aix-ppc64@0.21.5":
   version "0.21.5"
@@ -585,30 +585,30 @@
   resolved "https://registry.npmjs.org/@manypkg/find-root/-/find-root-1.1.0.tgz"
   integrity sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==
   dependencies:
+    "@babel/runtime" "^7.5.5"
+    "@types/node" "^12.7.1"
     find-up "^4.1.0"
     fs-extra "^8.1.0"
-    "@types/node" "^12.7.1"
-    "@babel/runtime" "^7.5.5"
 
 "@manypkg/get-packages@^1.1.3":
   version "1.1.3"
   resolved "https://registry.npmjs.org/@manypkg/get-packages/-/get-packages-1.1.3.tgz"
   integrity sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==
   dependencies:
-    globby "^11.0.0"
-    fs-extra "^8.1.0"
     "@babel/runtime" "^7.5.5"
-    read-yaml-file "^1.1.0"
     "@changesets/types" "^4.0.1"
     "@manypkg/find-root" "^1.1.0"
+    fs-extra "^8.1.0"
+    globby "^11.0.0"
+    read-yaml-file "^1.1.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
   integrity sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==
   dependencies:
-    run-parallel "^1.1.9"
     "@nodelib/fs.stat" "2.0.5"
+    run-parallel "^1.1.9"
 
 "@nodelib/fs.stat@2.0.5", "@nodelib/fs.stat@^2.0.2":
   version "2.0.5"
@@ -620,8 +620,8 @@
   resolved "https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz"
   integrity sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==
   dependencies:
-    fastq "^1.6.0"
     "@nodelib/fs.scandir" "2.1.5"
+    fastq "^1.6.0"
 
 "@rolldown/pluginutils@1.0.0-beta.27":
   version "1.0.0-beta.27"
@@ -750,6 +750,26 @@
     typescript "^5.3.0"
     vitest "^1.6.0"
 
+"@sylphx/zencss-react@packages/react", "@sylphx/zencss-react@workspace:*":
+  version "workspace:packages/react"
+  resolved "workspace:packages/react"
+  devDependencies:
+    "@types/react" "^18.2.0"
+    react "^18.2.0"
+    typescript "^5.3.0"
+    vitest "^1.6.0"
+  dependencies:
+    "@sylphx/zencss" "workspace:*"
+
+"@sylphx/zencss-vite-plugin@packages/vite-plugin", "@sylphx/zencss-vite-plugin@workspace:*":
+  version "workspace:packages/vite-plugin"
+  resolved "workspace:packages/vite-plugin"
+  devDependencies:
+    typescript "^5.3.0"
+    vite "^5.0.0"
+  dependencies:
+    "@sylphx/zencss" "workspace:*"
+
 "@types/babel__core@^7.20.5":
   version "7.20.5"
   resolved "https://registry.npmjs.org/@types/babel__core/-/babel__core-7.20.5.tgz"
@@ -800,7 +820,7 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-12.20.55.tgz"
   integrity sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==
 
-"@types/node@*", "@types/node@^18.0.0 || >=20.0.0", "@types/node@^20.10.0":
+"@types/node@*", "@types/node@>=18", "@types/node@^18.0.0 || >=20.0.0", "@types/node@^20.10.0":
   version "20.19.24"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.19.24.tgz"
   integrity sha512-FE5u0ezmi6y9OZEzlJfg37mqqf6ZDSF2V/NLjUyGrR9uTZ7Sb9F7bLNZ03S4XVUNRWGA7Ck4c1kK+YnuWjl+DA==
@@ -880,26 +900,6 @@
     estree-walker "^3.0.3"
     loupe "^2.3.7"
     pretty-format "^29.7.0"
-
-"@zencss/react@packages/react", "@zencss/react@workspace:*":
-  version "workspace:packages/react"
-  resolved "workspace:packages/react"
-  devDependencies:
-    "@types/react" "^18.2.0"
-    react "^18.2.0"
-    typescript "^5.3.0"
-    vitest "^1.6.0"
-  dependencies:
-    "@sylphx/zencss" "workspace:*"
-
-"@zencss/vite-plugin@packages/vite-plugin", "@zencss/vite-plugin@workspace:*":
-  version "workspace:packages/vite-plugin"
-  resolved "workspace:packages/vite-plugin"
-  devDependencies:
-    typescript "^5.3.0"
-    vite "^5.0.0"
-  dependencies:
-    "@sylphx/zencss" "workspace:*"
 
 acorn@^8.11.0, acorn@^8.15.0:
   version "8.15.0"
@@ -1194,8 +1194,8 @@ fs-extra@^7.0.1:
   resolved "https://registry.npmjs.org/fs-extra/-/fs-extra-7.0.1.tgz"
   integrity sha512-YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==
   dependencies:
-    jsonfile "^4.0.0"
     graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
     universalify "^0.1.0"
 
 fs-extra@^8.1.0:
@@ -1203,8 +1203,8 @@ fs-extra@^8.1.0:
   resolved "https://registry.npmjs.org/fs-extra/-/fs-extra-8.1.0.tgz"
   integrity sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
   dependencies:
-    jsonfile "^4.0.0"
     graceful-fs "^4.2.0"
+    jsonfile "^4.0.0"
     universalify "^0.1.0"
 
 fsevents@~2.3.2, fsevents@~2.3.3:
@@ -1239,12 +1239,12 @@ globby@^11.0.0:
   resolved "https://registry.npmjs.org/globby/-/globby-11.1.0.tgz"
   integrity sha512-jhIXaOzy1sb8IyocaruWSn1TjmnBVs8Ayhcy83rmxNJ8q2uWKCAj3CnJY+KpGSXCueAPc0i05kVvVKtP1t9S3g==
   dependencies:
-    slash "^3.0.0"
-    ignore "^5.2.0"
-    merge2 "^1.4.1"
+    array-union "^2.1.0"
     dir-glob "^3.0.1"
     fast-glob "^3.2.9"
-    array-union "^2.1.0"
+    ignore "^5.2.0"
+    merge2 "^1.4.1"
+    slash "^3.0.0"
 
 graceful-fs@^4.1.2, graceful-fs@^4.1.5, graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   version "4.2.11"
@@ -1327,8 +1327,8 @@ js-yaml@^3.13.1, js-yaml@^3.6.1:
   resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-3.14.1.tgz"
   integrity sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
   dependencies:
-    esprima "^4.0.0"
     argparse "^1.0.7"
+    esprima "^4.0.0"
 
 jsesc@^3.0.2:
   version "3.1.0"
@@ -1615,15 +1615,15 @@ react@^18.0.0, react@^18.2.0, react@^18.3.1:
   version "workspace:examples/react-demo"
   resolved "workspace:examples/react-demo"
   devDependencies:
+    "@sylphx/zencss-vite-plugin" "workspace:*"
     "@types/react" "^18.2.0"
     "@types/react-dom" "^18.2.0"
     "@vitejs/plugin-react" "^4.2.0"
-    "@zencss/vite-plugin" "workspace:*"
     typescript "^5.3.0"
     vite "^5.0.0"
   dependencies:
     "@sylphx/zencss" "workspace:*"
-    "@zencss/react" "workspace:*"
+    "@sylphx/zencss-react" "workspace:*"
     react "^18.2.0"
     react-dom "^18.2.0"
 

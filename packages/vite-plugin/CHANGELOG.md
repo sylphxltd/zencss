@@ -1,4 +1,4 @@
-# @zencss/vite-plugin
+# @sylphx/zencss-vite-plugin
 
 ## 0.0.2
 

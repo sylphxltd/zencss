@@ -15,33 +15,33 @@
     },
     "examples/react-demo": {
       "name": "react-demo",
-      "version": "0.0.0",
+      "version": "0.0.1",
       "dependencies": {
         "@sylphx/zencss": "workspace:*",
-        "@zencss/react": "workspace:*",
+        "@sylphx/zencss-react": "workspace:*",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
       },
       "devDependencies": {
+        "@sylphx/zencss-vite-plugin": "workspace:*",
         "@types/react": "^18.2.0",
         "@types/react-dom": "^18.2.0",
         "@vitejs/plugin-react": "^4.2.0",
-        "@zencss/vite-plugin": "workspace:*",
         "typescript": "^5.3.0",
         "vite": "^5.0.0",
       },
     },
     "packages/core": {
       "name": "@sylphx/zencss",
-      "version": "0.0.1",
+      "version": "0.1.0",
       "devDependencies": {
         "typescript": "^5.3.0",
         "vitest": "^1.6.0",
       },
     },
     "packages/react": {
-      "name": "@zencss/react",
-      "version": "0.0.1",
+      "name": "@sylphx/zencss-react",
+      "version": "0.0.2",
       "dependencies": {
         "@sylphx/zencss": "workspace:*",
       },
@@ -56,8 +56,8 @@
       },
     },
     "packages/vite-plugin": {
-      "name": "@zencss/vite-plugin",
-      "version": "0.0.1",
+      "name": "@sylphx/zencss-vite-plugin",
+      "version": "0.0.2",
       "dependencies": {
         "@sylphx/zencss": "workspace:*",
       },
@@ -283,6 +283,10 @@
 
     "@sylphx/zencss": ["@sylphx/zencss@workspace:packages/core"],
 
+    "@sylphx/zencss-react": ["@sylphx/zencss-react@workspace:packages/react"],
+
+    "@sylphx/zencss-vite-plugin": ["@sylphx/zencss-vite-plugin@workspace:packages/vite-plugin"],
+
     "@types/babel__core": ["@types/babel__core@7.20.5", "", { "dependencies": { "@babel/parser": "^7.20.7", "@babel/types": "^7.20.7", "@types/babel__generator": "*", "@types/babel__template": "*", "@types/babel__traverse": "*" } }, "sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA=="],
 
     "@types/babel__generator": ["@types/babel__generator@7.27.0", "", { "dependencies": { "@babel/types": "^7.0.0" } }, "sha512-ufFd2Xi92OAVPYsy+P4n7/U7e68fex0+Ee8gSG9KX7eo084CWiQ4sdxktvdl0bOPupXtVJPY19zk6EwWqUQ8lg=="],
@@ -314,10 +318,6 @@
     "@vitest/spy": ["@vitest/spy@1.6.1", "", { "dependencies": { "tinyspy": "^2.2.0" } }, "sha512-MGcMmpGkZebsMZhbQKkAf9CX5zGvjkBTqf8Zx3ApYWXr3wG+QvEu2eXWfnIIWYSJExIp4V9FCKDEeygzkYrXMw=="],
 
     "@vitest/utils": ["@vitest/utils@1.6.1", "", { "dependencies": { "diff-sequences": "^29.6.3", "estree-walker": "^3.0.3", "loupe": "^2.3.7", "pretty-format": "^29.7.0" } }, "sha512-jOrrUvXM4Av9ZWiG1EajNto0u96kWAhJ1LmPmJhXXQx/32MecEKd10pOLYgS2BQx1TgkGhloPU1ArDW2vvaY6g=="],
-
-    "@zencss/react": ["@zencss/react@workspace:packages/react"],
-
-    "@zencss/vite-plugin": ["@zencss/vite-plugin@workspace:packages/vite-plugin"],
 
     "acorn": ["acorn@8.15.0", "", { "bin": { "acorn": "bin/acorn" } }, "sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg=="],
 

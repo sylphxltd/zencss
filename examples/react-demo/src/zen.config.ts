@@ -3,8 +3,8 @@
  * Define your design system with full type inference
  */
 
-import { defineConfig, createStyleSystem } from '@zencss/core'
-import { createReactStyleSystem } from '@zencss/react'
+import { defineConfig, createStyleSystem } from '@sylphx/zencss'
+import { createReactStyleSystem } from '@sylphx/zencss-react'
 
 // Define design tokens with 'as const' for type inference
 export const config = defineConfig({
