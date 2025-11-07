@@ -134,12 +134,20 @@ export const config = defineConfig({
   },
 } as const)
 
-// Create style system
-const styleSystem = createStyleSystem(config)
-
-// Create React bindings
-export const { styled, Box, Flex, Grid, Text, css, cx } =
-  createReactStyleSystem(styleSystem)
-
-// Export types for reference
+// Export config type first for re-use
 export type Config = typeof config
+
+// Create style system with explicit type
+const styleSystem = createStyleSystem<Config>(config)
+
+// Create React bindings with explicit type - export as a whole object first
+const reactSystem = createReactStyleSystem<Config>(styleSystem)
+
+// Then export individual items for better type preservation
+export const styled = reactSystem.styled
+export const Box = reactSystem.Box
+export const Flex = reactSystem.Flex
+export const Grid = reactSystem.Grid
+export const Text = reactSystem.Text
+export const css = reactSystem.css
+export const cx = reactSystem.cx
