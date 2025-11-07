@@ -3,7 +3,7 @@
  * Hover over variables to see inferred types
  */
 
-import { Box, Text, styled, type Config } from './zen.config'
+import { Box, Text, styled } from './zen.config'
 
 // 測試 1: Box props 應該有完整的 color union type
 function Test1() {
@@ -104,16 +104,16 @@ function Test5() {
 function TypeErrors() {
   return (
     <Box>
-      {/* @ts-expect-error - invalid color token */}
+      {/* Invalid color token - would produce error if uncommented */}
       {/* <Text color="invalid.500">Should fail</Text> */}
 
-      {/* @ts-expect-error - invalid fontSize token */}
+      {/* Invalid fontSize token - would produce error if uncommented */}
       {/* <Text fontSize="huge">Should fail</Text> */}
 
-      {/* @ts-expect-error - invalid spacing token */}
+      {/* Invalid spacing token - would produce error if uncommented */}
       {/* <Box p="999">Should fail</Box> */}
 
-      {/* @ts-expect-error - invalid fontWeight token */}
+      {/* Invalid fontWeight token - would produce error if uncommented */}
       {/* <Text fontWeight="ultralight">Should fail</Text> */}
     </Box>
   )

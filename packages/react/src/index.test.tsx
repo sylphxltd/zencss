@@ -8,6 +8,7 @@ describe('createReactStyleSystem', () => {
     colors: {
       red: { 500: '#ef4444', 600: '#dc2626' },
       blue: { 500: '#3b82f6' },
+      white: '#ffffff',
     },
     spacing: {
       4: '1rem',

@@ -12,4 +12,7 @@ export default defineConfig({
     //   minify: true,
     // }),
   ],
+  optimizeDeps: {
+    exclude: ['@sylphx/zencss'],
+  },
 })

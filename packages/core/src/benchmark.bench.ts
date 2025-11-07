@@ -27,29 +27,29 @@ const { css: zenCSS, getCSSRules, resetCSSRules } = createStyleSystem(config)
 
 // Small scenario: 80 classes
 const smallComponents = Array.from({ length: 10 }, (_, i) => ({
-  color: `primary.500`,
-  padding: '4',
-  margin: '2',
-  fontSize: 'base',
+  color: 'primary.500' as const,
+  padding: 4,
+  margin: 2,
+  fontSize: 'base' as const,
   component: i,
 }))
 
 // Medium scenario: 600 classes
 const mediumComponents = Array.from({ length: 50 }, (_, i) => ({
-  color: i % 2 === 0 ? 'primary.500' : 'gray.500',
-  padding: ['1', '2', '4', '8'][i % 4],
-  margin: ['1', '2'][i % 2],
-  fontSize: ['sm', 'base', 'lg', 'xl'][i % 4],
+  color: (i % 2 === 0 ? 'primary.500' : 'gray.500') as 'primary.500' | 'gray.500',
+  padding: [1, 2, 4, 8][i % 4],
+  margin: [1, 2][i % 2],
+  fontSize: (['sm', 'base', 'lg', 'xl'] as const)[i % 4],
   component: i,
 }))
 
 // Large scenario: 3000 classes
 const largeComponents = Array.from({ length: 200 }, (_, i) => ({
-  color: ['primary.500', 'gray.100', 'gray.500', 'gray.900'][i % 4],
-  padding: ['1', '2', '4', '8'][i % 4],
-  margin: ['1', '2', '4'][i % 3],
-  fontSize: ['sm', 'base', 'lg', 'xl'][i % 4],
-  backgroundColor: i % 3 === 0 ? 'gray.100' : undefined,
+  color: (['primary.500', 'gray.100', 'gray.500', 'gray.900'] as const)[i % 4],
+  padding: [1, 2, 4, 8][i % 4],
+  margin: [1, 2, 4][i % 3],
+  fontSize: (['sm', 'base', 'lg', 'xl'] as const)[i % 4],
+  backgroundColor: (i % 3 === 0 ? 'gray.100' : undefined) as 'gray.100' | undefined,
   component: i,
 }))
 
@@ -293,8 +293,8 @@ describe('Type Inference', () => {
     // This measures the runtime cost of type-safe access (should be zero)
     zenCSS({
       color: 'primary.500',
-      padding: '4',
-      margin: '2',
+      padding: 4,
+      margin: 2,
       fontSize: 'base',
     })
   })

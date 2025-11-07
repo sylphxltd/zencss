@@ -6,10 +6,11 @@ import { VariantsDemo } from './demos/VariantsDemo'
 import { LayoutDemo } from './demos/LayoutDemo'
 import { TypographyDemo } from './demos/TypographyDemo'
 import { CompositionDemo } from './demos/CompositionDemo'
+import { StrictTypeTest } from './StrictTypeTest'
 
 const Container = styled('div', {
   w: 'full',
-  minHeight: '100vh',
+  minHeight: 'screen',
   bg: 'gray.50',
 })
 
@@ -42,6 +43,7 @@ type DemoKey =
   | 'variants'
   | 'responsive'
   | 'composition'
+  | 'strictTypes'
 
 const demos: Record<DemoKey, { title: string; component: React.ReactNode }> = {
   overview: {
@@ -71,6 +73,10 @@ const demos: Record<DemoKey, { title: string; component: React.ReactNode }> = {
   composition: {
     title: 'Composition',
     component: <CompositionDemo />,
+  },
+  strictTypes: {
+    title: 'Strict Type Safety',
+    component: <StrictTypeTest />,
   },
 }
 
@@ -136,6 +142,10 @@ function OverviewDemo() {
             </Text>
             <Text fontSize="sm" color="gray.700">
               <strong>Variants</strong> - Component variants and recipes
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              <strong>Strict Type Safety</strong> - Only design tokens allowed,
+              compile-time errors
             </Text>
             <Text fontSize="sm" color="gray.700">
               <strong>Responsive</strong> - Responsive design utilities

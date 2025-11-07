@@ -58,8 +58,8 @@ export function CompositionDemo() {
         <Card>
           <Flex gap={4} alignItems="center" mb={4}>
             <Box
-              w="16"
-              h="16"
+              w={16}
+              h={16}
               rounded="full"
               bg="brand.200"
               display="flex"

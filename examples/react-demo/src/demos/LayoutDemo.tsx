@@ -62,7 +62,7 @@ export function LayoutDemo() {
             <Flex
               justifyContent="center"
               alignItems="center"
-              h="20"
+              h={20}
               bg="gray.100"
               rounded="md"
             >

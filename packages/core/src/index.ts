@@ -112,36 +112,22 @@ export {
 } from './selectors'
 export type { SelectorConfig } from './selectors'
 
-// Tree Shaking & Dead Code Elimination
-export {
-  ClassUsageTracker,
-  CSSMinifier,
-  CSSDeduplicator,
-  ProductionOptimizer,
-  defaultTreeShakingConfig,
-} from './tree-shaking'
+// Tree Shaking & Dead Code Elimination (types only - implementations use Node.js APIs)
 export type { TreeShakingConfig } from './tree-shaking'
 
-// Critical CSS Extraction
-export {
-  CriticalCSSExtractor,
-  CriticalCSSMeasurement,
-  defaultCriticalCSSConfig,
-} from './critical-css'
+// Critical CSS Extraction (types only - implementations use Node.js APIs)
 export type { CriticalCSSConfig } from './critical-css'
 
-// Performance Monitoring
-export {
-  PerformanceMonitor,
-  BuildReporter,
-  Benchmarker,
-} from './performance'
+// Performance Monitoring (types only - implementations use Node.js APIs)
 export type { PerformanceMetrics, BuildReport } from './performance'
 
-// Benchmarking
-export {
-  BenchmarkRunner,
-  BENCHMARK_SCENARIOS,
-  generateMockCSS,
-} from './benchmark'
+// Benchmarking (types only - implementations use Node.js APIs)
 export type { BenchmarkMetrics, BenchmarkScenario } from './benchmark'
+
+// NOTE: Node.js-only implementations (tree-shaking, critical-css, performance, benchmark)
+// are not exported from the main entry to ensure browser compatibility.
+// Import them directly if needed in Node.js environments:
+// import { CSSMinifier } from '@sylphx/zencss/dist/tree-shaking.js'
+// import { CriticalCSSExtractor } from '@sylphx/zencss/dist/critical-css.js'
+// import { PerformanceMonitor } from '@sylphx/zencss/dist/performance.js'
+// import { BenchmarkRunner } from '@sylphx/zencss/dist/benchmark.js'
