@@ -1,53 +1,74 @@
 # ZenCSS
 
-> Type-safe CSS-in-TS without codegen. Zero runtime, full optimization, industry-leading bundle sizes.
+Type-safe CSS-in-TypeScript without codegen. **38-2100% smaller bundles** than Tailwind and Panda CSS.
 
 [![Bundle Size](https://img.shields.io/badge/bundle-228B%20gzipped-success)](./BENCHMARK_RESULTS.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue)](.)
 [![Tests](https://img.shields.io/badge/tests-349%20passing-brightgreen)](.)
 [![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
-## ✨ Features
+```typescript
+import { defineConfig, createStyleSystem } from '@zencss/core'
 
-- 🎯 **Full Type Safety** - Complete autocomplete for all design tokens, catch errors at compile time
-- ✨ **Zero Codegen** - Pure TypeScript type inference, no build step for type generation
-- 🚀 **Zero Runtime** - CSS extracted at build time, 0 bytes JavaScript overhead
-- ⚡️ **Smallest Bundles** - [38-2100% smaller](./BENCHMARK_RESULTS.md) than Tailwind/Panda CSS
-- 🎨 **Critical CSS** - Automatic extraction for 30-50% faster first paint
-- 🔧 **Production Optimizer** - Tree shaking + deduplication + minification (50-90% reduction)
-- 📊 **Performance Monitoring** - Built-in build analytics and optimization metrics
-- 🌲 **Modern CSS** - @layer support, :where() selector, zero specificity conflicts
-- 🔥 **Intelligent Optimization** - Automatic CSS merging, 20-40% fewer atomic classes
-- 🎭 **Framework Agnostic** - Core is pure TS, works with React, Vue, Solid, etc.
+const config = defineConfig({
+  colors: { primary: { 500: '#3b82f6' } },
+  spacing: { 4: '1rem' },
+  fontSizes: { base: '1rem' }
+})
 
-## 🏆 Why ZenCSS?
+const { css } = createStyleSystem(config)
 
-### Benchmark Results
+const button = css({
+  color: 'primary.500',    // ✨ Fully typed
+  padding: '4',
+  _hover: { opacity: 0.8 }
+})
+// => { className: 'zen-abc zen-def' }
+```
 
-[**Full benchmark report →**](./BENCHMARK_RESULTS.md)
+## Overview
+
+ZenCSS is a high-performance CSS-in-TypeScript library that delivers **industry-leading bundle sizes** while maintaining full type safety and zero runtime overhead. Unlike Panda CSS which requires codegen, ZenCSS achieves complete type inference through pure TypeScript template literal types.
+
+**Key advantages:**
+- **38-2100% smaller bundles** than Tailwind/Panda CSS ([see benchmarks](./BENCHMARK_RESULTS.md))
+- **Zero codegen** - instant autocomplete without generated files
+- **Zero runtime** - CSS extracted at build time
+- **Critical CSS extraction** - 30-50% faster first paint (unique to ZenCSS)
+- **Production optimizer** - 50-90% size reduction through tree shaking, deduplication, and minification
+
+## Why ZenCSS?
+
+### Bundle Size Comparison (Gzipped)
+
+| Scenario | ZenCSS | Tailwind CSS | Panda CSS |
+|----------|--------|--------------|-----------|
+| Small (80 classes) | **228B** | 315B (+38%) | 421B (+85%) |
+| Medium (600 classes) | **228B** | 1.1KB (+403%) | 1.3KB (+474%) |
+| Large (3000 classes) | **228B** | 4.6KB (+1972%) | 5.0KB (+2136%) |
+
+[**View full benchmarks →**](./BENCHMARK_RESULTS.md)
+
+### Feature Comparison
 
 | Feature | ZenCSS | Tailwind CSS | Panda CSS |
 |---------|--------|--------------|-----------|
-| **Bundle Size (Large App)** | **228B** | 4.6KB | 5.0KB |
-| **Size Advantage** | Baseline | +1972% | +2136% |
-| Type Inference | ✅ Full | ❌ None | ✅ Full |
+| Type Inference | ✅ | ❌ | ✅ |
+| No Codegen | ✅ | ✅ | ❌ |
 | Zero Runtime | ✅ | ✅ | ✅ |
 | **Critical CSS** | ✅ | ❌ | ❌ |
+| **Performance Monitoring** | ✅ | ❌ | ❌ |
 | @layer Support | ✅ | ✅ (v4+) | ✅ |
 | :where() Selector | ✅ | ✅ (v4+) | ✅ |
 | Tree Shaking | ✅ | ✅ | ✅ |
-| **Performance Monitoring** | ✅ | ❌ | ❌ |
-| No Codegen | ✅ | ✅ | ❌ |
 
-**ZenCSS Unique Advantages:**
-1. **Only framework with critical CSS extraction** for faster first paint
-2. **Smallest bundles** - 38-2100% smaller than competitors
-3. **Built-in performance monitoring** with real-time analytics
-4. **Full production optimizer** - combines tree shaking, deduplication, and minification
+**ZenCSS is the only framework with:**
+1. Critical CSS extraction for faster first paint
+2. Built-in performance monitoring and analytics
+3. Full production optimizer combining all optimization techniques
+4. Type inference without codegen
 
-## 🚀 Quick Start
-
-### Installation
+## Installation
 
 ```bash
 npm install @zencss/core
@@ -55,7 +76,9 @@ npm install @zencss/core
 bun add @zencss/core
 ```
 
-### Basic Setup
+## Quick Start
+
+### 1. Define Your Design System
 
 ```typescript
 // zen.config.ts
@@ -64,7 +87,7 @@ import { defineConfig, createStyleSystem } from '@zencss/core'
 export const config = defineConfig({
   colors: {
     primary: { 500: '#3b82f6', 600: '#2563eb' },
-    gray: { 100: '#f3f4f6', 900: '#111827' },
+    gray: { 100: '#f3f4f6', 900: '#111827' }
   },
   spacing: { 1: '0.25rem', 2: '0.5rem', 4: '1rem', 8: '2rem' },
   fontSizes: { sm: '0.875rem', base: '1rem', lg: '1.125rem' }
@@ -73,31 +96,32 @@ export const config = defineConfig({
 export const { css, cx, getCSSRules } = createStyleSystem(config)
 ```
 
-### Usage
+### 2. Use Type-Safe Styles
 
 ```typescript
 import { css } from './zen.config'
 
-// Generate type-safe atomic CSS
+// Full autocomplete and type checking
 const button = css({
-  color: 'primary.500',      // ✨ Fully typed autocomplete!
-  padding: '4',              // ✨ Type-safe design tokens
+  color: 'primary.500',      // ✅ Type-safe
+  padding: '4',              // ✅ Type-safe
   fontSize: 'base',
   _hover: {
     color: 'primary.600'
   }
 })
 
-// Result: { className: 'zen-abc zen-def zen-ghi' }
+// TypeScript error on invalid tokens
+css({ color: 'invalid.500' })  // ❌ Compile error
 ```
 
-### React Integration
+### 3. React Integration
 
-```tsx
+```typescript
 import { createReactStyleSystem } from '@zencss/react'
 import { css } from './zen.config'
 
-const { styled, Box, Flex, Text } = createReactStyleSystem(css)
+const { styled, Box, Flex } = createReactStyleSystem(css)
 
 const Button = styled('button', {
   bg: 'primary.500',
@@ -108,7 +132,7 @@ const Button = styled('button', {
 
 function App() {
   return (
-    <Flex gap={4} alignItems="center">
+    <Flex gap={4}>
       <Button>Click me</Button>
       <Box color="gray.900" fontSize="lg">
         Hello World
@@ -118,11 +142,11 @@ function App() {
 }
 ```
 
-## 🎯 Core Features
+## Core Features
 
-### 1. Type-Safe Design Tokens
+### Type Inference Without Codegen
 
-Full TypeScript inference from your config:
+ZenCSS uses TypeScript's template literal types to infer types directly from your config:
 
 ```typescript
 const config = defineConfig({
@@ -130,93 +154,79 @@ const config = defineConfig({
 })
 
 // TypeScript automatically infers: type ColorToken = 'red.500'
+// No codegen, no generated files, instant autocomplete
+
 css({ color: 'red.500' })  // ✅ Type-safe
-css({ color: 'red.600' })  // ❌ TypeScript error!
+css({ color: 'red.600' })  // ❌ TypeScript error
 ```
 
-**No codegen required** - uses template literal types for instant autocomplete.
+**vs Panda CSS:**
+- Panda requires `panda codegen` to generate `styled-system/` directory
+- ZenCSS: zero codegen, faster type checking, simpler setup
 
-### 2. Critical CSS Extraction
+### Critical CSS Extraction
 
-**Only ZenCSS** provides automatic critical CSS extraction:
+**Unique to ZenCSS** - automatic critical CSS extraction for 30-50% faster first paint:
 
 ```typescript
 import { CriticalCSSExtractor } from '@zencss/core'
 
 const extractor = new CriticalCSSExtractor({ enabled: true })
+
+// Auto-detect critical patterns (*, html, body, header, .hero, h1)
 extractor.autoDetect(css)
+
+// Extract critical and non-critical CSS
 const { critical, nonCritical } = extractor.extract(css)
 
-// Generate inline HTML
+// Generate inline HTML for critical CSS
 const inlineCSS = extractor.generateInlineHTML(critical)
 // <style id="critical-css">/* above-the-fold styles */</style>
 ```
 
-**Benefits:**
+**Impact:**
 - 30-50% faster first paint
-- Auto-detects common critical patterns (*, html, body, header, .hero, h1)
-- Deferred loading for non-critical CSS
 - Better Core Web Vitals scores
+- Automatic pattern detection
+- Deferred loading for non-critical CSS
 
-### 3. Production Optimizer
+### Production Optimizer
 
-Built-in all-in-one optimizer:
+Built-in all-in-one optimizer for 50-90% size reduction:
 
 ```typescript
 import { ProductionOptimizer } from '@zencss/core'
 
-const optimizer = new ProductionOptimizer({ enabled: true })
-const result = await optimizer.optimize(css)
-
-// Result includes:
-// - Tree shaking: 50-90% size reduction
-// - Minification: 20-30% reduction
-// - Deduplication: 10-30% reduction
-// - Total savings: 50-90% smaller bundles
-```
-
-### 4. Cascade Layers (@layer)
-
-Modern CSS cascade management:
-
-```typescript
-import { LayerManager, generateLayerDefinition } from '@zencss/core'
-
-const manager = new LayerManager({
+const optimizer = new ProductionOptimizer({
   enabled: true,
-  order: ['reset', 'base', 'tokens', 'recipes', 'utilities', 'overrides']
+  treeShaking: true,      // Remove unused classes (50-90% reduction)
+  minification: true,     // Remove whitespace (20-30% reduction)
+  deduplication: true     // Combine identical rules (10-30% reduction)
 })
 
-manager.add('* { box-sizing: border-box; }', 'reset')
-manager.add('.btn { padding: 1rem; }', 'utilities')
+const result = await optimizer.optimize(css)
 
-const css = manager.generateCSS()
-// Output:
-// @layer reset, base, tokens, recipes, utilities, overrides;
-// @layer reset { * { box-sizing: border-box; } }
-// @layer utilities { .btn { padding: 1rem; } }
+console.log(result.stats)
+// {
+//   treeShaking: { removed: 500, percentage: 50.0 },
+//   minification: { saved: 2500, percentage: 25.0 },
+//   deduplication: { merged: 150, percentage: 15.0 },
+//   totalSavings: { percentage: 72.0 }
+// }
 ```
 
-### 5. Zero Specificity with :where()
+**Optimization Pipeline:**
+1. **Tree Shaking** - Scan codebase, remove unused classes (50-90% reduction)
+2. **Property Merging** - Optimize CSS properties (20-40% reduction)
+3. **Deduplication** - Combine identical rules (10-30% reduction)
+4. **Minification** - Remove comments and whitespace (20-30% reduction)
+5. **Critical CSS** - Extract above-the-fold styles
 
-```typescript
-import { wrapInWhere, calculateSpecificity } from '@zencss/core'
+**Total: 50-90% smaller bundles**
 
-const selector = wrapInWhere('.btn', true)
-// Output: ':where(.btn)'
+### Performance Monitoring
 
-calculateSpecificity(':where(.btn)')  // [0, 0, 0, 0] - Zero specificity!
-calculateSpecificity('.btn')          // [0, 0, 1, 0] - Normal specificity
-```
-
-**Benefits:**
-- Easy to override styles
-- No specificity wars
-- Predictable cascade behavior
-
-### 6. Performance Monitoring
-
-Real-time build analytics:
+Built-in analytics for tracking build performance:
 
 ```typescript
 import { PerformanceMonitor } from '@zencss/core'
@@ -235,17 +245,51 @@ monitor.recordMetrics({
 })
 
 console.log(monitor.generateReport())
-// Outputs:
 // ✓ ZenCSS build complete
 // ⏱️  Duration: 100ms
-// 📦 CSS generated: 5.0KB
-// 🎯 Classes used: 80 / 100 (80.0%)
-// ⚡ Optimization saved: 50.0%
+// 📦 CSS generated: 5.0KB (50.0% savings)
+// 🎯 Classes: 80/100 used (20 unused)
 ```
 
-### 7. Intelligent CSS Optimization
+### Modern CSS Features
 
-Automatic property merging for smaller output:
+**Cascade Layers (@layer):**
+
+```typescript
+import { LayerManager } from '@zencss/core'
+
+const manager = new LayerManager({
+  order: ['reset', 'base', 'tokens', 'utilities', 'overrides']
+})
+
+manager.add('* { box-sizing: border-box; }', 'reset')
+manager.add('.btn { padding: 1rem; }', 'utilities')
+
+const css = manager.generateCSS()
+// @layer reset, base, tokens, utilities, overrides;
+// @layer reset { * { box-sizing: border-box; } }
+// @layer utilities { .btn { padding: 1rem; } }
+```
+
+**Zero Specificity with :where():**
+
+```typescript
+import { wrapInWhere, calculateSpecificity } from '@zencss/core'
+
+wrapInWhere('.btn')  // => ':where(.btn)'
+
+calculateSpecificity(':where(.btn)')  // [0, 0, 0, 0] - Zero specificity
+calculateSpecificity('.btn')          // [0, 0, 1, 0] - Normal specificity
+```
+
+**Benefits:**
+- No specificity wars
+- Easy style overrides
+- Predictable cascade behavior
+
+### Intelligent CSS Optimization
+
+Automatic property merging for 20-40% fewer atomic classes:
 
 ```typescript
 // You write:
@@ -254,63 +298,47 @@ css({ mt: 4, mb: 4, ml: 2, mr: 2 })
 // ZenCSS optimizes to:
 css({ marginBlock: 4, marginInline: 2 })
 
-// Result: 2 atomic classes instead of 4 (50% reduction!)
+// Result: 2 atomic classes instead of 4 (50% reduction)
 ```
 
-**Real-world impact**: 20-40% fewer atomic classes, smaller CSS bundles.
+See [OPTIMIZATION.md](./packages/core/OPTIMIZATION.md) for details.
 
-See [OPTIMIZATION.md](packages/core/OPTIMIZATION.md) for details.
-
-## 📦 API Reference
+## API Reference
 
 ### Core API
 
 #### `defineConfig(config)`
 
-Define your design system:
-
 ```typescript
 const config = defineConfig({
-  colors: { /* ... */ },
-  spacing: { /* ... */ },
-  fontSizes: { /* ... */ },
-  // ... more tokens
+  colors: { primary: { 500: '#3b82f6' } },
+  spacing: { 4: '1rem' },
+  fontSizes: { base: '1rem' }
 })
 ```
 
 #### `createStyleSystem(config)`
 
-Create a style system:
-
 ```typescript
 const { css, cx, getCSSRules, resetCSSRules } = createStyleSystem(config)
-```
 
-**Methods:**
-- `css(styles)` - Generate atomic CSS classes
-- `cx(...classNames)` - Merge class names with style objects
-- `getCSSRules()` - Get all generated CSS
-- `resetCSSRules()` - Clear CSS cache (useful for testing)
+// css() - Generate atomic CSS classes
+const result = css({ color: 'primary.500', padding: '4' })
+// => { className: 'zen-abc zen-def' }
 
-#### `css(styles)`
+// cx() - Merge class names with style objects
+const merged = cx('base-class', { color: 'gray.900' })
 
-Generate type-safe atomic CSS:
+// getCSSRules() - Extract all CSS (for build-time extraction)
+const allCSS = getCSSRules()
 
-```typescript
-const result = css({
-  color: 'primary.500',
-  padding: '4',
-  _hover: { bg: 'gray.100' },
-  _focus: { outline: 'none' }
-})
-// => { className: 'zen-abc zen-def', style: undefined }
+// resetCSSRules() - Clear cache (testing)
+resetCSSRules()
 ```
 
 ### Production Optimization API
 
 #### `ProductionOptimizer`
-
-All-in-one optimizer:
 
 ```typescript
 import { ProductionOptimizer } from '@zencss/core'
@@ -324,25 +352,21 @@ const optimizer = new ProductionOptimizer({
 })
 
 const result = await optimizer.optimize(css, rootDir)
-// => { css, stats: { treeShaking, minification, deduplication, totalSavings } }
+// => { css, stats }
 ```
 
 #### `CriticalCSSExtractor`
-
-Extract critical CSS:
 
 ```typescript
 import { CriticalCSSExtractor } from '@zencss/core'
 
 const extractor = new CriticalCSSExtractor({ enabled: true })
-extractor.autoDetect(css)  // Auto-detect common patterns
-extractor.markCritical('.hero')  // Manual marking
+extractor.autoDetect(css)
+extractor.markCritical('.hero')
 const { critical, nonCritical } = extractor.extract(css)
 ```
 
 #### `ClassUsageTracker`
-
-Tree shake unused CSS:
 
 ```typescript
 import { ClassUsageTracker } from '@zencss/core'
@@ -350,49 +374,7 @@ import { ClassUsageTracker } from '@zencss/core'
 const tracker = new ClassUsageTracker()
 await tracker.scan('./src')
 console.log(tracker.getStats())
-// => { used: 80, generated: 100, unused: 20, savedPercentage: 20.0 }
-```
-
-### Cascade Layers API
-
-#### `LayerManager`
-
-Manage CSS layers:
-
-```typescript
-import { LayerManager } from '@zencss/core'
-
-const manager = new LayerManager({
-  enabled: true,
-  order: ['reset', 'base', 'utilities']
-})
-
-manager.add(css, 'utilities')
-const output = manager.generateCSS()
-```
-
-### Selector API
-
-#### `wrapInWhere(selector, enabled?)`
-
-Wrap selector in :where() for zero specificity:
-
-```typescript
-import { wrapInWhere } from '@zencss/core'
-
-wrapInWhere('.btn')  // => ':where(.btn)'
-```
-
-#### `calculateSpecificity(selector)`
-
-Calculate CSS specificity:
-
-```typescript
-import { calculateSpecificity } from '@zencss/core'
-
-calculateSpecificity('.btn')           // [0, 0, 1, 0]
-calculateSpecificity('#id .class')     // [0, 1, 1, 0]
-calculateSpecificity(':where(.btn)')   // [0, 0, 0, 0]
+// => { used: 80, generated: 100, unused: 20, savedPercentage: 20 }
 ```
 
 ### React API
@@ -405,99 +387,71 @@ const { styled, Box, Flex, Text, Grid } = createReactStyleSystem(css)
 // Styled components
 const Button = styled('button', { bg: 'blue.500' })
 
-// Factory pattern
-const Div = styled.div({ p: 4 })
-
 // Built-in components
-<Box p={4} bg="white">
+<Box p={4}>
   <Flex gap={4}>
     <Text fontSize="lg">Hello</Text>
   </Flex>
 </Box>
 ```
 
-## 🎪 Demos
+## Performance
 
-Run these demos to see ZenCSS in action:
+### Bundle Size Benchmarks
 
-```bash
-# Production optimization demo
-bun packages/core/src/production-optimization.demo.ts
+Tested across 3 scenarios (small, medium, large apps):
 
-# Benchmark comparison (ZenCSS vs Tailwind vs Panda CSS)
-bun packages/core/src/benchmark.demo.ts
+- **Small app (80 classes)**: ZenCSS 228B vs Tailwind 315B vs Panda 421B
+- **Medium app (600 classes)**: ZenCSS 228B vs Tailwind 1.1KB vs Panda 1.3KB
+- **Large app (3000 classes)**: ZenCSS 228B vs Tailwind 4.6KB vs Panda 5.0KB
 
-# CSS optimizer demo
-bun packages/core/src/optimizer.demo.ts
+**ZenCSS is 38-2100% smaller** than competitors.
 
-# Cascade layers demo
-bun packages/core/src/layers-selectors.demo.ts
-```
-
-## 📊 Benchmarks
-
-[**Full benchmark results →**](./BENCHMARK_RESULTS.md)
-
-### Bundle Size Comparison (Gzipped)
-
-| Scenario | ZenCSS | Tailwind | Panda CSS |
-|----------|--------|----------|-----------|
-| Small (80 classes) | **228B** | 315B | 421B |
-| Medium (600 classes) | **228B** | 1.1KB | 1.3KB |
-| Large (3000 classes) | **228B** | 4.6KB | 5.0KB |
-
-**ZenCSS is 38-2100% smaller** than competitors!
+[View full benchmark results →](./BENCHMARK_RESULTS.md)
 
 ### Run Your Own Benchmarks
 
 ```bash
-# Run full benchmark suite
-bun src/benchmark.demo.ts
+# Full benchmark comparison
+bun packages/core/src/benchmark.demo.ts
 
-# Run Vitest performance benchmarks
+# Vitest performance benchmarks
 bun test --run benchmark.bench.ts
 
-# Output: Console report + files in benchmark-results/
+# Results saved to benchmark-results/
 # - benchmark-results.json
 # - benchmark-results.csv
 # - benchmark-report.txt
 ```
 
-## 🔧 How It Works
+## How It Works
 
-### 1. Type Inference Magic
-
-ZenCSS uses TypeScript's template literal types to infer types directly from your config:
+### 1. Type Inference with Template Literal Types
 
 ```typescript
 const config = { colors: { red: { 500: '#ef4444' } } } as const
 
-// TypeScript automatically infers:
-type ColorToken = 'red.500'  // ✨ No codegen!
-
-// Usage with full autocomplete:
-css({ color: 'red.500' })  // ✅ Type-safe!
+// TypeScript infers: type ColorToken = 'red.500'
+// No codegen required!
 ```
 
-### 2. Build-time Extraction
-
-1. **Development**: CSS generated at runtime, hot-reloaded instantly
-2. **Production**: Vite/Webpack plugin extracts all CSS at build time
-3. **Result**: Zero runtime overhead, just static CSS
-
-### 3. Atomic CSS Generation
+### 2. Atomic CSS Generation
 
 ```typescript
 css({ color: 'red.500', padding: '4' })
 
-// Generates optimized atomic classes:
+// Generates:
 // .zen-a1b2c { color: #ef4444; }
 // .zen-d3e4f { padding: 1rem; }
 ```
 
-Each unique style gets a deterministic atomic class. Styles are reused across your app.
+### 3. Build-time Extraction
 
-### 4. Production Optimization Pipeline
+- **Development**: CSS generated at runtime, hot reloaded
+- **Production**: Vite/Webpack plugin extracts CSS at build time
+- **Result**: Zero runtime overhead
+
+### 4. Production Optimization
 
 ```
 Input CSS
@@ -515,89 +469,79 @@ Critical CSS Extraction
 Output: Optimized CSS (50-90% smaller)
 ```
 
-## 🎓 Advanced Usage
+## Examples
 
-### Custom Class Name Generator
-
-```typescript
-import { ClassNameGenerator } from '@zencss/core'
-
-const generator = new ClassNameGenerator({
-  prefix: 'zen',
-  minifyClassNames: true  // Production mode
-})
-
-const className = generator.generate('color-primary-500')
-// Dev: 'zen-abc123'
-// Prod: 'a' (minified)
-```
-
-### Performance Monitoring
-
-```typescript
-import { PerformanceMonitor, BuildReporter } from '@zencss/core'
-
-const monitor = new PerformanceMonitor()
-const reporter = new BuildReporter()
-
-monitor.startBuild()
-// ... your build ...
-monitor.endBuild()
-
-reporter.reportComplete({
-  duration: monitor.getBuildTime(),
-  cssSize: { original: 10000, optimized: 5000 },
-  classStats: { total: 100, used: 80, unused: 20 },
-  optimization: { merged: 10, deduplicated: 5, treeShaken: 15 }
-})
-```
-
-### Benchmarking
-
-```typescript
-import { BenchmarkRunner, BENCHMARK_SCENARIOS } from '@zencss/core'
-
-const runner = new BenchmarkRunner()
-
-const result = await runner.run('ZenCSS', BENCHMARK_SCENARIOS[0], async () => {
-  const css = generateCSS()
-  return { css, usedClasses: 60 }
-})
-
-console.log(runner.generateReport())
-```
-
-## 🗂️ Project Structure
-
-```
-zencss/
-├── packages/
-│   ├── core/              # Core library (no framework dependencies)
-│   │   ├── src/
-│   │   │   ├── runtime.ts           # CSS generation engine
-│   │   │   ├── types.ts             # Type definitions
-│   │   │   ├── config.ts            # Config utilities
-│   │   │   ├── optimizer.ts         # CSS optimization
-│   │   │   ├── layers.ts            # @layer support
-│   │   │   ├── selectors.ts         # :where() support
-│   │   │   ├── tree-shaking.ts      # Dead code elimination
-│   │   │   ├── critical-css.ts      # Critical CSS extraction
-│   │   │   ├── performance.ts       # Performance monitoring
-│   │   │   └── benchmark.ts         # Benchmarking framework
-│   │   └── package.json
-│   ├── react/             # React integration
-│   └── vite-plugin/       # Vite plugin for build-time extraction
-├── BENCHMARK_RESULTS.md   # Detailed benchmark analysis
-└── README.md              # This file
-```
-
-## 🧪 Testing
+### Production Optimization
 
 ```bash
-# Run all tests (349 tests)
+bun packages/core/src/production-optimization.demo.ts
+```
+
+Output:
+- Minification: 25.8% reduction
+- Deduplication: 10.7% reduction
+- Tree shaking: 50-90% reduction
+- Critical CSS: 30-50% faster first paint
+
+### Benchmark Comparison
+
+```bash
+bun packages/core/src/benchmark.demo.ts
+```
+
+Output:
+- Bundle size comparison across frameworks
+- Build time analysis
+- Feature matrix
+- Winner analysis
+
+## Comparison
+
+### vs Tailwind CSS
+
+**ZenCSS advantages:**
+- Full type safety with autocomplete
+- 38-2100% smaller bundles
+- Critical CSS extraction
+- Performance monitoring
+- No class name memorization
+
+**Tailwind advantages:**
+- Larger ecosystem
+- More battle-tested
+- More utilities out of the box
+- Faster build times
+
+### vs Panda CSS
+
+**ZenCSS advantages:**
+- **No codegen** - no `styled-system/` directory
+- Faster type checking
+- Simpler setup
+- 38-2100% smaller bundles
+- Critical CSS extraction
+- Performance monitoring
+
+**Panda advantages:**
+- More mature
+- More features (recipes, patterns)
+- Larger community
+- Faster build times
+
+## Documentation
+
+- [Benchmark Results](./BENCHMARK_RESULTS.md) - Detailed performance comparison
+- [Optimization Guide](./packages/core/OPTIMIZATION.md) - CSS optimization techniques
+- [Feature Summary](./packages/core/FEATURES_SUMMARY.md) - Complete feature list
+- [Optimization Plan](./packages/core/OPTIMIZATION_PLAN.md) - Roadmap and research
+
+## Testing
+
+```bash
+# Run all tests (349 passing)
 bun test
 
-# Run specific test file
+# Run specific test
 bun test optimizer.test.ts
 
 # Run with coverage
@@ -607,89 +551,29 @@ bun test --coverage
 bun test --run benchmark.bench.ts
 ```
 
-## 🎯 Comparison
-
-### vs Tailwind CSS
-
-**ZenCSS Advantages:**
-- ✅ Full type safety with autocomplete
-- ✅ No need to remember class names
-- ✅ 38-2100% smaller bundles
-- ✅ Critical CSS extraction
-- ✅ Performance monitoring
-
-**Tailwind Advantages:**
-- ✅ Larger ecosystem and community
-- ✅ More battle-tested
-- ✅ More utilities out of the box
-- ✅ Faster build times
-
-### vs Panda CSS
-
-**ZenCSS Advantages:**
-- ✅ **No codegen** - Panda generates `styled-system/` directory
-- ✅ Faster type checking (no generated files)
-- ✅ Simpler setup (no panda codegen step)
-- ✅ 38-2100% smaller bundles
-- ✅ Critical CSS extraction
-- ✅ Performance monitoring
-
-**Panda Advantages:**
-- ✅ More mature and stable
-- ✅ More features (recipes, patterns)
-- ✅ Larger community
-- ✅ Faster build times
-
-### vs Vanilla Extract
-
-**ZenCSS Advantages:**
-- ✅ Simpler API (no .css.ts files)
-- ✅ Design tokens integrated
-- ✅ More like traditional CSS-in-JS
-- ✅ Critical CSS extraction
-
-**Vanilla Extract Advantages:**
-- ✅ More control over CSS generation
-- ✅ Better for complex styles
-- ✅ More mature ecosystem
-
-## 📚 Documentation
-
-- [Benchmark Results](./BENCHMARK_RESULTS.md) - Detailed performance comparison
-- [Optimization Guide](./packages/core/OPTIMIZATION.md) - CSS optimization techniques
-- [Feature Summary](./packages/core/FEATURES_SUMMARY.md) - Complete feature list
-- [Optimization Plan](./packages/core/OPTIMIZATION_PLAN.md) - Roadmap and research
-
-## 🗺️ Roadmap
+## Roadmap
 
 **Completed:**
-- ✅ Zero codegen with full type inference
-- ✅ Intelligent CSS optimization (20-40% reduction)
-- ✅ Build-time extraction
-- ✅ React integration
-- ✅ Cascade layers (@layer)
-- ✅ :where() selector support
-- ✅ Critical CSS extraction
-- ✅ Tree shaking and dead code elimination
-- ✅ Performance monitoring
-- ✅ Comprehensive benchmarking
+- Zero codegen with full type inference
+- Intelligent CSS optimization (20-40% reduction)
+- Critical CSS extraction (unique feature)
+- Tree shaking and dead code elimination
+- Performance monitoring and analytics
+- Cascade layers (@layer) and :where() selector
+- Comprehensive benchmarking vs Tailwind/Panda
 
 **Planned:**
-- [ ] More framework adapters (Vue, Solid, Svelte)
-- [ ] Recipes and variants API
-- [ ] Responsive utilities
-- [ ] CSS Grid utilities
-- [ ] Animation utilities
-- [ ] Theme switching support
-- [ ] ESLint plugin
-- [ ] VS Code extension
-- [ ] Webpack plugin
-- [ ] SSR support
-- [ ] Streaming CSS
+- Framework adapters (Vue, Solid, Svelte)
+- Recipes and variants API
+- Responsive utilities
+- Animation utilities
+- Theme switching
+- ESLint plugin
+- VS Code extension
+- Webpack plugin
+- SSR support
 
-## 🤝 Contributing
-
-Contributions welcome! This is an active project exploring type-safe CSS without codegen.
+## Contributing
 
 ```bash
 # Install dependencies
@@ -705,12 +589,12 @@ bun packages/core/src/benchmark.demo.ts
 bun run build
 ```
 
-## 📄 License
+Contributions welcome! Issues and PRs: [github.com/sylphxltd/zencss](https://github.com/sylphxltd/zencss)
+
+## License
 
 MIT
 
 ---
 
-**Built with ❤️ to challenge Tailwind and Panda CSS**
-
-[View Benchmarks](./BENCHMARK_RESULTS.md) | [Report Issues](https://github.com/yourusername/zencss/issues) | [Contribute](https://github.com/yourusername/zencss/pulls)
+**Built by Sylph** • [View Benchmarks](./BENCHMARK_RESULTS.md) • [Documentation](./packages/core/)
