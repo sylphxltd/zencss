@@ -34,7 +34,7 @@ describe('createStyleSystem', () => {
       const result = css({ color: 'red.500' })
 
       expect(result.className).toBeTruthy()
-      expect(result.className).toMatch(/^zen-[a-z0-9]+$/)
+      expect(result.className).toMatch(/^silk-[a-z0-9]+$/)
     })
 
     it('should resolve color tokens correctly', () => {
@@ -147,7 +147,7 @@ describe('createStyleSystem', () => {
       const result = cx('custom-class', { color: 'red.500' })
 
       expect(result.className).toContain('custom-class')
-      expect(result.className).toMatch(/zen-[a-z0-9]+/)
+      expect(result.className).toMatch(/silk-[a-z0-9]+/)
     })
 
     it('should filter out falsy values', () => {

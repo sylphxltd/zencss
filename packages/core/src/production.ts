@@ -14,7 +14,7 @@ export interface ProductionConfig {
   minify?: boolean
   /** Optimize CSS properties (merge, deduplicate) */
   optimizeCSS?: boolean
-  /** Class name prefix (default: 'z' for production, 'zen' for dev) */
+  /** Class name prefix (default: 's' for production, 'silk' for dev) */
   classPrefix?: string
 }
 
@@ -84,7 +84,7 @@ export function hashStyleId(str: string): string {
 /**
  * Generate class name based on environment
  *
- * Development: zen-color-brand-500 (readable)
+ * Development: silk-color-brand-500 (readable)
  * Production: a0 (short hashed)
  */
 export function generateClassName(
@@ -99,7 +99,7 @@ export function generateClassName(
   }
 
   // Development: readable name with prefix
-  const prefix = classPrefix || (production ? 'z' : 'zen')
+  const prefix = classPrefix || (production ? 's' : 'silk')
   const hash = hashStyleId(styleId)
   return `${prefix}-${hash}`
 }

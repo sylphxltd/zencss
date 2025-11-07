@@ -1,9 +1,9 @@
 {
-  "name": "@sylphx/zencss-vite-plugin",
+  "name": "@sylphx/silk-vite-plugin",
   "version": "0.2.0",
-  "description": "Vite plugin for ZenCSS - Build-time CSS extraction with production optimizations",
+  "description": "Vite plugin for Silk - Build-time CSS extraction with production optimizations",
   "keywords": [
-    "zencss",
+    "silk",
     "vite",
     "vite-plugin",
     "css-in-js",
@@ -14,11 +14,11 @@
   "homepage": "https://sylphx.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sylphxltd/zencss.git",
+    "url": "https://github.com/sylphxltd/silk.git",
     "directory": "packages/vite-plugin"
   },
   "bugs": {
-    "url": "https://github.com/sylphxltd/zencss/issues"
+    "url": "https://github.com/sylphxltd/silk/issues"
   },
   "type": "module",
   "main": "./dist/index.js",
@@ -40,7 +40,7 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@sylphx/zencss": "workspace:*"
+    "@sylphx/silk": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.3.0",

@@ -3,7 +3,7 @@
  * This file shows how invalid design tokens now produce TypeScript errors
  */
 
-import { Box, Text, styled } from './zen.config'
+import { Box, Text, styled } from './silk.config'
 
 export function StrictTypeTest() {
   return (

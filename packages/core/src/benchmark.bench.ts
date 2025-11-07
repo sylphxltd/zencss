@@ -23,7 +23,7 @@ const config = defineConfig({
   fontSizes: { sm: '0.875rem', base: '1rem', lg: '1.125rem', xl: '1.25rem' },
 })
 
-const { css: zenCSS, getCSSRules, resetCSSRules } = createStyleSystem(config)
+const { css: silkCSS, getCSSRules, resetCSSRules } = createStyleSystem(config)
 
 // Small scenario: 80 classes
 const smallComponents = Array.from({ length: 10 }, (_, i) => ({
@@ -59,23 +59,23 @@ const mockCSS = `
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* Utilities */
-.zen-color-primary { color: #3b82f6; }
-.zen-color-gray { color: #6b7280; }
-.zen-p-1 { padding: 0.25rem; }
-.zen-p-2 { padding: 0.5rem; }
-.zen-p-4 { padding: 1rem; }
-.zen-p-8 { padding: 2rem; }
-.zen-m-1 { margin: 0.25rem; }
-.zen-m-2 { margin: 0.5rem; }
-.zen-m-4 { margin: 1rem; }
-.zen-text-sm { font-size: 0.875rem; }
-.zen-text-base { font-size: 1rem; }
-.zen-text-lg { font-size: 1.125rem; }
-.zen-text-xl { font-size: 1.25rem; }
-.zen-bg-gray { background-color: #f3f4f6; }
-.zen-flex { display: flex; }
-.zen-grid { display: grid; }
-.zen-hidden { display: none; }
+.silk-color-primary { color: #3b82f6; }
+.silk-color-gray { color: #6b7280; }
+.silk-p-1 { padding: 0.25rem; }
+.silk-p-2 { padding: 0.5rem; }
+.silk-p-4 { padding: 1rem; }
+.silk-p-8 { padding: 2rem; }
+.silk-m-1 { margin: 0.25rem; }
+.silk-m-2 { margin: 0.5rem; }
+.silk-m-4 { margin: 1rem; }
+.silk-text-sm { font-size: 0.875rem; }
+.silk-text-base { font-size: 1rem; }
+.silk-text-lg { font-size: 1.125rem; }
+.silk-text-xl { font-size: 1.25rem; }
+.silk-bg-gray { background-color: #f3f4f6; }
+.silk-flex { display: flex; }
+.silk-grid { display: grid; }
+.silk-hidden { display: none; }
 
 /* Duplicates for deduplication test */
 .duplicate-1 { color: red; }
@@ -97,19 +97,19 @@ const mockCSS = `
 describe('Style Generation', () => {
   bench('ZenCSS - Small (80 classes)', () => {
     for (const props of smallComponents) {
-      zenCSS(props)
+      silkCSS(props)
     }
   })
 
   bench('ZenCSS - Medium (600 classes)', () => {
     for (const props of mediumComponents) {
-      zenCSS(props)
+      silkCSS(props)
     }
   })
 
   bench('ZenCSS - Large (3000 classes)', () => {
     for (const props of largeComponents) {
-      zenCSS(props)
+      silkCSS(props)
     }
   })
 
@@ -241,7 +241,7 @@ describe('Performance Monitoring', () => {
 describe('Complex Real-world Scenarios', () => {
   bench('ZenCSS - Dashboard with 50 components', () => {
     resetCSSRules()
-    mediumComponents.forEach((props) => zenCSS(props))
+    mediumComponents.forEach((props) => silkCSS(props))
     const allCSS = getCSSRules()
     const minified = CSSMinifier.minify(allCSS)
     CSSDeduplicator.deduplicate(minified)
@@ -249,7 +249,7 @@ describe('Complex Real-world Scenarios', () => {
 
   bench('ZenCSS - E-commerce with 200 components', () => {
     resetCSSRules()
-    largeComponents.forEach((props) => zenCSS(props))
+    largeComponents.forEach((props) => silkCSS(props))
     const allCSS = getCSSRules()
     const minified = CSSMinifier.minify(allCSS)
     CSSDeduplicator.deduplicate(minified)
@@ -258,7 +258,7 @@ describe('Complex Real-world Scenarios', () => {
   bench('ZenCSS - Full production pipeline', async () => {
     // 1. Generate CSS
     resetCSSRules()
-    mediumComponents.forEach((props) => zenCSS(props))
+    mediumComponents.forEach((props) => silkCSS(props))
     const allCSS = getCSSRules()
 
     // 2. Optimize
@@ -291,7 +291,7 @@ describe('Complex Real-world Scenarios', () => {
 describe('Type Inference', () => {
   bench('ZenCSS - Type-safe property access', () => {
     // This measures the runtime cost of type-safe access (should be zero)
-    zenCSS({
+    silkCSS({
       color: 'primary.500',
       padding: 4,
       margin: 2,

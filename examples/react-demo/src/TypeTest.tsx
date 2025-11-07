@@ -3,7 +3,7 @@
  * This file tests that all design tokens are properly type-checked
  */
 
-import { Box, Text, styled } from './zen.config'
+import { Box, Text, styled } from './silk.config'
 
 export function TypeTest() {
   return (

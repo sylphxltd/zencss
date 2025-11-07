@@ -1,14 +1,14 @@
 /**
- * ZenCSS configuration
+ * Silk configuration
  * Define your design system with full type inference
  */
 
-import { defineConfig } from '@sylphx/zencss'
-import { createZenReact } from '@sylphx/zencss-react'
+import { defineConfig } from '@sylphx/silk'
+import { createSilkReact } from '@sylphx/silk-react'
 
-// Create and export ZenCSS React system with full type inference
+// Create and export Silk React system with full type inference
 // Option 1: Direct export (simplest - recommended for most cases)
-export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(
+export const { styled, Box, Flex, Grid, Text, css, cx } = createSilkReact(
   defineConfig({
     colors: {
     brand: {

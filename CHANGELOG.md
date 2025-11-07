@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to ZenCSS will be documented in this file.
+All notable changes to Silk will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -72,7 +72,7 @@ createStyleSystem(config, {
 })
 
 // Style composition
-import { mergeStyles, createVariant, createCompoundVariant } from '@sylphx/zencss'
+import { mergeStyles, createVariant, createCompoundVariant } from '@sylphx/silk'
 
 const styles = mergeStyles(base, variant, condition && override)
 const colorVariant = createVariant({ primary: {...}, secondary: {...} })
@@ -83,7 +83,7 @@ const buttonStyle = createCompoundVariant({
 })
 
 // Modern colors
-import { oklch, colorMix, lighten, darken, generatePalette } from '@sylphx/zencss'
+import { oklch, colorMix, lighten, darken, generatePalette } from '@sylphx/silk'
 
 const blue = oklch(0.7, 0.2, 250)
 const mixed = colorMix('blue', 'red', 60)
@@ -91,7 +91,7 @@ const light = lighten('blue', 20)
 const palette = generatePalette({ hue: 250, chroma: 0.2 })
 
 // Native CSS nesting
-import { generateNestedCSS, convertToNestedCSS } from '@sylphx/zencss'
+import { generateNestedCSS, convertToNestedCSS } from '@sylphx/silk'
 
 const nested = generateNestedCSS('.btn', { color: 'blue' }, {
   '&:hover': { color: 'red' }
@@ -184,7 +184,7 @@ const { css } = createStyleSystem(config, {
 })
 
 // Use new modern color functions (optional)
-import { oklch, colorMix, generatePalette } from '@sylphx/zencss'
+import { oklch, colorMix, generatePalette } from '@sylphx/silk'
 
 const colors = generatePalette({ hue: 250, chroma: 0.2 })
 ```
@@ -197,7 +197,7 @@ All new features are opt-in. Existing code continues to work without modificatio
 
 ### 🎉 Initial Release
 
-First public release of ZenCSS - a type-safe CSS-in-TypeScript library with zero codegen and industry-leading bundle sizes.
+First public release of Silk - a type-safe CSS-in-TypeScript library with zero codegen and industry-leading bundle sizes.
 
 ### ✨ Features
 
@@ -231,9 +231,9 @@ First public release of ZenCSS - a type-safe CSS-in-TypeScript library with zero
 
 ### 📦 Packages
 
-- `@sylphx/zencss@0.1.0` - Core CSS-in-TS runtime
-- `@sylphx/zencss-react@0.1.0` - React integration with primitives
-- `@sylphx/zencss-vite-plugin@0.1.0` - Vite build plugin
+- `@sylphx/silk@0.1.0` - Core CSS-in-TS runtime
+- `@sylphx/silk-react@0.1.0` - React integration with primitives
+- `@sylphx/silk-vite-plugin@0.1.0` - Vite build plugin
 
 ### 🔒 Breaking Changes
 
@@ -262,7 +262,7 @@ First public release of ZenCSS - a type-safe CSS-in-TypeScript library with zero
 ### 🎯 Performance
 
 Bundle Size Comparison (Large App):
-- **ZenCSS**: 228B gzipped
+- **Silk**: 228B gzipped
 - **Tailwind CSS**: 4.6KB gzipped (+1972%)
 - **Panda CSS**: 5.0KB gzipped (+2136%)
 
@@ -312,4 +312,4 @@ Performance Improvements:
 
 ---
 
-[0.1.0]: https://github.com/sylphxltd/zencss/releases/tag/v0.1.0
+[0.1.0]: https://github.com/sylphxltd/silk/releases/tag/v0.1.0

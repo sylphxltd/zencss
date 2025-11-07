@@ -1,5 +1,5 @@
 /**
- * ZenCSS v0.2.0 Features Benchmark
+ * Silk v0.2.0 Features Benchmark
  * Tests performance of new production optimizations and modern CSS features
  *
  * Run with: bun test --run benchmark-v0.2.0.bench.ts
@@ -246,7 +246,7 @@ describe('v0.2.0: Modern Color Functions', () => {
 // ============================================================================
 
 describe('v0.2.0: @layer Integration', () => {
-  const { css: zenCSSWithLayers, getCSSRules: getLayeredCSS, resetCSSRules } = createStyleSystem(config, {
+  const { css: silkCSSWithLayers, getCSSRules: getLayeredCSS, resetCSSRules } = createStyleSystem(config, {
     enabled: true,
     order: ['reset', 'base', 'tokens', 'recipes', 'utilities'],
   })
@@ -254,7 +254,7 @@ describe('v0.2.0: @layer Integration', () => {
   bench('Generate CSS with layers', () => {
     resetCSSRules()
     for (let i = 0; i < 50; i++) {
-      zenCSSWithLayers({ color: 'brand.500', px: 4, py: 2 })
+      silkCSSWithLayers({ color: 'brand.500', px: 4, py: 2 })
     }
     getLayeredCSS({ useLayers: true })
   })
@@ -262,7 +262,7 @@ describe('v0.2.0: @layer Integration', () => {
   bench('Generate CSS without layers', () => {
     resetCSSRules()
     for (let i = 0; i < 50; i++) {
-      zenCSSWithLayers({ color: 'brand.500', px: 4, py: 2 })
+      silkCSSWithLayers({ color: 'brand.500', px: 4, py: 2 })
     }
     getLayeredCSS({ useLayers: false })
   })

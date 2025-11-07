@@ -68,7 +68,7 @@ export function generateCSSVariables<C extends DesignConfig & ThemeConfig>(
     includeSemanticTokens?: boolean
   } = {}
 ): Record<string, string> {
-  const { mode = 'light', prefix = 'zen', includeSemanticTokens = true } = options
+  const { mode = 'light', prefix = 'silk', includeSemanticTokens = true } = options
   const variables: Record<string, string> = {}
 
   // Helper to add variables with prefix
@@ -128,7 +128,7 @@ export function generateCSSVariableStylesheet<C extends DesignConfig & ThemeConf
     modes?: ThemeMode[]
   } = {}
 ): string {
-  const { selector = ':root', prefix = 'zen', modes = ['light', 'dark'] } = options
+  const { selector = ':root', prefix = 'silk', modes = ['light', 'dark'] } = options
 
   const stylesheets: string[] = []
 

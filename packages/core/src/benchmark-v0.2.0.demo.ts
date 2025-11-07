@@ -1,5 +1,5 @@
 /**
- * ZenCSS v0.2.0 Performance Demo
+ * Silk v0.2.0 Performance Demo
  * Demonstrates the performance improvements of v0.2.0 features
  *
  * Run with: bun src/benchmark-v0.2.0.demo.ts
@@ -38,7 +38,7 @@ const config = defineConfig({
 })
 
 console.log('╔════════════════════════════════════════════════════════════════╗')
-console.log('║         ZenCSS v0.2.0 Performance Demonstration              ║')
+console.log('║         Silk v0.2.0 Performance Demonstration              ║')
 console.log('╚════════════════════════════════════════════════════════════════╝\n')
 
 // ============================================================================
@@ -236,7 +236,7 @@ const timeProd = performance.now() - startProd
 console.log('Development Mode (500 components):')
 console.log(`  Time: ${timeDev.toFixed(2)}ms`)
 console.log(`  CSS size: ${devCSS.length} bytes`)
-console.log(`  Class names: zen-*, readable`)
+console.log(`  Class names: silk-*, readable`)
 console.log()
 console.log('Production Mode (500 components):')
 console.log(`  Time: ${timeProd.toFixed(2)}ms`)

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Flex, Text, styled } from '../zen.config'
+import { Box, Flex, Text, styled } from '../silk.config'
 
 /**
  * Component Composition Demo

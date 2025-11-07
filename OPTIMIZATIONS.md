@@ -1,4 +1,4 @@
-# ZenCSS v0.2.0 Optimizations
+# Silk v0.2.0 Optimizations
 
 Comprehensive performance and feature optimizations implemented based on industry research of Meta's StyleX, Tailwind v4, Panda CSS, and modern CSS standards.
 
@@ -14,7 +14,7 @@ Comprehensive performance and feature optimizations implemented based on industr
 
 ```typescript
 // Development mode
-.zen-color-brand-500 { color: #3b82f6; }
+.silk-color-brand-500 { color: #3b82f6; }
 
 // Production mode
 .a0 { color: #3b82f6; }
@@ -82,7 +82,7 @@ const { css } = createStyleSystem(config, {
 **Status**: Production-ready since Dec 2023
 
 ```typescript
-import { generateNestedCSS, convertToNestedCSS } from '@sylphx/zencss'
+import { generateNestedCSS, convertToNestedCSS } from '@sylphx/silk'
 
 // Generate nested CSS
 const css = generateNestedCSS(
@@ -122,7 +122,7 @@ const css = generateNestedCSS(
 Perceptually uniform colors with better interpolation:
 
 ```typescript
-import { oklch, generatePalette } from '@sylphx/zencss'
+import { oklch, generatePalette } from '@sylphx/silk'
 
 // Create perceptually uniform colors
 const blue = oklch(0.7, 0.2, 250)
@@ -136,7 +136,7 @@ const palette = generatePalette({ hue: 250, chroma: 0.2 })
 #### Native Color Mixing
 
 ```typescript
-import { colorMix, lighten, darken, alpha } from '@sylphx/zencss'
+import { colorMix, lighten, darken, alpha } from '@sylphx/silk'
 
 // Mix colors natively in browser (no JS calculation!)
 const accent = colorMix('blue', 'red', 60)
@@ -239,7 +239,7 @@ const cssOutput = getCSSRules({ useLayers: true })
 Explicit, type-safe style composition:
 
 ```typescript
-import { mergeStyles, createVariant, createCompoundVariant } from '@sylphx/zencss'
+import { mergeStyles, createVariant, createCompoundVariant } from '@sylphx/silk'
 
 // Merge multiple style objects
 const styles = mergeStyles(
@@ -313,13 +313,13 @@ const buttonStyle = createCompoundVariant({
 ### Installation
 
 ```bash
-npm install @sylphx/zencss
+npm install @sylphx/silk
 ```
 
 ### Basic Usage
 
 ```typescript
-import { createStyleSystem, oklch, generatePalette } from '@sylphx/zencss'
+import { createStyleSystem, oklch, generatePalette } from '@sylphx/silk'
 
 // Define your design system
 const config = {

@@ -1,10 +1,10 @@
-# ZenCSS v0.2.0 - Performance Benchmark Results
+# Silk v0.2.0 - Performance Benchmark Results
 
 > Comprehensive performance analysis of v0.2.0 production optimizations and modern CSS features
 
 ## 📊 Executive Summary
 
-ZenCSS v0.2.0 delivers **45-65% smaller CSS output** through production optimizations while adding modern CSS features with **zero runtime cost**.
+Silk v0.2.0 delivers **45-65% smaller CSS output** through production optimizations while adding modern CSS features with **zero runtime cost**.
 
 ### Key Achievements
 
@@ -161,7 +161,7 @@ ZenCSS v0.2.0 delivers **45-65% smaller CSS output** through production optimiza
 
 | Mode | Build Time | CSS Size | Class Names | Performance |
 |------|-----------|----------|-------------|-------------|
-| **Development** | 6.05ms | 203 bytes | `zen-*` (readable) | Baseline |
+| **Development** | 6.05ms | 203 bytes | `silk-*` (readable) | Baseline |
 | **Production** | 5.19ms | 139 bytes | `a0, a1, ...` (short) | **16.4% faster** |
 
 **Size reduction**: 31.5% (64 bytes saved)
@@ -298,7 +298,7 @@ In real-world builds, the CSS size savings far outweigh the minimal build time i
 
 ## 🎯 Conclusion
 
-ZenCSS v0.2.0 delivers on its promise of **45-65% smaller CSS** through a combination of:
+Silk v0.2.0 delivers on its promise of **45-65% smaller CSS** through a combination of:
 
 1. ✅ **Smart naming** (short hashed class names)
 2. ✅ **Aggressive optimization** (multi-stage CSS pipeline)
@@ -311,7 +311,7 @@ ZenCSS v0.2.0 delivers on its promise of **45-65% smaller CSS** through a combin
 - ✅ Fast build times (1-6ms for 500 components)
 - ✅ Developer experience (modern color functions, style composition)
 
-**ZenCSS v0.2.0 is production-ready and battle-tested with 494 passing tests.**
+**Silk v0.2.0 is production-ready and battle-tested with 494 passing tests.**
 
 ---
 

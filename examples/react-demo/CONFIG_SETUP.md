@@ -1,4 +1,4 @@
-# ZenCSS React Configuration Setup
+# Silk React Configuration Setup
 
 ## ✨ Simplified API (Recommended)
 
@@ -7,9 +7,9 @@
 直接在 `createZenReact` 中定義 config：
 
 ```typescript
-// zen.config.ts
-import { defineConfig } from '@sylphx/zencss'
-import { createZenReact } from '@sylphx/zencss-react'
+// silk.config.ts
+import { defineConfig } from '@sylphx/silk'
+import { createZenReact } from '@sylphx/silk-react'
 
 // ✅ 最簡潔：直接傳入 defineConfig 結果
 export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(
@@ -38,9 +38,9 @@ export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(
 如果需要在其他地方使用 config type（例如創建自定義 utilities）：
 
 ```typescript
-// zen.config.ts
-import { defineConfig } from '@sylphx/zencss'
-import { createZenReact } from '@sylphx/zencss-react'
+// silk.config.ts
+import { defineConfig } from '@sylphx/silk'
+import { createZenReact } from '@sylphx/silk-react'
 
 const config = defineConfig({
   colors: {
@@ -63,7 +63,7 @@ export type Config = typeof config
 **使用場景：**
 - 需要基於 config 創建自定義工具
 - 需要在測試中引用 config type
-- 需要擴展 ZenCSS 功能
+- 需要擴展 Silk 功能
 
 **特點：**
 - ✅ 一行代碼創建所有組件
@@ -76,9 +76,9 @@ export type Config = typeof config
 如果你需要更多控制，可以使用手動 API：
 
 ```typescript
-// zen.config.ts
-import { defineConfig, createStyleSystem } from '@sylphx/zencss'
-import { createReactStyleSystem } from '@sylphx/zencss-react'
+// silk.config.ts
+import { defineConfig, createStyleSystem } from '@sylphx/silk'
+import { createReactStyleSystem } from '@sylphx/silk-react'
 
 const config = defineConfig({
   colors: { brand: { 500: '#3b82f6' } }
@@ -137,9 +137,9 @@ export const { styled, Box, Flex, Grid, Text, css, cx, styleSystem, reactSystem 
 **大部分項目使用 Simplified API:**
 
 ```typescript
-// zen.config.ts - 簡單清晰
-import { defineConfig } from '@sylphx/zencss'
-import { createZenReact } from '@sylphx/zencss-react'
+// silk.config.ts - 簡單清晰
+import { defineConfig } from '@sylphx/silk'
+import { createZenReact } from '@sylphx/silk-react'
 
 const config = defineConfig({
   // ... your design tokens
@@ -151,9 +151,9 @@ export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(config)
 **高級需求使用 Manual API 或混合使用:**
 
 ```typescript
-// zen.config.ts - 需要自定義時
-import { defineConfig } from '@sylphx/zencss'
-import { createZenReact } from '@sylphx/zencss-react'
+// silk.config.ts - 需要自定義時
+import { defineConfig } from '@sylphx/silk'
+import { createZenReact } from '@sylphx/silk-react'
 
 const config = defineConfig({
   // ... your design tokens
@@ -179,11 +179,11 @@ export function customUtility() {
 **從舊語法遷移到新語法：**
 
 ```diff
-// zen.config.ts
-  import { defineConfig } from '@sylphx/zencss'
-- import { createStyleSystem } from '@sylphx/zencss'
-- import { createReactStyleSystem } from '@sylphx/zencss-react'
-+ import { createZenReact } from '@sylphx/zencss-react'
+// silk.config.ts
+  import { defineConfig } from '@sylphx/silk'
+- import { createStyleSystem } from '@sylphx/silk'
+- import { createReactStyleSystem } from '@sylphx/silk-react'
++ import { createZenReact } from '@sylphx/silk-react'
 
 - const config = defineConfig({
 + export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(

@@ -1,5 +1,5 @@
 {
-  "name": "@sylphx/zencss",
+  "name": "@sylphx/silk",
   "version": "0.2.0",
   "description": "Type-safe CSS-in-TypeScript without codegen. 45-65% smaller CSS in production with modern color functions (oklch, color-mix) and native nesting.",
   "keywords": [
@@ -19,11 +19,11 @@
   "homepage": "https://sylphx.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sylphxltd/zencss.git",
+    "url": "https://github.com/sylphxltd/silk.git",
     "directory": "packages/core"
   },
   "bugs": {
-    "url": "https://github.com/sylphxltd/zencss/issues"
+    "url": "https://github.com/sylphxltd/silk/issues"
   },
   "type": "module",
   "main": "./dist/index.js",

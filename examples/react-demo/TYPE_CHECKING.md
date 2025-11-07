@@ -132,7 +132,7 @@ bg?: "brand.500" | "gray.900" | ... | (string & {})
 
 **解決方法:**
 1. 重啟 TypeScript server (VS Code: Cmd/Ctrl + Shift + P → "TypeScript: Restart TS Server")
-2. 確保 `zen.config.ts` 中使用了 `as const`:
+2. 確保 `silk.config.ts` 中使用了 `as const`:
    ```typescript
    export const config = defineConfig({
      colors: { ... }
@@ -193,8 +193,8 @@ bg?: "brand.500" | "gray.900" | ... | (string & {})
 
 4. **檢查配置**:
    ```bash
-   # 確保 zen.config.ts 使用了 as const
-   grep "as const" src/zen.config.ts
+   # 確保 silk.config.ts 使用了 as const
+   grep "as const" src/silk.config.ts
    ```
 
 5. **清除緩存**:

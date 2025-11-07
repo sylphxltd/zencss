@@ -1,4 +1,4 @@
-import { Box, Text } from '../zen.config'
+import { Box, Text } from '../silk.config'
 
 /**
  * Responsive Design Demo

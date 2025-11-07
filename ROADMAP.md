@@ -137,7 +137,7 @@ setTheme('dark') // Switches all semantic tokens
 ```
 
 **Implementation Options**:
-1. **CSS Variables** (recommended): `var(--zen-colors-bg)`
+1. **CSS Variables** (recommended): `var(--silk-colors-bg)`
 2. **Class-based**: `.dark .component { ... }`
 3. **Data attributes**: `[data-theme="dark"]`
 
@@ -156,12 +156,12 @@ const system = createStyleSystem(config, {
 
 // Outputs:
 // :root {
-//   --zen-colors-blue-500: #3b82f6;
-//   --zen-spacing-4: 1rem;
+//   --silk-colors-blue-500: #3b82f6;
+//   --silk-spacing-4: 1rem;
 // }
 
 // Runtime changes:
-document.documentElement.style.setProperty('--zen-colors-blue-500', '#custom')
+document.documentElement.style.setProperty('--silk-colors-blue-500', '#custom')
 ```
 
 ---
@@ -289,7 +289,7 @@ const system = createStyleSystem(config, {
 // Outputs:
 // @layer reset { ... }
 // @layer base { ... }
-// @layer utilities { .zen-abc { ... } }
+// @layer utilities { .silk-abc { ... } }
 ```
 
 **Benefits**:

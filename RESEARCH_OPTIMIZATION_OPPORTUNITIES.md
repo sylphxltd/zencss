@@ -1,9 +1,9 @@
-# ZenCSS Optimization Opportunities Research
+# Silk Optimization Opportunities Research
 *Research Date: January 2025*
 
 ## 📊 Executive Summary
 
-Based on comprehensive research of cutting-edge CSS-in-JS technologies, modern CSS features, and industry best practices, this document outlines strategic optimization opportunities for ZenCSS to maintain its competitive edge as the smallest, fastest, and most type-safe CSS-in-TS library.
+Based on comprehensive research of cutting-edge CSS-in-JS technologies, modern CSS features, and industry best practices, this document outlines strategic optimization opportunities for Silk to maintain its competitive edge as the smallest, fastest, and most type-safe CSS-in-TS library.
 
 ---
 
@@ -94,7 +94,7 @@ for await (const chunk of stream) {
 
 ### 1. **Atomic CSS Class Name Hashing** (HIGH PRIORITY)
 
-**Current State**: Descriptive class names (`.zen-color-brand-500`)
+**Current State**: Descriptive class names (`.silk-color-brand-500`)
 **Opportunity**: Short hash-based names in production
 
 **Benefits**:
@@ -105,7 +105,7 @@ for await (const chunk of stream) {
 **Implementation**:
 ```typescript
 // Development
-.zen-color-brand-500 { color: #3b82f6; }
+.silk-color-brand-500 { color: #3b82f6; }
 
 // Production (hashed)
 .a1b2c3 { color: #3b82f6; }
@@ -360,7 +360,7 @@ export const button = "button_abc123";
 
 **Implementation**:
 ```css
-/* zen.css */
+/* silk.css */
 @theme {
   --color-brand-500: #3b82f6;
   --spacing-4: 1rem;
@@ -397,7 +397,7 @@ export const button = "button_abc123";
 }
 
 @layer utilities {
-  .zen-color-brand-500 { color: var(--color-brand-500); }
+  .silk-color-brand-500 { color: var(--color-brand-500); }
 }
 ```
 
@@ -419,7 +419,7 @@ export const button = "button_abc123";
 
 **Implementation**:
 ```typescript
-import { mergeStyles } from '@sylphx/zencss'
+import { mergeStyles } from '@sylphx/silk'
 
 const baseButton = { px: 6, py: 3, bg: 'brand.500' }
 const largeButton = { px: 8, py: 4 }

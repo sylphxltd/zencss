@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '../zen.config'
+import { Box, Flex, Text } from '../silk.config'
 
 /**
  * Layout Demo

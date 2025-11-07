@@ -54,7 +54,7 @@ const config = defineConfig({
   },
 })
 
-const { css: zenCSS, getCSSRules, resetCSSRules } = createStyleSystem(config)
+const { css: silk, getCSSRules, resetCSSRules } = createStyleSystem(config)
 const optimizer = new ProductionOptimizer({ enabled: true, reportUnused: false })
 const criticalExtractor = new CriticalCSSExtractor({ enabled: true })
 
@@ -75,7 +75,7 @@ async function runZenCSSBenchmark(scenario: BenchmarkScenario) {
 
   for (let i = 0; i < iterations; i++) {
     for (const prop of props) {
-      zenCSS(prop)
+      silk(prop)
     }
   }
 

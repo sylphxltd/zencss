@@ -12,7 +12,7 @@ export interface SelectorConfig {
 
   /**
    * Prefix for generated class names
-   * @default 'zen'
+   * @default 'silk'
    */
   prefix?: string
 
@@ -25,7 +25,7 @@ export interface SelectorConfig {
 
 export const defaultSelectorConfig: Required<SelectorConfig> = {
   useWhere: true,
-  prefix: 'zen',
+  prefix: 'silk',
   minifyClassNames: false,
 }
 
@@ -210,7 +210,7 @@ export class ClassNameGenerator {
       // Minified: z0, z1, ..., zz, z10, z11
       className = minifyClassName(key, this.counter++)
     } else {
-      // Human-readable: zen-abc123
+      // Human-readable: silk-abc123
       className = `${this.config.prefix}-${this.hash(key)}`
     }
 

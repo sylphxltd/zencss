@@ -3,7 +3,7 @@
  * Verify that type inference still works perfectly
  */
 
-import { Box, Text, styled } from './zen.config'
+import { Box, Text, styled } from './silk.config'
 
 export function TestSimplifiedAPI() {
   return (

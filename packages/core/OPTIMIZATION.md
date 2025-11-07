@@ -1,6 +1,6 @@
-# ZenCSS Optimization
+# Silk Optimization
 
-ZenCSS includes powerful optimization features that automatically minimize CSS output while maintaining full functionality.
+Silk includes powerful optimization features that automatically minimize CSS output while maintaining full functionality.
 
 ## Features
 
@@ -54,11 +54,11 @@ Fewer properties = fewer atomic CSS classes:
 ```typescript
 // Without optimization: 6 atomic classes
 css({ pt: 2, pr: 4, pb: 2, pl: 4, bg: 'blue', color: 'white' })
-// → zen-a zen-b zen-c zen-d zen-e zen-f
+// → silk-a silk-b silk-c silk-d silk-e silk-f
 
 // With optimization: 4 atomic classes
 css({ pt: 2, pr: 4, pb: 2, pl: 4, bg: 'blue', color: 'white' })
-// → zen-x zen-y zen-z zen-w
+// → silk-x silk-y silk-z silk-w
 ```
 
 **Result**: ~33% fewer classes
@@ -186,7 +186,7 @@ css({
 ### vs Tailwind CSS
 
 - **Tailwind**: No automatic merging, generates all utility classes
-- **ZenCSS**: Intelligent merging, generates minimal classes
+- **Silk**: Intelligent merging, generates minimal classes
 
 ```html
 <!-- Tailwind -->
@@ -194,8 +194,8 @@ css({
   <!-- 5 classes -->
 </div>
 
-<!-- ZenCSS (equivalent) -->
-<div class="zen-abc zen-def zen-ghi">
+<!-- Silk (equivalent) -->
+<div class="silk-abc silk-def silk-ghi">
   <!-- 3 classes (paddingBlock, paddingInline, bg) -->
 </div>
 ```
@@ -203,9 +203,9 @@ css({
 ### vs Panda CSS
 
 - **Panda**: Some merging via recipes/patterns
-- **ZenCSS**: Automatic merging for all styles
+- **Silk**: Automatic merging for all styles
 
-Both support shorthand CSS, but ZenCSS does it automatically without configuration.
+Both support shorthand CSS, but Silk does it automatically without configuration.
 
 ## Advanced Usage
 
@@ -214,7 +214,7 @@ Both support shorthand CSS, but ZenCSS does it automatically without configurati
 You can manually call the optimizer:
 
 ```typescript
-import { getMinimalProps } from '@sylphx/zencss'
+import { getMinimalProps } from '@sylphx/silk'
 
 const optimized = getMinimalProps({
   mt: 4,
@@ -235,7 +235,7 @@ import {
   mergeProperties,   // Merge into shorthand
   optimizeProps,     // Full optimization
   resolveConflicts,  // Resolve property conflicts
-} from '@sylphx/zencss'
+} from '@sylphx/silk'
 ```
 
 ## FAQ

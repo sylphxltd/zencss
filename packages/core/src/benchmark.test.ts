@@ -45,8 +45,8 @@ describe('Benchmark Utilities', () => {
       const scenario = BENCHMARK_SCENARIOS[0]
       const css = generateMockCSS(scenario, true)
 
-      expect(css).toContain('.zen-class-')
-      const classCount = (css.match(/\.zen-class-/g) || []).length
+      expect(css).toContain('.silk-class-')
+      const classCount = (css.match(/\.silk-class-/g) || []).length
       expect(classCount).toBe(scenario.usedClasses)
     })
 
@@ -54,7 +54,7 @@ describe('Benchmark Utilities', () => {
       const scenario = BENCHMARK_SCENARIOS[0]
       const css = generateMockCSS(scenario, false)
 
-      const classCount = (css.match(/\.zen-class-/g) || []).length
+      const classCount = (css.match(/\.silk-class-/g) || []).length
       expect(classCount).toBe(scenario.totalClasses)
     })
   })

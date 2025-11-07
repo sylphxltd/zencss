@@ -1,6 +1,6 @@
 <div align="center">
 
-# ZenCSS 🎨
+# Silk 🎨
 
 **Type-safe CSS-in-TypeScript without codegen**
 
@@ -23,11 +23,11 @@
 
 ## 🚀 Overview
 
-ZenCSS is a **high-performance** CSS-in-TypeScript library that delivers **industry-leading bundle sizes** while maintaining full type safety and zero runtime overhead. Unlike Panda CSS which requires codegen, ZenCSS achieves complete type inference through pure TypeScript template literal types.
+Silk is a **high-performance** CSS-in-TypeScript library that delivers **industry-leading bundle sizes** while maintaining full type safety and zero runtime overhead. Unlike Panda CSS which requires codegen, Silk achieves complete type inference through pure TypeScript template literal types.
 
-**Stop settling for bloated CSS frameworks. Choose ZenCSS.**
+**Stop settling for bloated CSS frameworks. Choose Silk.**
 
-## ⚡ Why ZenCSS?
+## ⚡ Why Silk?
 
 ### **🚀 v0.2.0: Production Optimizations**
 - 📦 **45-65% smaller CSS** in production (new in v0.2.0!)
@@ -55,7 +55,7 @@ ZenCSS is a **high-performance** CSS-in-TypeScript library that delivers **indus
 
 ### **Feature Comparison**
 
-| Feature | ZenCSS | Tailwind CSS | Panda CSS |
+| Feature | Silk | Tailwind CSS | Panda CSS |
 |---------|--------|--------------|-----------|
 | **Bundle Size (Large)** | **228B** | 4.6KB (+1972%) | 5.0KB (+2136%) |
 | **Type Inference** | ✅ | ❌ | ✅ |
@@ -68,7 +68,7 @@ ZenCSS is a **high-performance** CSS-in-TypeScript library that delivers **indus
 | **:where() Selector** | ✅ | ✅ (v4+) | ✅ |
 | **Tree Shaking** | ✅ | ✅ | ✅ |
 
-**ZenCSS is the only framework that combines type safety, zero codegen, critical CSS extraction, and modern color functions.**
+**Silk is the only framework that combines type safety, zero codegen, critical CSS extraction, and modern color functions.**
 
 ---
 
@@ -77,7 +77,7 @@ ZenCSS is a **high-performance** CSS-in-TypeScript library that delivers **indus
 ### Production Optimizations
 
 ```typescript
-import { createStyleSystem } from '@sylphx/zencss'
+import { createStyleSystem } from '@sylphx/silk'
 
 const { css, getCSSRules } = createStyleSystem(config, {
   // Enable production optimizations
@@ -87,14 +87,14 @@ const { css, getCSSRules } = createStyleSystem(config, {
   optimizeCSS: true,       // Property deduplication, color optimization
 })
 
-// Development: .zen-color-brand-500 { color: #3b82f6; }
+// Development: .silk-color-brand-500 { color: #3b82f6; }
 // Production:  .a0 { color: #3b82f6; }
 ```
 
 ### Modern Color Functions
 
 ```typescript
-import { oklch, colorMix, lighten, darken, generatePalette } from '@sylphx/zencss'
+import { oklch, colorMix, lighten, darken, generatePalette } from '@sylphx/silk'
 
 // Perceptually uniform colors (better than HSL/RGB)
 const blue = oklch(0.7, 0.2, 250)
@@ -112,7 +112,7 @@ const palette = generatePalette({ hue: 250, chroma: 0.2 })
 ### Style Composition API
 
 ```typescript
-import { mergeStyles, createVariant, createCompoundVariant } from '@sylphx/zencss'
+import { mergeStyles, createVariant, createCompoundVariant } from '@sylphx/silk'
 
 // Merge multiple style objects
 const styles = mergeStyles(
@@ -155,7 +155,7 @@ const buttonStyle = createCompoundVariant({
 ### Native CSS Nesting
 
 ```typescript
-import { generateNestedCSS } from '@sylphx/zencss'
+import { generateNestedCSS } from '@sylphx/silk'
 
 // Generate modern nested CSS
 const css = generateNestedCSS(
@@ -198,15 +198,15 @@ const { css, getCSSRules } = createStyleSystem(config, {
 
 ```bash
 # Core package
-bun add @sylphx/zencss
+bun add @sylphx/silk
 
 # React integration (includes core)
-bun add @sylphx/zencss-react
+bun add @sylphx/silk-react
 
 # Other package managers
-npm install @sylphx/zencss-react
-pnpm add @sylphx/zencss-react
-yarn add @sylphx/zencss-react
+npm install @sylphx/silk-react
+pnpm add @sylphx/silk-react
+yarn add @sylphx/silk-react
 ```
 
 ## Quick Start
@@ -214,9 +214,9 @@ yarn add @sylphx/zencss-react
 ### React (Recommended)
 
 ```typescript
-// zen.config.ts
-import { defineConfig } from '@sylphx/zencss'
-import { createZenReact } from '@sylphx/zencss-react'
+// silk.config.ts
+import { defineConfig } from '@sylphx/silk'
+import { createZenReact } from '@sylphx/silk-react'
 
 // ✨ One-line setup with full type inference
 export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(
@@ -233,13 +233,13 @@ export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(
 
 ```tsx
 // App.tsx
-import { Box, Text, styled } from './zen.config'
+import { Box, Text, styled } from './silk.config'
 
 function App() {
   return (
     <Box p={8} bg="gray.100">
       <Text fontSize="lg" color="gray.900">
-        Hello ZenCSS! 🎨
+        Hello Silk! 🎨
       </Text>
     </Box>
   )
@@ -261,7 +261,7 @@ const Button = styled('button', {
 ### Vanilla TypeScript
 
 ```typescript
-import { defineConfig, createStyleSystem } from '@sylphx/zencss'
+import { defineConfig, createStyleSystem } from '@sylphx/silk'
 
 const config = defineConfig({
   colors: {
@@ -292,7 +292,7 @@ css({ color: 'invalid.500' })  // ❌ Compile error
 
 ### Strict Type Safety (No Codegen Required)
 
-ZenCSS enforces your design system at compile time. Only tokens defined in your config are allowed - invalid values produce TypeScript errors before they reach production.
+Silk enforces your design system at compile time. Only tokens defined in your config are allowed - invalid values produce TypeScript errors before they reach production.
 
 ```typescript
 const config = defineConfig({
@@ -319,7 +319,7 @@ const config = defineConfig({
   p={4}               // ✅ Number or token: 4, 8
   fontSize="lg"       // ✅ Autocomplete: base, lg
 >
-  Hello ZenCSS
+  Hello Silk
 </Box>
 
 // ❌ INVALID - Compile-time errors
@@ -350,15 +350,15 @@ const config = defineConfig({
 **vs Panda CSS:**
 - ❌ Panda requires `panda codegen` to generate `styled-system/` directory
 - ❌ Panda allows arbitrary strings by default (less strict)
-- ✅ ZenCSS: zero codegen, instant autocomplete, stricter type safety
+- ✅ Silk: zero codegen, instant autocomplete, stricter type safety
 - ✅ Simpler setup: just `export const { Box, ... } = createZenReact(config)`
 
 ### Critical CSS Extraction
 
-**Unique to ZenCSS** - automatic critical CSS extraction for 30-50% faster first paint:
+**Unique to Silk** - automatic critical CSS extraction for 30-50% faster first paint:
 
 ```typescript
-import { CriticalCSSExtractor } from '@sylphx/zencss'
+import { CriticalCSSExtractor } from '@sylphx/silk'
 
 const extractor = new CriticalCSSExtractor({ enabled: true })
 
@@ -384,7 +384,7 @@ const inlineCSS = extractor.generateInlineHTML(critical)
 Built-in all-in-one optimizer for 50-90% size reduction:
 
 ```typescript
-import { ProductionOptimizer } from '@sylphx/zencss'
+import { ProductionOptimizer } from '@sylphx/silk'
 
 const optimizer = new ProductionOptimizer({
   enabled: true,
@@ -418,7 +418,7 @@ console.log(result.stats)
 **Cascade Layers (@layer):**
 
 ```typescript
-import { LayerManager } from '@sylphx/zencss'
+import { LayerManager } from '@sylphx/silk'
 
 const manager = new LayerManager({
   order: ['reset', 'base', 'tokens', 'utilities', 'overrides']
@@ -436,7 +436,7 @@ const css = manager.generateCSS()
 **Zero Specificity with :where():**
 
 ```typescript
-import { wrapInWhere, calculateSpecificity } from '@sylphx/zencss'
+import { wrapInWhere, calculateSpecificity } from '@sylphx/silk'
 
 wrapInWhere('.btn')  // => ':where(.btn)'
 
@@ -454,7 +454,7 @@ calculateSpecificity('.btn')          // [0, 0, 1, 0] - Normal specificity
 Built-in analytics for tracking build performance:
 
 ```typescript
-import { PerformanceMonitor } from '@sylphx/zencss'
+import { PerformanceMonitor } from '@sylphx/silk'
 
 const monitor = new PerformanceMonitor()
 monitor.startBuild()
@@ -470,7 +470,7 @@ monitor.recordMetrics({
 })
 
 console.log(monitor.generateReport())
-// ✓ ZenCSS build complete
+// ✓ Silk build complete
 // ⏱️  Duration: 100ms
 // 📦 CSS generated: 5.0KB (50.0% savings)
 // 🎯 Classes: 80/100 used (20 unused)
@@ -484,7 +484,7 @@ Automatic property merging for 20-40% fewer atomic classes:
 // You write:
 css({ mt: 4, mb: 4, ml: 2, mr: 2 })
 
-// ZenCSS optimizes to:
+// Silk optimizes to:
 css({ marginBlock: 4, marginInline: 2 })
 
 // Result: 2 atomic classes instead of 4 (50% reduction)
@@ -515,7 +515,7 @@ const { css, cx, getCSSRules, resetCSSRules } = createStyleSystem(config)
 
 // css() - Generate atomic CSS classes
 const result = css({ color: 'primary.500', padding: '4' })
-// => { className: 'zen-abc zen-def' }
+// => { className: 'silk-abc silk-def' }
 
 // cx() - Merge class names with style objects
 const merged = cx('base-class', { color: 'gray.900' })
@@ -532,7 +532,7 @@ resetCSSRules()
 #### `ProductionOptimizer`
 
 ```typescript
-import { ProductionOptimizer } from '@sylphx/zencss'
+import { ProductionOptimizer } from '@sylphx/silk'
 
 const optimizer = new ProductionOptimizer({
   enabled: true,
@@ -549,7 +549,7 @@ const result = await optimizer.optimize(css, rootDir)
 #### `CriticalCSSExtractor`
 
 ```typescript
-import { CriticalCSSExtractor } from '@sylphx/zencss'
+import { CriticalCSSExtractor } from '@sylphx/silk'
 
 const extractor = new CriticalCSSExtractor({ enabled: true })
 extractor.autoDetect(css)
@@ -560,7 +560,7 @@ const { critical, nonCritical } = extractor.extract(css)
 #### `ClassUsageTracker`
 
 ```typescript
-import { ClassUsageTracker } from '@sylphx/zencss'
+import { ClassUsageTracker } from '@sylphx/silk'
 
 const tracker = new ClassUsageTracker()
 await tracker.scan('./src')
@@ -570,12 +570,12 @@ console.log(tracker.getStats())
 
 ### React Integration
 
-ZenCSS provides first-class React support with `createZenReact()`:
+Silk provides first-class React support with `createZenReact()`:
 
 ```typescript
-// zen.config.ts - One-line setup
-import { defineConfig } from '@sylphx/zencss'
-import { createZenReact } from '@sylphx/zencss-react'
+// silk.config.ts - One-line setup
+import { defineConfig } from '@sylphx/silk'
+import { createZenReact } from '@sylphx/silk-react'
 
 export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(
   defineConfig({
@@ -591,7 +591,7 @@ export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(
 
 ```tsx
 // App.tsx - Use with full type inference
-import { Box, Flex, Text, styled } from './zen.config'
+import { Box, Flex, Text, styled } from './silk.config'
 
 // Create styled components
 const Button = styled('button', {
@@ -633,13 +633,13 @@ function App() {
 
 ### Bundle Size Comparison (Gzipped)
 
-| Scenario | ZenCSS | Tailwind CSS | Panda CSS |
+| Scenario | Silk | Tailwind CSS | Panda CSS |
 |----------|--------|--------------|-----------|
 | Small (80 classes) | **228B** | 315B (+38%) | 421B (+85%) |
 | Medium (600 classes) | **228B** | 1.1KB (+403%) | 1.3KB (+474%) |
 | Large (3000 classes) | **228B** | 4.6KB (+1972%) | 5.0KB (+2136%) |
 
-**ZenCSS is 38-2100% smaller** than competitors.
+**Silk is 38-2100% smaller** than competitors.
 
 [**View full benchmark results →**](./BENCHMARK_RESULTS.md)
 
@@ -675,8 +675,8 @@ const config = { colors: { red: { 500: '#ef4444' } } } as const
 css({ color: 'red.500', padding: '4' })
 
 // Generates:
-// .zen-a1b2c { color: #ef4444; }
-// .zen-d3e4f { padding: 1rem; }
+// .silk-a1b2c { color: #ef4444; }
+// .silk-d3e4f { padding: 1rem; }
 ```
 
 ### 3. Build-time Extraction
@@ -707,7 +707,7 @@ Output: Optimized CSS (50-90% smaller)
 
 ### vs Tailwind CSS
 
-**ZenCSS advantages:**
+**Silk advantages:**
 - Full type safety with autocomplete
 - 38-2100% smaller bundles
 - Critical CSS extraction
@@ -722,7 +722,7 @@ Output: Optimized CSS (50-90% smaller)
 
 ### vs Panda CSS
 
-**ZenCSS advantages:**
+**Silk advantages:**
 - **No codegen** - no `styled-system/` directory
 - Faster type checking
 - Simpler setup
@@ -736,9 +736,9 @@ Output: Optimized CSS (50-90% smaller)
 - Larger community
 - Faster build times
 
-ZenCSS is Panda CSS, but **better where it matters**:
+Silk is Panda CSS, but **better where it matters**:
 
-| Feature | ZenCSS | Panda CSS |
+| Feature | Silk | Panda CSS |
 |---------|--------|-----------|
 | **Bundle Size (Large)** | **228B** | 5.0KB (+2136%) |
 | **Type Safety** | ✅ | ✅ |
@@ -753,7 +753,7 @@ ZenCSS is Panda CSS, but **better where it matters**:
 
 ### React Demo App
 
-Interactive demo showcasing all ZenCSS features:
+Interactive demo showcasing all Silk features:
 
 ```bash
 cd examples/react-demo
@@ -771,7 +771,7 @@ bun run dev
 - ✅ Interactive examples with state management
 
 **Demo sections:**
-- Overview - Introduction to ZenCSS features
+- Overview - Introduction to Silk features
 - Layout - Flexbox, Grid, spacing utilities
 - Typography - Font sizes, weights, colors
 - Pseudo Selectors - Hover, focus, active states
@@ -812,7 +812,7 @@ bun packages/core/src/benchmark.demo.ts
 - [Optimization Plan](./packages/core/OPTIMIZATION_PLAN.md) - Roadmap and research
 
 ### React Integration Guides
-- [Configuration Setup](./examples/react-demo/CONFIG_SETUP.md) - How to set up ZenCSS React
+- [Configuration Setup](./examples/react-demo/CONFIG_SETUP.md) - How to set up Silk React
 - [Type Checking Guide](./examples/react-demo/TYPE_CHECKING.md) - Verify type inference is working
 
 ## Testing
@@ -877,7 +877,7 @@ bun run build
 
 ## 🌟 Show Your Support
 
-If ZenCSS makes your CSS better, give it a ⭐ on GitHub!
+If Silk makes your CSS better, give it a ⭐ on GitHub!
 
 ## 📄 License
 
@@ -892,7 +892,7 @@ Built with ❤️ for developers who refuse to compromise on bundle size.
 ---
 
 <p align="center">
-  <strong>Stop settling for bloated CSS. Choose ZenCSS.</strong>
+  <strong>Stop settling for bloated CSS. Choose Silk.</strong>
   <br>
   <sub>Type-safe CSS-in-TypeScript with industry-leading bundle sizes</sub>
 </p>

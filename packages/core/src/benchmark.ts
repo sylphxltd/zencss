@@ -522,7 +522,7 @@ export function generateMockCSS(scenario: BenchmarkScenario, used = true): strin
   const numClasses = used ? scenario.usedClasses : scenario.totalClasses
 
   for (let i = 0; i < numClasses; i++) {
-    classes.push(`.zen-class-${i} { color: red; padding: 1rem; }`)
+    classes.push(`.silk-class-${i} { color: red; padding: 1rem; }`)
   }
 
   return classes.join('\n')

@@ -107,7 +107,7 @@ describe('production optimizations', () => {
 
       const className = generateClassName('color-red', config)
 
-      expect(className).toMatch(/^zen-/)
+      expect(className).toMatch(/^silk-/)
       expect(className.length).toBeGreaterThan(5)
     })
 

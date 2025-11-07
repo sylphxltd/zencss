@@ -130,7 +130,7 @@ export class ClassUsageTracker {
     }
 
     // Extract from className strings
-    // Pattern: className="zen-abc123" or className='zen-abc123'
+    // Pattern: className="silk-abc123" or className='silk-abc123'
     const classNamePattern = /className\s*=\s*["']([^"']+)["']/g
 
     while ((match = classNamePattern.exec(content)) !== null) {
@@ -138,20 +138,20 @@ export class ClassUsageTracker {
       if (!classStr) continue
       const classes = classStr.split(/\s+/)
       for (const cls of classes) {
-        if (cls.startsWith('zen-')) {
+        if (cls.startsWith('silk-')) {
           this.usedClasses.add(cls)
         }
       }
     }
 
     // Extract from template literals
-    // Pattern: className={`zen-abc ${other}`}
+    // Pattern: className={`silk-abc ${other}`}
     const templatePattern = /className\s*=\s*\{`([^`]+)`\}/g
 
     while ((match = templatePattern.exec(content)) !== null) {
       const templateStr = match[1]
       if (!templateStr) continue
-      const classes = templateStr.match(/zen-[\w-]+/g) || []
+      const classes = templateStr.match(/silk-[\w-]+/g) || []
       for (const cls of classes) {
         this.usedClasses.add(cls)
       }

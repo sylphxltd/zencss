@@ -1,9 +1,9 @@
 {
-  "name": "@sylphx/zencss-react",
+  "name": "@sylphx/silk-react",
   "version": "0.2.0",
-  "description": "React integration for ZenCSS - Type-safe CSS-in-TypeScript with modern color functions and native nesting",
+  "description": "React integration for Silk - Type-safe CSS-in-TypeScript with modern color functions and native nesting",
   "keywords": [
-    "zencss",
+    "silk",
     "react",
     "css-in-js",
     "typescript",
@@ -14,11 +14,11 @@
   "homepage": "https://sylphx.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sylphxltd/zencss.git",
+    "url": "https://github.com/sylphxltd/silk.git",
     "directory": "packages/react"
   },
   "bugs": {
-    "url": "https://github.com/sylphxltd/zencss/issues"
+    "url": "https://github.com/sylphxltd/silk/issues"
   },
   "type": "module",
   "main": "./dist/index.js",
@@ -40,7 +40,7 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@sylphx/zencss": "workspace:*"
+    "@sylphx/silk": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",

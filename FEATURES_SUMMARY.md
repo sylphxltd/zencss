@@ -315,10 +315,10 @@ const css = manager.generateCSS()
 **Example**:
 ```typescript
 // Regular selector: specificity (0,1,0)
-'.zen-button { color: blue; }'
+'.silk-button { color: blue; }'
 
 // With :where(): specificity (0,0,0)
-':where(.zen-button) { color: blue; }'
+':where(.silk-button) { color: blue; }'
 
 // Now ANY class can override!
 '.my-custom { color: red; }' // This wins!
@@ -336,7 +336,7 @@ const generator = new ClassNameGenerator({
   minifyClassNames: true
 })
 
-// Development: zen-padding-4
+// Development: silk-padding-4
 // Production: z1, z2, z3...
 ```
 

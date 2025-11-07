@@ -1,17 +1,17 @@
 /**
- * @sylphx/zencss-vite-plugin
+ * @sylphx/silk-vite-plugin
  * Build-time CSS extraction for zero runtime overhead
  */
 
 import type { Plugin, ViteDevServer } from 'vite'
-import { cssRules } from '@sylphx/zencss'
+import { cssRules } from '@sylphx/silk'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 
-export interface ZenCSSPluginOptions {
+export interface SilkPluginOptions {
   /**
    * Output CSS file path (relative to outDir)
-   * @default 'zencss.css'
+   * @default 'silk.css'
    */
   outputFile?: string
 
@@ -34,8 +34,8 @@ export interface ZenCSSPluginOptions {
   watch?: boolean
 }
 
-export function zenCSS(options: ZenCSSPluginOptions = {}): Plugin {
-  const { outputFile = 'zencss.css', inject = true, minify, watch = true } = options
+export function silk(options: SilkPluginOptions = {}): Plugin {
+  const { outputFile = 'silk.css', inject = true, minify, watch = true } = options
 
   let server: ViteDevServer | undefined
   let isBuild = false
@@ -82,7 +82,7 @@ export function zenCSS(options: ZenCSSPluginOptions = {}): Plugin {
   }
 
   return {
-    name: 'zencss',
+    name: 'silk',
 
     configResolved(config) {
       isBuild = config.command === 'build'
@@ -98,7 +98,7 @@ export function zenCSS(options: ZenCSSPluginOptions = {}): Plugin {
           if (newCSS) {
             server?.ws.send({
               type: 'custom',
-              event: 'zencss:update',
+              event: 'silk:update',
               data: { css: newCSS },
             })
           }
@@ -119,7 +119,7 @@ export function zenCSS(options: ZenCSSPluginOptions = {}): Plugin {
         if (!css) return html
 
         // Inject CSS into head
-        const styleTag = `<style data-zencss>${css}</style>`
+        const styleTag = `<style data-silk>${css}</style>`
 
         if (html.includes('</head>')) {
           return html.replace('</head>', `${styleTag}\n</head>`)
@@ -152,7 +152,7 @@ export function zenCSS(options: ZenCSSPluginOptions = {}): Plugin {
 
           // Replace inline style with link tag
           asset.source = html
-            .replace(/<style data-zencss>[\s\S]*?<\/style>/, linkTag)
+            .replace(/<style data-silk>[\s\S]*?<\/style>/, linkTag)
             .replace('</head>', `${linkTag}\n</head>`)
         }
       }
@@ -165,7 +165,7 @@ export function zenCSS(options: ZenCSSPluginOptions = {}): Plugin {
         const css = generateCSS()
         server.ws.send({
           type: 'custom',
-          event: 'zencss:update',
+          event: 'silk:update',
           data: { css },
         })
       }
@@ -173,19 +173,19 @@ export function zenCSS(options: ZenCSSPluginOptions = {}): Plugin {
   }
 }
 
-export default zenCSS
+export default silk
 
 /**
  * Client-side script for hot CSS updates
  * This should be imported in the app entry point
  */
-export const zenCSSClient = `
+export const silkClient = `
 if (import.meta.hot) {
-  import.meta.hot.on('zencss:update', ({ css }) => {
-    let style = document.querySelector('style[data-zencss]')
+  import.meta.hot.on('silk:update', ({ css }) => {
+    let style = document.querySelector('style[data-silk]')
     if (!style) {
       style = document.createElement('style')
-      style.setAttribute('data-zencss', '')
+      style.setAttribute('data-silk', '')
       document.head.appendChild(style)
     }
     style.textContent = css

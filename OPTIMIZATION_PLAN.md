@@ -46,18 +46,18 @@ Based on research of Tailwind CSS v4.0, Panda CSS, and modern CSS-in-JS best pra
 **Benefits**:
 ```css
 /* Current output */
-.zen-abc { color: red; }
-.zen-xyz { color: blue; }
+.silk-abc { color: red; }
+.silk-xyz { color: blue; }
 
 /* With @layer */
 @layer reset, base, tokens, recipes, utilities;
 
 @layer base {
-  .zen-abc { color: red; }
+  .silk-abc { color: red; }
 }
 
 @layer utilities {
-  .zen-xyz { color: blue; }
+  .silk-xyz { color: blue; }
 }
 ```
 
@@ -82,10 +82,10 @@ Based on research of Tailwind CSS v4.0, Panda CSS, and modern CSS-in-JS best pra
 **Benefits**:
 ```css
 /* Current: specificity (0,1,0) */
-.zen-abc { color: red; }
+.silk-abc { color: red; }
 
 /* With :where(): specificity (0,0,0) */
-:where(.zen-abc) { color: red; }
+:where(.silk-abc) { color: red; }
 
 /* Easy to override */
 .my-class { color: blue; } /* This wins! */

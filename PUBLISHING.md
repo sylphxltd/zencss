@@ -37,9 +37,9 @@
 ## 📦 Package Versions
 
 ```
-@sylphx/zencss@0.1.0
-@sylphx/zencss-react@0.1.0
-@sylphx/zencss-vite-plugin@0.1.0
+@sylphx/silk@0.1.0
+@sylphx/silk-react@0.1.0
+@sylphx/silk-vite-plugin@0.1.0
 ```
 
 ## 🚀 Publishing Steps
@@ -94,14 +94,14 @@ npx changeset publish
 ### 4. Verify Published Packages
 ```bash
 # Check packages are published
-npm view @sylphx/zencss
-npm view @sylphx/zencss-react
-npm view @sylphx/zencss-vite-plugin
+npm view @sylphx/silk
+npm view @sylphx/silk-react
+npm view @sylphx/silk-vite-plugin
 
 # Try installing in a test project
 mkdir test-install && cd test-install
 npm init -y
-npm install @sylphx/zencss-react
+npm install @sylphx/silk-react
 ```
 
 ### 5. Post-Publishing

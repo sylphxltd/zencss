@@ -75,7 +75,7 @@ export function createExtendedStyleSystem<C extends ExtendedConfig>(
   const {
     optimize = true,
     cssVarRoot = ':root',
-    cssVarPrefix = 'zen',
+    cssVarPrefix = 'silk',
     useCustomProperties = false,
     mode = 'light',
   } = options
@@ -184,7 +184,7 @@ export function createExtendedStyleSystem<C extends ExtendedConfig>(
     const cssValue = getCSSValue(prop, value)
     const cssProp = prop.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
     const styleId = `${prop}-${value}${pseudo ?? ''}`
-    const className = `zen-${hash(styleId)}`
+    const className = `silk-${hash(styleId)}`
 
     const selector = pseudo ? `.${className}${pseudo}` : `.${className}`
     const rule = `${selector} { ${cssProp}: ${cssValue}; }`
@@ -245,7 +245,7 @@ export function createExtendedStyleSystem<C extends ExtendedConfig>(
 
     // Generate responsive CSS
     if (Object.keys(responsive).length > 0 && config.breakpoints) {
-      const tempClass = `zen-r-${hash(JSON.stringify(responsive))}`
+      const tempClass = `silk-r-${hash(JSON.stringify(responsive))}`
       const rules = generateResponsiveCSS(`.${tempClass}`, responsive, config.breakpoints, getCSSValue)
 
       for (const rule of rules) {
@@ -256,7 +256,7 @@ export function createExtendedStyleSystem<C extends ExtendedConfig>(
 
     // Generate container query CSS
     if (Object.keys(container).length > 0 && config.containers) {
-      const tempClass = `zen-c-${hash(JSON.stringify(container))}`
+      const tempClass = `silk-c-${hash(JSON.stringify(container))}`
       const rules = generateContainerQueryCSS(`.${tempClass}`, container, config.containers, getCSSValue)
 
       for (const rule of rules) {

@@ -32,21 +32,21 @@ const sampleCSS = `
 
 /* Utilities layer */
 @layer utilities {
-  :where(.zen-p-4) { padding: 1rem; }
-  :where(.zen-m-2) { margin: 0.5rem; }
-  :where(.zen-text-red) { color: red; }
-  :where(.zen-text-blue) { color: blue; }
-  :where(.zen-bg-white) { background-color: white; }
-  :where(.zen-bg-gray) { background-color: gray; }
-  :where(.zen-flex) { display: flex; }
-  :where(.zen-grid) { display: grid; }
-  :where(.zen-hidden) { display: none; }
-  :where(.zen-w-full) { width: 100%; }
-  :where(.zen-h-screen) { height: 100vh; }
-  :where(.zen-rounded) { border-radius: 0.25rem; }
-  :where(.zen-shadow) { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-  :where(.zen-hover-bg-gray:hover) { background-color: #e5e7eb; }
-  :where(.zen-focus-ring:focus) { outline: 2px solid blue; }
+  :where(.silk-p-4) { padding: 1rem; }
+  :where(.silk-m-2) { margin: 0.5rem; }
+  :where(.silk-text-red) { color: red; }
+  :where(.silk-text-blue) { color: blue; }
+  :where(.silk-bg-white) { background-color: white; }
+  :where(.silk-bg-gray) { background-color: gray; }
+  :where(.silk-flex) { display: flex; }
+  :where(.silk-grid) { display: grid; }
+  :where(.silk-hidden) { display: none; }
+  :where(.silk-w-full) { width: 100%; }
+  :where(.silk-h-screen) { height: 100vh; }
+  :where(.silk-rounded) { border-radius: 0.25rem; }
+  :where(.silk-shadow) { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  :where(.silk-hover-bg-gray:hover) { background-color: #e5e7eb; }
+  :where(.silk-focus-ring:focus) { outline: 2px solid blue; }
 }
 
 /* Duplicate rules (will be deduplicated) */
@@ -126,8 +126,8 @@ criticalExtractor.autoDetect(sampleCSS)
 
 // Manual overrides
 criticalExtractor.markCritical('h1')
-criticalExtractor.markCritical('.zen-p-4')
-criticalExtractor.markCritical('.zen-flex')
+criticalExtractor.markCritical('.silk-p-4')
+criticalExtractor.markCritical('.silk-flex')
 
 const { critical, nonCritical } = criticalExtractor.extract(sampleCSS)
 

@@ -1,6 +1,6 @@
 /**
- * @sylphx/zencss-react
- * React bindings for ZenCSS
+ * @sylphx/silk-react
+ * React bindings for Silk
  */
 
 import React, { createElement, forwardRef } from 'react'
@@ -11,8 +11,8 @@ import type {
   PropsWithoutRef,
   RefAttributes,
 } from 'react'
-import type { DesignConfig, TypedStyleProps, StyleSystem } from '@sylphx/zencss'
-import { createStyleSystem } from '@sylphx/zencss'
+import type { DesignConfig, TypedStyleProps, StyleSystem } from '@sylphx/silk'
+import { createStyleSystem } from '@sylphx/silk'
 
 // HTML elements that can be styled
 type StylableElements = keyof JSX.IntrinsicElements
@@ -204,23 +204,23 @@ export function createReactStyleSystem<C extends DesignConfig>(styleSystem: Styl
 export type ReactStyleSystem<C extends DesignConfig> = ReturnType<typeof createReactStyleSystem<C>>
 
 /**
- * Helper function to create a complete ZenCSS React setup with proper type inference
+ * Helper function to create a complete Silk React setup with proper type inference
  * This simplifies the config file by handling all the type gymnastics internally
  *
  * @example
  * ```tsx
- * // zen.config.ts
- * import { defineConfig } from '@sylphx/zencss'
- * import { createZenReact } from '@sylphx/zencss-react'
+ * // silk.config.ts
+ * import { defineConfig } from '@sylphx/silk'
+ * import { createSilkReact } from '@sylphx/silk-react'
  *
  * const config = defineConfig({
  *   colors: { brand: { 500: '#3b82f6' } }
  * } as const)
  *
- * export const { styled, Box, Flex, Grid, Text, css, cx } = createZenReact(config)
+ * export const { styled, Box, Flex, Grid, Text, css, cx } = createSilkReact(config)
  * ```
  */
-export function createZenReact<const C extends DesignConfig>(config: C) {
+export function createSilkReact<const C extends DesignConfig>(config: C) {
   // Create style system with explicit type
   const styleSystem = createStyleSystem<C>(config)
 
@@ -228,17 +228,17 @@ export function createZenReact<const C extends DesignConfig>(config: C) {
   const reactSystem = createReactStyleSystem<C>(styleSystem)
 
   // Type helper for styled components to ensure proper JSX type inference
-  type ZenStyledComponent<E extends keyof JSX.IntrinsicElements> = ReturnType<
+  type SilkStyledComponent<E extends keyof JSX.IntrinsicElements> = ReturnType<
     typeof reactSystem.styled<E>
   >
 
   // Return all exports with explicit types for better type preservation in JSX
   return {
     styled: reactSystem.styled,
-    Box: reactSystem.Box as ZenStyledComponent<'div'>,
-    Flex: reactSystem.Flex as ZenStyledComponent<'div'>,
-    Grid: reactSystem.Grid as ZenStyledComponent<'div'>,
-    Text: reactSystem.Text as ZenStyledComponent<'span'>,
+    Box: reactSystem.Box as SilkStyledComponent<'div'>,
+    Flex: reactSystem.Flex as SilkStyledComponent<'div'>,
+    Grid: reactSystem.Grid as SilkStyledComponent<'div'>,
+    Text: reactSystem.Text as SilkStyledComponent<'span'>,
     css: reactSystem.css,
     cx: reactSystem.cx,
     // Also export the underlying systems for advanced use cases
@@ -247,4 +247,4 @@ export function createZenReact<const C extends DesignConfig>(config: C) {
   }
 }
 
-export type ZenReactSystem<C extends DesignConfig> = ReturnType<typeof createZenReact<C>>
+export type SilkReactSystem<C extends DesignConfig> = ReturnType<typeof createSilkReact<C>>

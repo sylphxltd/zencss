@@ -1,4 +1,4 @@
-import { Box, Flex, Text, styled } from '../zen.config'
+import { Box, Flex, Text, styled } from '../silk.config'
 
 /**
  * Pseudo Selectors Demo

@@ -169,8 +169,8 @@ describe('Theming - Semantic Tokens', () => {
 
       const variables = generateCSSVariables(config, { includeSemanticTokens: false })
 
-      expect(variables['--zen-colors-red-500']).toBe('#ef4444')
-      expect(variables['--zen-spacing-4']).toBe('1rem')
+      expect(variables['--silk-colors-red-500']).toBe('#ef4444')
+      expect(variables['--silk-spacing-4']).toBe('1rem')
     })
 
     it('should use custom prefix', () => {
@@ -212,8 +212,8 @@ describe('Theming - Semantic Tokens', () => {
         includeSemanticTokens: true,
       })
 
-      expect(variables['--zen-colors-red-500']).toBe('#ef4444')
-      expect(variables['--zen-semantic-colors-primary']).toBe('#0066cc')
+      expect(variables['--silk-colors-red-500']).toBe('#ef4444')
+      expect(variables['--silk-semantic-colors-primary']).toBe('#0066cc')
     })
 
     it('should handle flat tokens', () => {
@@ -226,8 +226,8 @@ describe('Theming - Semantic Tokens', () => {
 
       const variables = generateCSSVariables(config, { includeSemanticTokens: false })
 
-      expect(variables['--zen-fontWeights-normal']).toBe('400')
-      expect(variables['--zen-fontWeights-bold']).toBe('700')
+      expect(variables['--silk-fontWeights-normal']).toBe('400')
+      expect(variables['--silk-fontWeights-bold']).toBe('700')
     })
 
     it('should resolve semantic tokens based on mode', () => {
@@ -245,8 +245,8 @@ describe('Theming - Semantic Tokens', () => {
       const lightVars = generateCSSVariables(config, { mode: 'light' })
       const darkVars = generateCSSVariables(config, { mode: 'dark' })
 
-      expect(lightVars['--zen-semantic-colors-bg']).toBe('#ffffff')
-      expect(darkVars['--zen-semantic-colors-bg']).toBe('#000000')
+      expect(lightVars['--silk-semantic-colors-bg']).toBe('#ffffff')
+      expect(darkVars['--silk-semantic-colors-bg']).toBe('#000000')
     })
   })
 
@@ -271,10 +271,10 @@ describe('Theming - Semantic Tokens', () => {
       const stylesheet = generateCSSVariableStylesheet(config)
 
       expect(stylesheet).toContain(':root {')
-      expect(stylesheet).toContain('--zen-colors-primary-500: #0066cc;')
-      expect(stylesheet).toContain('--zen-semantic-colors-bg: #ffffff;')
+      expect(stylesheet).toContain('--silk-colors-primary-500: #0066cc;')
+      expect(stylesheet).toContain('--silk-semantic-colors-bg: #ffffff;')
       expect(stylesheet).toContain(':root[data-theme="dark"]')
-      expect(stylesheet).toContain('--zen-semantic-colors-bg: #000000;')
+      expect(stylesheet).toContain('--silk-semantic-colors-bg: #000000;')
     })
 
     it('should use custom selector', () => {
@@ -470,7 +470,7 @@ describe('Integration - Theming with Config', () => {
     })
 
     // Should have regular tokens
-    expect(variables['--zen-colors-red-500']).toBeDefined()
+    expect(variables['--silk-colors-red-500']).toBeDefined()
 
     // Should have semantic tokens (nested structure creates path like bg-DEFAULT)
     const semanticKeys = Object.keys(variables).filter((k) => k.includes('semantic'))
@@ -508,7 +508,7 @@ describe('Integration - Theming with Config', () => {
 
     expect(stylesheet).toContain(':root {')
     expect(stylesheet).toContain('[data-theme="dark"]')
-    expect(stylesheet).toContain('--zen-colors-')
-    expect(stylesheet).toContain('--zen-semantic-')
+    expect(stylesheet).toContain('--silk-colors-')
+    expect(stylesheet).toContain('--silk-semantic-')
   })
 })

@@ -3,7 +3,7 @@
  * Hover over variables to see inferred types
  */
 
-import { Box, Text, styled } from './zen.config'
+import { Box, Text, styled } from './silk.config'
 
 // 測試 1: Box props 應該有完整的 color union type
 function Test1() {

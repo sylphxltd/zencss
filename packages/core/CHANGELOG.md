@@ -1,10 +1,10 @@
-# @sylphx/zencss
+# @sylphx/silk
 
 ## 0.1.0
 
 ### Minor Changes
 
-- Initial release of ZenCSS 🎉
+- Initial release of Silk 🎉
 
   Type-safe CSS-in-TypeScript without codegen. 38-2100% smaller bundles than Tailwind and Panda CSS.
 
@@ -19,7 +19,7 @@
 
   ### Production Optimization
 
-  - ✅ Critical CSS extraction (30-50% faster first paint) - **unique to ZenCSS**
+  - ✅ Critical CSS extraction (30-50% faster first paint) - **unique to Silk**
   - ✅ Tree shaking and dead code elimination (50-90% reduction)
   - ✅ CSS minification and deduplication
   - ✅ Production optimizer combining all techniques
@@ -39,15 +39,15 @@
   ## Installation
 
   ```bash
-  npm install @sylphx/zencss
+  npm install @sylphx/silk
   # or
-  bun add @sylphx/zencss
+  bun add @sylphx/silk
   ```
 
   ## Quick Start
 
   ```typescript
-  import { defineConfig, createStyleSystem } from "@sylphx/zencss";
+  import { defineConfig, createStyleSystem } from "@sylphx/silk";
 
   const config = defineConfig({
     colors: { primary: { 500: "#3b82f6" } },
