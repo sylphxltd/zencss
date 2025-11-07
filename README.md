@@ -576,132 +576,113 @@ export default defineConfig({
 
 [View Full Solid.js Documentation →](./packages/solid-bindings/README.md)
 
-### 🎨 Vue 3 - Composition API & Reactivity
+### 🎨 Vue 3 - Composition API & Zero-Runtime
 
 ```bash
 bun add @sylphx/silk-vue
 ```
 
 **Features:**
-- ✅ Full Composition API support with reactive style props
+- ✅ **Zero-runtime** via Vite plugin
+- ✅ Full Composition API support
 - ✅ `<script setup>` syntax support
-- ✅ Type-safe design tokens
 - ✅ Nuxt 3 compatible
 
-```vue
-<script setup lang="ts">
-import { createSilkVue } from '@sylphx/silk-vue'
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { silkPlugin } from '@sylphx/silk-vue/vite'
 
-export const { styled, Box, css } = createSilkVue(config)
-
-const Button = styled('button', {
-  bg: 'brand.500',
-  px: 4,
-  py: 2
+export default defineConfig({
+  plugins: [
+    silkPlugin(),  // Add BEFORE Vue
+    vue(),
+  ],
 })
-</script>
-
-<template>
-  <Button>Click me</Button>
-</template>
 ```
 
 [View Full Vue Documentation →](./packages/vue-bindings/README.md)
 
-### 🔥 Svelte - Reactive Stores & Minimal Re-renders
+### 🔥 Svelte - Reactive Stores & Zero-Runtime
 
 ```bash
 bun add @sylphx/silk-svelte
 ```
 
 **Features:**
+- ✅ **Zero-runtime** via Vite plugin
 - ✅ Perfect integration with Svelte's reactivity
-- ✅ Minimal re-renders with Svelte's compiler
-- ✅ Reactive stores support
+- ✅ Build-time CSS extraction
 - ✅ SvelteKit ready
 
-```svelte
-<script lang="ts">
-  import { css } from './silk.config'
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { silkPlugin } from '@sylphx/silk-svelte/vite'
 
-  const button = css({
-    bg: 'brand.500',
-    px: 4,
-    py: 2
-  })
-</script>
-
-<button class={button}>
-  Click me
-</button>
+export default defineConfig({
+  plugins: [
+    silkPlugin(),  // Add BEFORE Svelte
+    svelte(),
+  ],
+})
 ```
 
 [View Full Svelte Documentation →](./packages/svelte-bindings/README.md)
 
-### ⚡ Qwik - Resumability & Zero Hydration
+### ⚡ Qwik - Resumability & Zero-Runtime
 
 ```bash
 bun add @sylphx/silk-qwik
 ```
 
 **Features:**
+- ✅ **Zero-runtime** via Vite plugin
 - ✅ Qwik's resumability - zero hydration overhead
-- ✅ Server-side style computation with client resumability
-- ✅ Fine-grained reactivity with `useSilkStyle` hook
+- ✅ Build-time CSS extraction
 - ✅ Optimal performance with progressive loading
 
 ```typescript
-import { component$ } from '@builder.io/qwik'
-import { createSilkQwik } from '@sylphx/silk-qwik'
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { qwikVite } from '@builder.io/qwik/optimizer'
+import { silkPlugin } from '@sylphx/silk-qwik/vite'
 
-export const { styled, Box, css } = createSilkQwik(config)
-
-export const Button = styled('button', {
-  bg: 'primary.40',
-  px: 6,
-  py: 3,
-  rounded: 'md'
-})
-
-// Reactive styles with useSilkStyle
-export default component$(() => {
-  const count = useSignal(0)
-  const dynamicClass = useSilkStyle(css, () => ({
-    bg: count.value > 5 ? 'red.500' : 'blue.500'
-  }))
-
-  return <div class={dynamicClass.value}>Count: {count.value}</div>
+export default defineConfig({
+  plugins: [
+    silkPlugin(),  // Add BEFORE Qwik
+    qwikVite(),
+  ],
 })
 ```
 
 [View Full Qwik Documentation →](./packages/qwik-bindings/README.md)
 
-### 🔷 Preact - 3KB React Alternative
+### 🔷 Preact - 3KB React Alternative & Zero-Runtime
 
 ```bash
 bun add @sylphx/silk-preact
 ```
 
 **Features:**
+- ✅ **Zero-runtime** via Vite plugin
 - ✅ 3KB runtime - smallest React alternative
 - ✅ React-compatible API with hooks support
-- ✅ Perfect for lightweight applications
-- ✅ Full type safety with design tokens
+- ✅ Build-time CSS extraction
 
 ```typescript
-import { h } from 'preact'
-import { useState } from 'preact/hooks'
-import { createSilkPreact } from '@sylphx/silk-preact'
+// vite.config.ts
+import { defineConfig } from 'vite'
+import preact from '@preact/preset-vite'
+import { silkPlugin } from '@sylphx/silk-preact/vite'
 
-export const { styled, Box, css } = createSilkPreact(config)
-
-export const Button = styled('button', {
-  bg: 'brand.500',
-  px: 4,
-  py: 2,
-  _hover: {
-    bg: 'brand.600'
-  }
+export default defineConfig({
+  plugins: [
+    silkPlugin(),  // Add BEFORE Preact
+    preact(),
+  ],
 })
 ```
 

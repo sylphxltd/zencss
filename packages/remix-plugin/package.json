@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/silk-remix",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Remix integration for Silk - zero-runtime CSS-in-TypeScript with streaming SSR support",
   "keywords": [
     "css",

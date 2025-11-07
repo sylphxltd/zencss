@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/silk-react",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "React integration for Silk - Type-safe CSS-in-TypeScript with modern color functions and native nesting",
   "keywords": [
     "silk",
