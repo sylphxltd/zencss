@@ -4,18 +4,19 @@ import silk from '@sylphx/silk-vite-plugin'
 
 export default defineConfig({
   plugins: [
-    react(),
     silk({
       babelOptions: {
         production: false, // Use dev mode for now
       },
     }),
+    react(),
   ],
-  ssr: {
-    noExternal: [],
-    // Let Node.js modules be externalized
+  build: {
+    commonjsOptions: {
+      exclude: ['@babel/core', '@sylphx/babel-plugin-silk', '@sylphx/silk'],
+    },
   },
-  resolve: {
-    conditions: ['node', 'default'],
+  optimizeDeps: {
+    exclude: ['@babel/core', '@sylphx/babel-plugin-silk', '@sylphx/silk', 'lightningcss'],
   },
 })

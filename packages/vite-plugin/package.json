@@ -40,9 +40,12 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@sylphx/silk": "workspace:*",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-react": "^7.23.0",
+    "@babel/preset-typescript": "^7.23.0",
     "@sylphx/babel-plugin-silk": "workspace:*",
-    "@babel/core": "^7.23.0"
+    "@sylphx/silk": "workspace:*",
+    "unplugin": "^2.3.10"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.5",
