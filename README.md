@@ -4,6 +4,11 @@
 
 **The Smallest, Fastest, Most Feature-Complete Zero-Runtime CSS-in-TypeScript Framework**
 
+![GitHub stars](https://img.shields.io/github/stars/sylphxltd/silk?style=social)
+![GitHub forks](https://img.shields.io/github/forks/sylphxltd/silk?style=social)
+
+[![npm version](https://img.shields.io/npm/v/@sylphx/silk?style=flat-square)](https://www.npmjs.com/package/@sylphx/silk)
+[![npm downloads](https://img.shields.io/npm/dm/@sylphx/silk?style=flat-square)](https://www.npmjs.com/package/@sylphx/silk)
 [![Bundle Size](https://img.shields.io/badge/bundle-500B%20gzipped-success)](./BENCHMARK_RESULTS.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue)](.)
 [![Tests](https://img.shields.io/badge/tests-494%20passing-brightgreen)](.)
