@@ -140,6 +140,39 @@ Follow our progress:
 - [GitHub Issues](https://github.com/sylphxltd/silk/issues)
 - [Roadmap](https://github.com/sylphxltd/silk/blob/main/ROADMAP.md)
 
+## Testing
+
+### Running Tests
+
+```bash
+# Run all tests (Rust + Vitest)
+npm test
+
+# Rust unit tests only
+npm run test:rust
+
+# Vitest integration tests only
+npm run test:vitest
+
+# Watch mode for development
+npm run test:watch
+
+# With coverage
+npm run test:coverage
+```
+
+### Test Coverage
+
+- ✅ **Property Shorthands** - All margin, padding, size, background expansions
+- ✅ **Value Normalization** - Spacing (0.25rem), unitless, px units
+- ✅ **CamelCase Conversion** - fontSize → font-size, backgroundColor → background-color
+- ✅ **Hash Generation** - Consistent, deterministic hashing
+- ✅ **Edge Cases** - Empty objects, special characters, zero values
+- ✅ **Multiple Calls** - Multiple css() in same file
+- ✅ **Custom Config** - Custom class prefix
+
+See [TESTING.md](./TESTING.md) for detailed testing guide.
+
 ## License
 
 MIT © SylphX Ltd

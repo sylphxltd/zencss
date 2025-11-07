@@ -31,11 +31,19 @@
     "build:assemblyscript": "cd assemblyscript && npm run asbuild",
     "build:rust": "cargo build --release --target wasm32-wasip1",
     "build": "npm run build:assemblyscript && npm run build:rust",
-    "test": "cargo test",
+    "test": "npm run test:rust && npm run test:vitest",
+    "test:rust": "cargo test",
+    "test:vitest": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@swc/core": "^1.9.3"
+    "@swc/core": "^1.9.3",
+    "@types/node": "^20",
+    "typescript": "^5",
+    "vitest": "^2.0.0",
+    "@vitest/coverage-v8": "^2.0.0"
   },
   "publishConfig": {
     "access": "public"

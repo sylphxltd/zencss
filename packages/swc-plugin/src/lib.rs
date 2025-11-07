@@ -79,7 +79,7 @@ fn camel_to_kebab(s: &str) -> String {
 }
 
 /// Resolve CSS property name from shorthand
-fn resolve_css_property(property: &str) -> String {
+pub fn resolve_css_property(property: &str) -> String {
     let map = get_property_map();
     map.get(property)
         .map(|s| s.to_string())
@@ -87,7 +87,7 @@ fn resolve_css_property(property: &str) -> String {
 }
 
 /// Normalize CSS value (add units)
-fn normalize_css_value(property: &str, value: &str) -> String {
+pub fn normalize_css_value(property: &str, value: &str) -> String {
     // Try to parse as number
     if let Ok(num) = value.parse::<f64>() {
         // Spacing properties use 0.25rem units
@@ -121,7 +121,7 @@ fn hash_string(s: &str) -> String {
 }
 
 /// Generate class name for property-value pair
-fn generate_class_name(property: &str, value: &str, prefix: &str) -> String {
+pub fn generate_class_name(property: &str, value: &str, prefix: &str) -> String {
     let css_property = resolve_css_property(property);
     let css_value = normalize_css_value(property, value);
 
@@ -139,7 +139,7 @@ fn generate_class_name(property: &str, value: &str, prefix: &str) -> String {
 }
 
 /// Generate CSS rule for property-value pair
-fn generate_css_rule(class_name: &str, property: &str, value: &str) -> String {
+pub fn generate_css_rule(class_name: &str, property: &str, value: &str) -> String {
     let css_property = resolve_css_property(property);
     let css_value = normalize_css_value(property, value);
 
@@ -147,7 +147,7 @@ fn generate_css_rule(class_name: &str, property: &str, value: &str) -> String {
 }
 
 /// Extract style properties from ObjectExpression
-fn extract_styles(obj: &ObjectLit) -> Vec<(String, String)> {
+pub fn extract_styles(obj: &ObjectLit) -> Vec<(String, String)> {
     let mut styles = Vec::new();
 
     for prop in &obj.props {
