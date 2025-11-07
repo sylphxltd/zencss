@@ -1,162 +1,233 @@
 import { useState } from 'react'
 import { Box, Flex, Text, styled } from './zen.config'
+import { ResponsiveDemo } from './demos/ResponsiveDemo'
+import { PseudoSelectorsDemo } from './demos/PseudoSelectorsDemo'
+import { VariantsDemo } from './demos/VariantsDemo'
+import { LayoutDemo } from './demos/LayoutDemo'
+import { TypographyDemo } from './demos/TypographyDemo'
+import { CompositionDemo } from './demos/CompositionDemo'
 
-// Create styled components with type inference
 const Container = styled('div', {
   w: 'full',
-  h: 'screen',
+  minHeight: '100vh',
   bg: 'gray.50',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: 8,
 })
 
-const Card = styled('div', {
+const Header = styled('header', {
   bg: 'white',
-  p: 8,
-  rounded: 'xl',
-  shadow: 'lg',
-  w: 'lg',
+  shadow: 'md',
+  p: 6,
+  mb: 8,
 })
 
-const Button = styled('button', {
-  bg: 'brand.500',
-  color: 'white',
-  px: 6,
-  py: 3,
+const NavButton = styled('button', {
+  px: 4,
+  py: 2,
   rounded: 'md',
-  fontWeight: 'semibold',
-  fontSize: 'base',
-  _hover: {
-    bg: 'brand.600',
-  },
-})
-
-const Badge = styled('span', {
-  px: 3,
-  py: 1,
-  rounded: 'full',
   fontSize: 'sm',
   fontWeight: 'medium',
+  transition: 'all 0.2s',
 })
 
+const DemoContainer = styled('div', {
+  w: 'full',
+  p: 8,
+})
+
+type DemoKey =
+  | 'overview'
+  | 'layout'
+  | 'typography'
+  | 'pseudo'
+  | 'variants'
+  | 'responsive'
+  | 'composition'
+
+const demos: Record<DemoKey, { title: string; component: React.ReactNode }> = {
+  overview: {
+    title: 'Overview',
+    component: <OverviewDemo />,
+  },
+  layout: {
+    title: 'Layout',
+    component: <LayoutDemo />,
+  },
+  typography: {
+    title: 'Typography',
+    component: <TypographyDemo />,
+  },
+  pseudo: {
+    title: 'Pseudo Selectors',
+    component: <PseudoSelectorsDemo />,
+  },
+  variants: {
+    title: 'Variants',
+    component: <VariantsDemo />,
+  },
+  responsive: {
+    title: 'Responsive',
+    component: <ResponsiveDemo />,
+  },
+  composition: {
+    title: 'Composition',
+    component: <CompositionDemo />,
+  },
+}
+
+function OverviewDemo() {
+  return (
+    <Box>
+      <Text fontSize="2xl" fontWeight="bold" mb={4}>
+        Welcome to ZenCSS
+      </Text>
+
+      <Flex gap={6} flexDirection="column">
+        <Box p={6} bg="white" rounded="lg" shadow="md">
+          <Text fontSize="xl" fontWeight="bold" mb={4}>
+            🎨 Type-safe CSS-in-TypeScript without codegen
+          </Text>
+          <Text color="gray.600" mb={4}>
+            ZenCSS delivers industry-leading bundle sizes while maintaining full
+            type safety and zero runtime overhead. Unlike Panda CSS which
+            requires codegen, ZenCSS achieves complete type inference through
+            pure TypeScript template literal types.
+          </Text>
+
+          <Flex gap={3} flexDirection="column">
+            <Text fontSize="sm" color="gray.700">
+              ✅ <strong>38-2100% smaller bundles</strong> than Tailwind and
+              Panda CSS
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              ✅ <strong>Zero codegen</strong> - instant autocomplete without
+              build step
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              ✅ <strong>Zero runtime</strong> - CSS extracted at build time
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              ✅ <strong>Full type safety</strong> - catch errors at compile
+              time
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              ✅ <strong>Critical CSS extraction</strong> - unique to ZenCSS
+            </Text>
+          </Flex>
+        </Box>
+
+        <Box p={6} bg="brand.50" rounded="lg">
+          <Text fontSize="lg" fontWeight="bold" mb={3}>
+            📚 Explore the Demos
+          </Text>
+          <Text fontSize="sm" color="gray.700" mb={4}>
+            Use the navigation above to explore different features:
+          </Text>
+
+          <Flex gap={3} flexDirection="column">
+            <Text fontSize="sm" color="gray.700">
+              <strong>Layout</strong> - Flexbox, Grid, spacing system
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              <strong>Typography</strong> - Font sizes, weights, colors
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              <strong>Pseudo Selectors</strong> - Hover, focus, active, disabled
+              states
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              <strong>Variants</strong> - Component variants and recipes
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              <strong>Responsive</strong> - Responsive design utilities
+            </Text>
+            <Text fontSize="sm" color="gray.700">
+              <strong>Composition</strong> - Building complex UIs with
+              primitives
+            </Text>
+          </Flex>
+        </Box>
+
+        <Box p={6} bg="white" rounded="lg" shadow="md">
+          <Text fontSize="lg" fontWeight="bold" mb={3}>
+            🔍 Type Inference in Action
+          </Text>
+          <Text fontSize="sm" color="gray.600" mb={4}>
+            Try typing in your IDE - notice the autocomplete:
+          </Text>
+
+          <Box
+            as="pre"
+            p={4}
+            bg="gray.900"
+            color="white"
+            rounded="md"
+            fontSize="sm"
+            style={{ overflow: 'auto' }}
+          >
+            {`// ✅ Valid - TypeScript knows these tokens exist
+<Box color="brand.500" fontSize="lg" p={4} />
+
+// ❌ Invalid - TypeScript error at compile time
+<Box color="invalid.500" fontSize="huge" p="100" />
+
+// ✨ Full autocomplete for all design tokens
+<Text
+  color="[Ctrl+Space for autocomplete]"
+  fontSize="[Ctrl+Space for autocomplete]"
+  fontWeight="[Ctrl+Space for autocomplete]"
+/>`}
+          </Box>
+        </Box>
+
+        <Box p={6} bg="green.50" rounded="lg">
+          <Text fontSize="lg" fontWeight="bold" color="green.800" mb={2}>
+            ✨ All demos showcase type safety
+          </Text>
+          <Text fontSize="sm" color="green.700">
+            Every prop in every demo is fully type-checked. Try modifying values
+            to invalid tokens and see TypeScript catch the errors at compile
+            time!
+          </Text>
+        </Box>
+      </Flex>
+    </Box>
+  )
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeDemo, setActiveDemo] = useState<DemoKey>('overview')
 
   return (
     <Container>
-      {/* Hero Section */}
-      <Box mb={8}>
-        <Text fontSize="4xl" fontWeight="bold" color="gray.900" mb={2}>
-          ZenCSS
-        </Text>
-        <Text fontSize="xl" color="gray.600">
-          Type-safe CSS without codegen
-        </Text>
-      </Box>
-
-      {/* Feature Cards */}
-      <Flex gap={4} mb={8}>
-        <Card>
-          <Badge bg="brand.100" color="brand.700">
-            🚀 Fast
-          </Badge>
-          <Text fontSize="lg" fontWeight="semibold" mt={4} mb={2}>
-            Build-time Extraction
+      <Header>
+        <Box mb={4}>
+          <Text fontSize="3xl" fontWeight="bold" color="gray.900">
+            ZenCSS Demo
           </Text>
-          <Text color="gray.600">
-            Zero runtime overhead. CSS is extracted at build time for maximum performance.
+          <Text fontSize="base" color="gray.600">
+            Type-safe CSS-in-TypeScript • Zero codegen • Zero runtime • 38-2100%
+            smaller bundles
           </Text>
-        </Card>
+        </Box>
 
-        <Card>
-          <Badge bg="green.100" color="green.700">
-            ✨ Type-safe
-          </Badge>
-          <Text fontSize="lg" fontWeight="semibold" mt={4} mb={2}>
-            Full Type Inference
-          </Text>
-          <Text color="gray.600">
-            Autocomplete for all design tokens. No codegen needed - pure TypeScript magic.
-          </Text>
-        </Card>
-
-        <Card>
-          <Badge bg="red.100" color="red.700">
-            🎨 Flexible
-          </Badge>
-          <Text fontSize="lg" fontWeight="semibold" mt={4} mb={2}>
-            Framework Agnostic
-          </Text>
-          <Text color="gray.600">
-            Works with React, Vue, Solid, or vanilla JS. Use any framework you prefer.
-          </Text>
-        </Card>
-      </Flex>
-
-      {/* Interactive Demo */}
-      <Card>
-        <Text fontSize="2xl" fontWeight="bold" mb={4}>
-          Interactive Demo
-        </Text>
-
-        <Flex gap={4} alignItems="center">
-          <Button onClick={() => setCount(count + 1)}>Count: {count}</Button>
-
-          <Button
-            bg="gray.200"
-            color="gray.800"
-            _hover={{ bg: 'gray.300' }}
-            onClick={() => setCount(0)}
-          >
-            Reset
-          </Button>
+        <Flex gap={2} style={{ flexWrap: 'wrap' }}>
+          {(Object.keys(demos) as DemoKey[]).map((key) => (
+            <NavButton
+              key={key}
+              onClick={() => setActiveDemo(key)}
+              bg={activeDemo === key ? 'brand.500' : 'gray.200'}
+              color={activeDemo === key ? 'white' : 'gray.700'}
+              _hover={{
+                bg: activeDemo === key ? 'brand.600' : 'gray.300',
+              }}
+            >
+              {demos[key].title}
+            </NavButton>
+          ))}
         </Flex>
+      </Header>
 
-        <Box mt={6} p={4} bg="gray.100" rounded="md">
-          <Text fontSize="sm" color="gray.600" mb={2}>
-            Try hovering the buttons to see pseudo-state styling in action!
-          </Text>
-          <Text fontSize="xs" color="gray.500">
-            All styles are type-checked at compile time with full autocomplete.
-          </Text>
-        </Box>
-      </Card>
-
-      {/* Code Example */}
-      <Card>
-        <Text fontSize="xl" fontWeight="bold" mb={4}>
-          Example Code
-        </Text>
-
-        <Box
-          as="pre"
-          p={4}
-          bg="gray.900"
-          color="white"
-          rounded="md"
-          fontSize="sm"
-          style={{ overflow: 'auto' }}
-        >
-          {`const Button = styled('button', {
-  bg: 'brand.500',  // ✨ Fully typed!
-  color: 'white',
-  px: 6,
-  py: 3,
-  rounded: 'md',
-  _hover: {
-    bg: 'brand.600'
-  }
-})`}
-        </Box>
-      </Card>
-
-      {/* Footer */}
-      <Text fontSize="sm" color="gray.500" mt={8}>
-        Built with ZenCSS • No codegen, just types
-      </Text>
+      <DemoContainer>{demos[activeDemo].component}</DemoContainer>
     </Container>
   )
 }

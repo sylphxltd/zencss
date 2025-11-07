@@ -34,13 +34,31 @@ export const config = defineConfig({
       900: '#111827',
     },
     red: {
+      50: '#fef2f2',
+      100: '#fee2e2',
+      200: '#fecaca',
+      300: '#fca5a5',
+      400: '#f87171',
       500: '#ef4444',
       600: '#dc2626',
+      700: '#b91c1c',
+      800: '#991b1b',
+      900: '#7f1d1d',
     },
     green: {
+      50: '#f0fdf4',
+      100: '#dcfce7',
+      200: '#bbf7d0',
+      300: '#86efac',
+      400: '#4ade80',
       500: '#22c55e',
       600: '#16a34a',
+      700: '#15803d',
+      800: '#166534',
+      900: '#14532d',
     },
+    white: '#ffffff',
+    black: '#000000',
   },
   spacing: {
     0: '0',
@@ -55,6 +73,8 @@ export const config = defineConfig({
     12: '3rem',
     16: '4rem',
     20: '5rem',
+    24: '6rem',
+    32: '8rem',
   },
   sizes: {
     full: '100%',
@@ -64,6 +84,7 @@ export const config = defineConfig({
     md: '28rem',
     lg: '32rem',
     xl: '36rem',
+    '2xl': '42rem',
   },
   fontSizes: {
     xs: '0.75rem',
@@ -74,17 +95,20 @@ export const config = defineConfig({
     '2xl': '1.5rem',
     '3xl': '1.875rem',
     '4xl': '2.25rem',
+    '5xl': '3rem',
   },
   fontWeights: {
     normal: 400,
     medium: 500,
     semibold: 600,
     bold: 700,
+    extrabold: 800,
   },
   lineHeights: {
     tight: 1.25,
     normal: 1.5,
     relaxed: 1.75,
+    loose: 2,
   },
   radii: {
     sm: '0.125rem',
@@ -92,12 +116,21 @@ export const config = defineConfig({
     md: '0.375rem',
     lg: '0.5rem',
     xl: '0.75rem',
+    '2xl': '1rem',
     full: '9999px',
   },
   shadows: {
     sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
     md: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
     lg: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+    xl: '0 20px 25px -5px rgb(0 0 0 / 0.1)',
+  },
+  borderWidths: {
+    0: '0',
+    1: '1px',
+    2: '2px',
+    4: '4px',
+    8: '8px',
   },
 } as const)
 
@@ -105,7 +138,8 @@ export const config = defineConfig({
 const styleSystem = createStyleSystem(config)
 
 // Create React bindings
-export const { styled, Box, Flex, Grid, Text, css, cx } = createReactStyleSystem(styleSystem)
+export const { styled, Box, Flex, Grid, Text, css, cx } =
+  createReactStyleSystem(styleSystem)
 
-// Export types
+// Export types for reference
 export type Config = typeof config
