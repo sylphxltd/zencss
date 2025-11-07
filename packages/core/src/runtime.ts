@@ -23,6 +23,9 @@ import {
 // CSS rule storage for build-time extraction
 export const cssRules = new Map<string, string>()
 
+// Layer manager for organizing CSS by cascade layers
+let globalLayerManager: LayerManager | null = null
+
 // Atomic class counter
 let atomicCounter = 0
 
@@ -216,6 +219,12 @@ function generateAtomicClass<C extends DesignConfig>(
   // Store for build-time extraction
   cssRules.set(className, rule)
 
+  // Add to layer manager if enabled
+  if (globalLayerManager) {
+    const layer = classifyLayer(prop, value, 'atomic')
+    globalLayerManager.add(rule, layer)
+  }
+
   return className
 }
 
@@ -224,9 +233,9 @@ function generateAtomicClass<C extends DesignConfig>(
  */
 export function createStyleSystem<C extends DesignConfig>(
   config: C,
-  options?: { optimize?: boolean } & ProductionConfig
+  options?: { optimize?: boolean } & ProductionConfig & LayerConfig
 ) {
-  const { optimize = true, ...productionConfig } = options ?? {}
+  const { optimize = true, enabled, order, defaultLayer, ...productionConfig } = options ?? {}
   const prodConfig: ProductionConfig = {
     production: productionConfig.production ?? false,
     shortClassNames: productionConfig.shortClassNames ?? true,
@@ -234,6 +243,13 @@ export function createStyleSystem<C extends DesignConfig>(
     optimizeCSS: productionConfig.optimizeCSS ?? true,
     classPrefix: productionConfig.classPrefix,
   }
+
+  // Initialize layer manager (only pass defined properties)
+  const layerConfig: LayerConfig = {}
+  if (enabled !== undefined) layerConfig.enabled = enabled
+  if (order !== undefined) layerConfig.order = order
+  if (defaultLayer !== undefined) layerConfig.defaultLayer = defaultLayer
+  globalLayerManager = new LayerManager(layerConfig)
 
   function css(styles: TypedStyleProps<C>): StyleObject {
     const classNames: string[] = []
@@ -313,9 +329,20 @@ export function createStyleSystem<C extends DesignConfig>(
   }
 
   // Get all generated CSS rules (for extraction)
-  function getCSSRules(options?: { optimize?: boolean }): string {
-    const { optimize: shouldOptimize = prodConfig.optimizeCSS } = options ?? {}
-    const css = Array.from(cssRules.values()).join('\n')
+  function getCSSRules(options?: { optimize?: boolean; useLayers?: boolean }): string {
+    const {
+      optimize: shouldOptimize = prodConfig.optimizeCSS,
+      useLayers = globalLayerManager !== null
+    } = options ?? {}
+
+    let css: string
+
+    // Use layer manager if available and enabled
+    if (useLayers && globalLayerManager) {
+      css = globalLayerManager.generateCSS()
+    } else {
+      css = Array.from(cssRules.values()).join('\n')
+    }
 
     if (shouldOptimize && prodConfig.production) {
       const { optimized } = optimizeCSS(css)
@@ -329,6 +356,9 @@ export function createStyleSystem<C extends DesignConfig>(
   function resetCSSRules(): void {
     cssRules.clear()
     resetShortNameCounter()
+    if (globalLayerManager) {
+      globalLayerManager.clear()
+    }
   }
 
   return {

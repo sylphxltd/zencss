@@ -246,4 +246,78 @@ describe('createStyleSystem', () => {
       expect(result.className).toBeTruthy()
     })
   })
+
+  describe('Cascade Layers Integration', () => {
+    it('should organize CSS in layers when enabled', () => {
+      const { css, getCSSRules, resetCSSRules } = createStyleSystem(config, {
+        enabled: true,
+      })
+
+      resetCSSRules()
+      css({ color: 'red.500', p: 4 })
+
+      const cssOutput = getCSSRules({ useLayers: true })
+
+      expect(cssOutput).toContain('@layer')
+      expect(cssOutput).toContain('@layer utilities')
+    })
+
+    it('should generate layer definition', () => {
+      const { css, getCSSRules, resetCSSRules } = createStyleSystem(config, {
+        enabled: true,
+        order: ['base', 'utilities'],
+      })
+
+      resetCSSRules()
+      css({ color: 'red.500' })
+
+      const cssOutput = getCSSRules({ useLayers: true })
+
+      expect(cssOutput).toContain('@layer base, utilities;')
+    })
+
+    it('should work without layers when disabled', () => {
+      const { css, getCSSRules, resetCSSRules } = createStyleSystem(config, {
+        enabled: false,
+      })
+
+      resetCSSRules()
+      css({ color: 'red.500', p: 4 })
+
+      const cssOutput = getCSSRules({ useLayers: false })
+
+      expect(cssOutput).not.toContain('@layer')
+      expect(cssOutput).toContain('color')
+      expect(cssOutput).toContain('padding')
+    })
+
+    it('should classify atomic styles as utilities layer', () => {
+      const { css, getCSSRules, resetCSSRules } = createStyleSystem(config, {
+        enabled: true,
+      })
+
+      resetCSSRules()
+      css({ color: 'red.500', p: 4, bg: 'blue.500' })
+
+      const cssOutput = getCSSRules({ useLayers: true })
+
+      expect(cssOutput).toContain('@layer utilities {')
+    })
+
+    it('should deduplicate rules within layers', () => {
+      const { css, getCSSRules, resetCSSRules } = createStyleSystem(config, {
+        enabled: true,
+      })
+
+      resetCSSRules()
+      css({ color: 'red.500' })
+      css({ color: 'red.500' })
+      css({ color: 'red.500' })
+
+      const cssOutput = getCSSRules({ useLayers: true })
+
+      const colorRuleCount = (cssOutput.match(/color: #ef4444/g) || []).length
+      expect(colorRuleCount).toBe(1)
+    })
+  })
 })
