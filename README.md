@@ -458,6 +458,7 @@ bun add @sylphx/silk-nextjs
 - ✅ Automatic CSS extraction during build
 - ✅ Brotli pre-compression
 - ✅ HMR with state preservation
+- 🚧 **Next.js 16 + Turbopack** support via `@sylphx/swc-plugin-silk` (coming soon)
 
 ```javascript
 // next.config.js
