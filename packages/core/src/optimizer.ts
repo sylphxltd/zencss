@@ -94,7 +94,10 @@ export function normalizeProps<C extends DesignConfig>(
       }
       // If no specific properties, use the most general one
       if (!Object.keys(normalized).some((k) => fullProps.includes(k))) {
-        normalized[fullProps[fullProps.length - 1]] = value
+        const lastProp = fullProps[fullProps.length - 1]
+        if (lastProp) {
+          normalized[lastProp] = value
+        }
       }
     } else {
       normalized[key] = value
@@ -274,8 +277,9 @@ function arePropertiesConflicting(prop1: string, prop2: string): boolean {
   // Check if one is a shorthand of the other
   for (const [shorthand, longforms] of Object.entries(mergableGroups)) {
     // Shorthand conflicts with its longforms
-    if (prop1 === shorthand && longforms.includes(prop2 as any)) return true
-    if (prop2 === shorthand && longforms.includes(prop1 as any)) return true
+    const longformsArray = longforms as readonly string[]
+    if (prop1 === shorthand && longformsArray.includes(prop2)) return true
+    if (prop2 === shorthand && longformsArray.includes(prop1)) return true
   }
 
   // Different specific properties don't conflict (e.g., marginTop vs marginBottom)
@@ -286,10 +290,10 @@ function arePropertiesConflicting(prop1: string, prop2: string): boolean {
  * Get minimal effective properties (optimized for minimal class output)
  */
 export function getMinimalProps<C extends DesignConfig>(
-  props: TypedStyleProps<C>
+  props: TypedStyleProps<C> | Record<string, any>
 ): Record<string, any> {
   // Optimize props (normalize + merge)
-  const optimized = optimizeProps(props)
+  const optimized = optimizeProps(props as any)
 
   // Resolve conflicts
   const resolved = resolveConflicts(optimized)
