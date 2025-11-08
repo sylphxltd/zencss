@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { scanAndGenerate, type GenerateOptions } from './codegen';
@@ -213,12 +213,11 @@ describe('scanAndGenerate', () => {
       expect(css.length).toBeLessThan(100);
     });
 
-    it('should handle non-existent directory gracefully', async () => {
+    it('should throw error for non-existent directory', async () => {
       const nonExistentDir = path.join(FIXTURES_DIR, 'does-not-exist');
 
-      await expect(async () => {
-        await scanAndGenerate(nonExistentDir);
-      }).toThrow();
+      // scanAndGenerate should throw when directory doesn't exist
+      await expect(scanAndGenerate(nonExistentDir)).rejects.toThrow();
     });
 
     it('should handle files with syntax errors gracefully', async () => {
