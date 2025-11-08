@@ -12,10 +12,10 @@ Systematic build tests for all supported Silk frameworks. **Must pass before eac
 | 2 | **Webpack** | No-codegen | Virtual module | ✅ Tested |
 | 3 | **Next.js (webpack)** | No-codegen | Virtual module | ✅ Tested |
 | 4 | **Next.js (turbopack)** | Semi-codegen | CLI tool | ✅ Tested |
-| 5 | **Vue 3 + Vite** | No-codegen | Virtual module | 📋 To test |
-| 6 | **Nuxt 3** | No-codegen | Auto-import | 📋 To test |
-| 7 | **Svelte + Vite** | No-codegen | Virtual module | 📋 To test |
-| 8 | **SvelteKit** | No-codegen | Virtual module | 📋 To test |
+| 5 | **Vue 3 + Vite** | No-codegen | Virtual module | ✅ Tested |
+| 6 | **Nuxt 3** | No-codegen | Auto-import | ✅ Tested |
+| 7 | **Svelte + Vite** | No-codegen | Virtual module | ✅ Tested |
+| 8 | **SvelteKit** | No-codegen | Virtual module | ✅ Tested |
 
 ### 🎯 Test Requirements
 
@@ -165,10 +165,10 @@ Run `./run-all-tests.sh` to see:
 ╚════════════════════════════════════════════════════════╝
 
   Total Tests:  8
-  Passed:       4
+  Passed:       8
   Failed:       0
-  Skipped:      4
-  Duration:     45s
+  Skipped:      0
+  Duration:     21s
 
 ╔════════════════════════════════════════════════════════╗
 ║  ✅ All tests passed! Ready for release.              ║

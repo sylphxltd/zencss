@@ -1,0 +1,19 @@
+{
+  "name": "test-nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@sylphx/silk": "file:../../packages/core",
+    "nuxt": "^3.11.0",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@sylphx/silk-nuxt": "file:../../packages/nuxt-module"
+  }
+}

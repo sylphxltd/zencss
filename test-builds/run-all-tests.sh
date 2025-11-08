@@ -64,7 +64,7 @@ test_framework() {
   echo -e "${CYAN}  🔨 Building...${NC}"
   if eval "$BUILD_CMD" > /tmp/${TEST_DIR//\//_}-build.log 2>&1; then
     # Verify
-    if eval "$VERIFY_CMD"; then
+    if ( eval "$VERIFY_CMD" ); then
       echo -e "${GREEN}  ✅ Build passed${NC}"
       PASSED=$((PASSED+1))
     else
