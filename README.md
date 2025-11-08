@@ -34,6 +34,23 @@ bun add @sylphx/silk-nextjs  # That's it!
 
 [View Next.js Documentation →](./packages/nextjs-plugin/README.md)
 
+### 🎯 Framework Support
+
+**15+ frameworks supported with zero-codegen:**
+
+| Framework | Status | Setup |
+|-----------|--------|-------|
+| **Next.js** | ✅ Tested | `@sylphx/silk-nextjs` |
+| **Nuxt 3** | ✅ Ready | `@sylphx/silk-nuxt` |
+| **Vite + React/Vue/Svelte** | ✅ Tested | `@sylphx/silk-vite-plugin` |
+| **SvelteKit** | ✅ Ready | `@sylphx/silk-vite-plugin` |
+| **Astro** | ✅ Ready | `@sylphx/silk-vite-plugin` |
+| **Remix** | ✅ Ready | `@sylphx/silk-vite-plugin` |
+| **Create React App** | ✅ Ready | `@sylphx/silk-webpack-plugin` |
+| **Angular** | ✅ Ready | `@sylphx/silk-webpack-plugin` |
+
+[📚 View All Frameworks & Quick Start Guides →](./FRAMEWORK_QUICKSTART.md)
+
 #### v2.0.0: True Zero-Runtime
 
 ⚡ **Zero-Runtime Compilation** • 📦 **Build-time CSS Extraction (-6.5KB JS)** • 🎯 **389B Brotli CSS (-61%)** • 🔧 **unplugin Architecture** • 🚀 **All Frameworks Updated** • ✨ **HMR with State Preservation** • 🔥 **0ms Runtime Cost**
