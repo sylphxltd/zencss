@@ -470,14 +470,15 @@ Silk now provides **first-class integration packages** with **zero-runtime compi
 bun add @sylphx/silk-nextjs
 ```
 
-**One package, works everywhere!** Automatically includes:
+**One package, works everywhere!** Includes:
 - ✅ **Zero-runtime** build-time compilation
 - ✅ Full App Router support with React Server Components
 - ✅ **Automatic Webpack/Turbopack optimization** - no config needed!
-- ✅ **20-70x faster** with Turbopack (SWC plugin auto-installed)
+- ✅ **20-70x faster** with Turbopack (native Rust SWC plugin bundled)
 - ✅ Automatic CSS extraction during build
 - ✅ Brotli pre-compression
 - ✅ HMR with state preservation
+- ✅ **Rust source code included** for full transparency
 
 ```javascript
 // next.config.js

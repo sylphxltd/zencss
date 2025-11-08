@@ -96,12 +96,16 @@ export function withSilk(
   // Detect Turbopack mode
   const useTurbopack = nextConfig.turbo !== undefined || process.env.TURBOPACK === '1'
 
+  // Path to the bundled WASM file (shipped with this package)
+  const wasmPath = path.join(__dirname, 'swc_plugin_silk.wasm')
+
   // SWC plugin configuration for Turbopack
+  // Uses the WASM file bundled with this package (no separate install needed)
   const swcPluginConfig = useTurbopack ? {
     experimental: {
       ...nextConfig.experimental,
       swcPlugins: [
-        ['@sylphx/swc-plugin-silk', babelOptions as Record<string, unknown>] as [string, Record<string, unknown>],
+        [wasmPath, babelOptions as Record<string, unknown>] as [string, Record<string, unknown>],
         ...(nextConfig.experimental?.swcPlugins || []),
       ],
       // Turbopack configuration

@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/silk-nextjs",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Next.js integration for Silk - zero-runtime CSS-in-TypeScript with App Router support",
   "keywords": [
     "css",
@@ -36,12 +36,15 @@
     "dist/**/*.js",
     "dist/**/*.d.ts",
     "dist/**/*.d.ts.map",
+    "dist/**/*.wasm",
     "src/silk-loader.js",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "bun run build:rust && tsc",
+    "build:rust": "cd swc-plugin && cargo build --release --target wasm32-wasip1 && mkdir -p ../dist && cp target/wasm32-wasip1/release/swc_plugin_silk.wasm ../dist/",
+    "test:rust": "cd swc-plugin && cargo test",
     "dev": "tsc --watch",
     "prepublishOnly": "bun run build"
   },
@@ -55,9 +58,6 @@
     "@sylphx/silk-react": "^2.0.2",
     "@sylphx/silk-vite-plugin": "^2.1.0",
     "mini-css-extract-plugin": "^2.9.4"
-  },
-  "optionalDependencies": {
-    "@sylphx/swc-plugin-silk": "^0.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

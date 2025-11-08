@@ -10,10 +10,11 @@ npm install @sylphx/silk-nextjs
 bun add @sylphx/silk-nextjs
 ```
 
-**That's it!** The package automatically includes the SWC plugin as an optional dependency:
+**That's it!** Everything you need in one package:
 - ✅ **Webpack builds** - Uses Babel plugin (works immediately)
-- ✅ **Turbopack builds** - Uses SWC plugin (auto-installed, 20-70x faster)
+- ✅ **Turbopack builds** - Uses bundled SWC plugin (20-70x faster, no extra install)
 - ✅ **No configuration needed** - Automatic detection and optimization
+- ✅ **No additional packages** - WASM plugin bundled with this package
 
 ## Quick Start
 
@@ -116,47 +117,52 @@ That's it! The CSS is automatically generated at build time, and Next.js optimiz
 
 ## 🚀 Turbopack Support
 
-This package **automatically includes everything you need** for both Webpack and Turbopack!
+This package **includes everything** - no additional installs needed!
 
-### Automatic Optimization
+### What's Bundled
 
-The package includes the SWC plugin as an **optional dependency**. When you install `@sylphx/silk-nextjs`:
+When you install `@sylphx/silk-nextjs`, you get:
 
 ```bash
 bun add @sylphx/silk-nextjs
 ```
 
-Your package manager automatically:
-1. ✅ Installs the core Next.js plugin
-2. ✅ Attempts to install the SWC plugin (optional)
-3. ✅ Detects your build mode at runtime
-4. ✅ Uses the optimal plugin automatically
+**Included in the package:**
+1. ✅ Babel plugin for Webpack builds
+2. ✅ **Native Rust SWC plugin (WASM)** for Turbopack builds
+3. ✅ Automatic build mode detection
+4. ✅ Zero configuration needed
 
-**No extra steps, no configuration needed!**
+**Package size:** ~2MB total (includes 1.5MB WASM for Turbopack optimization)
 
 ### How It Works
 
-| Build Mode | Plugin Used | Performance |
-|------------|-------------|-------------|
-| **Webpack** | Babel | 1x (baseline) |
-| **Turbopack** | SWC (Rust) | **20-70x faster** |
+| Build Mode | Plugin Used | Performance | Included |
+|------------|-------------|-------------|----------|
+| **Webpack** | Babel | 1x (baseline) | ✅ Yes |
+| **Turbopack** | SWC (Rust WASM) | **20-70x faster** | ✅ Yes |
 
 The package automatically:
 - ✅ Detects Turbopack mode (`next dev --turbo`)
-- ✅ Uses SWC plugin if available
-- ✅ Falls back to Babel if SWC unavailable
+- ✅ Uses bundled WASM plugin for maximum performance
+- ✅ No separate package installation needed
 - ✅ Zero configuration required
 
-### What's Included
+### Why Bundle WASM?
 
-When you run `bun add @sylphx/silk-nextjs`, you get:
-- **Required**: Next.js integration with Babel plugin
-- **Optional**: SWC plugin for Turbopack (auto-installed)
-- **Automatic**: Runtime detection and optimization
+**Since Next.js 15/16 defaults to Turbopack:**
+- ✅ Most users benefit from the native SWC plugin
+- ✅ No confusing "install second package" steps
+- ✅ Guaranteed version compatibility
+- ✅ Simpler dependency management
 
-**One package, optimal performance everywhere.**
+**Includes source code:**
+- 📁 Rust source code included in `swc-plugin/` directory
+- 🧪 Comprehensive test suite (16 tests)
+- 🔧 Can rebuild WASM locally if needed
+- 📚 Full transparency and auditability
 
-[View SWC Plugin Documentation →](../swc-plugin/README.md)
+**One package, maximum performance everywhere.**
 
 ## Features
 
