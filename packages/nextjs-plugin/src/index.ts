@@ -107,22 +107,31 @@ export function withSilk(
     ...nextConfig,
 
     webpack(config: any, options: any) {
-      // Only apply plugin for client build (not server)
-      if (!options.isServer) {
-        if (debug) {
-          console.log('[Silk] Webpack mode: Injecting SilkWebpackPlugin');
-        }
+      console.log(`[Silk] webpack() called, isServer: ${options.isServer}`);
 
-        // Add SilkWebpackPlugin
-        config.plugins = config.plugins || [];
-        config.plugins.push(
-          new SilkWebpackPlugin({
-            srcDir,
-            virtualModuleId,
-            debug,
-            ...generateOptions
-          })
-        );
+      if (debug) {
+        console.log('[Silk] Webpack mode: Injecting SilkWebpackPlugin');
+        console.log('[Silk] Config:', JSON.stringify({ srcDir, virtualModuleId }, null, 2));
+      }
+
+      // Add SilkWebpackPlugin (to both client and server builds)
+      config.plugins = config.plugins || [];
+      const plugin = new SilkWebpackPlugin({
+        srcDir,
+        virtualModuleId,
+        debug,
+        ...generateOptions
+      });
+      console.log('[Silk] Plugin instance created');
+      console.log('[Silk] Plugin has apply method:', typeof plugin.apply === 'function');
+      config.plugins.push(plugin);
+      console.log('[Silk] Plugin added to config.plugins');
+
+      // Ensure webpack can resolve the virtual module
+      config.resolve = config.resolve || {};
+      config.resolve.modules = config.resolve.modules || [];
+      if (!config.resolve.modules.includes('node_modules')) {
+        config.resolve.modules.push('node_modules');
       }
 
       // Call user's webpack config if exists
