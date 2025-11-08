@@ -10,6 +10,14 @@ npm install @sylphx/silk-nextjs
 bun add @sylphx/silk-nextjs
 ```
 
+**For Turbopack users (Next.js 15/16 with `--turbo`):**
+```bash
+# Also install the SWC plugin for automatic Turbopack support
+bun add @sylphx/swc-plugin-silk
+```
+
+The package will automatically detect Turbopack and use the SWC plugin if available. No configuration needed!
+
 ## Quick Start
 
 ### 1. Configure Next.js
@@ -109,42 +117,48 @@ export function Button({ children }) {
 
 That's it! The CSS is automatically generated at build time, and Next.js optimizes it through its CSS pipeline (merging, tree-shaking, minification).
 
-## 🚀 Turbopack Support (Next.js 15/16)
+## 🚀 Turbopack Support
 
-For **20-70x faster builds** with Next.js 15/16 Turbopack, use the SWC plugin instead:
+This package **automatically detects and supports both Webpack and Turbopack**!
 
+### Automatic Turbopack Detection
+
+When you use Next.js with Turbopack (`next dev --turbo`), this package automatically:
+1. Detects Turbopack mode
+2. Uses the native Rust SWC plugin (`@sylphx/swc-plugin-silk`)
+3. Provides 20-70x faster builds
+
+**Setup:**
 ```bash
+# 1. Install the Next.js plugin
+bun add @sylphx/silk-nextjs
+
+# 2. If using Turbopack, also install the SWC plugin
 bun add @sylphx/swc-plugin-silk
+
+# 3. Use your existing config - automatic detection!
 ```
 
-```javascript
-// next.config.js
-export default {
-  experimental: {
-    turbo: {
-      rules: {
-        '*.{ts,tsx,js,jsx}': {
-          loaders: ['@sylphx/swc-plugin-silk'],
-          options: {
-            production: process.env.NODE_ENV === 'production',
-            classPrefix: ''  // or 'silk-' for dev mode
-          }
-        }
-      }
-    }
-  }
-}
-```
+**No configuration changes needed** - the package detects Turbopack automatically and uses the optimal plugin.
 
-**Benefits:**
-- ✅ Native Rust performance (20-70x faster than Babel)
-- ✅ 100% hash consistency (identical class names)
-- ✅ Full Turbopack compatibility
-- ✅ Production-ready (144 tests passing)
+### How It Works
 
-**When to use:**
-- **Webpack builds** (default Next.js): Use `@sylphx/silk-nextjs` (this package)
-- **Turbopack builds** (Next.js 15/16 with `--turbo`): Use `@sylphx/swc-plugin-silk`
+| Build Mode | Plugin Used | Setup Required |
+|------------|-------------|----------------|
+| **Webpack** (default) | Babel plugin | None - works out of box |
+| **Turbopack** (`--turbo`) | SWC plugin (Rust) | Install `@sylphx/swc-plugin-silk` |
+
+The package checks for Turbopack automatically:
+- ✅ If SWC plugin is installed → Uses Rust SWC (20-70x faster)
+- ✅ If SWC plugin is missing → Falls back to Babel (still works!)
+
+### Performance Benefits
+
+| Mode | Speed | Notes |
+|------|-------|-------|
+| Webpack + Babel | 1x (baseline) | Default, works everywhere |
+| Turbopack + Babel | 5-10x | Turbopack speed boost |
+| **Turbopack + SWC** | **20-70x** | Native Rust performance |
 
 [View SWC Plugin Documentation →](../swc-plugin/README.md)
 

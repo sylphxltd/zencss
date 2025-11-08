@@ -468,15 +468,18 @@ Silk now provides **first-class integration packages** with **zero-runtime compi
 
 ```bash
 bun add @sylphx/silk-nextjs
+
+# For Turbopack (Next.js 15/16 with --turbo):
+bun add @sylphx/swc-plugin-silk  # Automatic 20-70x speedup
 ```
 
 **Features:**
-- ✅ **Zero-runtime** build-time compilation via unplugin.webpack
+- ✅ **Zero-runtime** build-time compilation
 - ✅ Full App Router support with React Server Components
+- ✅ **Automatic Webpack/Turbopack detection** - no config needed!
 - ✅ Automatic CSS extraction during build
 - ✅ Brotli pre-compression
 - ✅ HMR with state preservation
-- ✅ **Next.js 16 + Turbopack** support via `@sylphx/swc-plugin-silk` (see below)
 
 ```javascript
 // next.config.js
@@ -490,6 +493,7 @@ export default withSilk({
     production: true
   }
 })
+// No Turbopack config needed - automatic detection!
 ```
 
 ```typescript
@@ -501,44 +505,11 @@ export default function RootLayout({ children }) {
 }
 ```
 
+**How it works:**
+- **Webpack builds** → Uses Babel plugin automatically
+- **Turbopack builds** → Uses SWC plugin (Rust) if installed, otherwise falls back to Babel
+
 [View Full Next.js Documentation →](./packages/nextjs-plugin/README.md)
-
-#### 🚀 Turbopack Setup
-
-For **20-70x faster builds** with Next.js 15/16 Turbopack, use the SWC plugin:
-
-```bash
-bun add @sylphx/swc-plugin-silk
-```
-
-```javascript
-// next.config.js
-export default {
-  experimental: {
-    turbo: {
-      rules: {
-        '*.{ts,tsx,js,jsx}': {
-          loaders: ['@sylphx/swc-plugin-silk'],
-          options: {
-            production: process.env.NODE_ENV === 'production',
-            classPrefix: ''  // or 'silk-' for dev mode
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-**Benefits:**
-- ✅ Native Rust performance (20-70x faster than Babel)
-- ✅ 100% hash consistency (identical class names as Babel plugin)
-- ✅ Full Turbopack compatibility
-- ✅ Production-ready (144 tests passing)
-
-**Note:** For standard Next.js builds (Webpack), continue using `@sylphx/silk-nextjs`. For Turbopack builds, use the SWC plugin above.
-
-[View SWC Plugin Documentation →](./packages/swc-plugin/README.md)
 
 ### 🎵 Remix - Streaming SSR & Zero-Runtime
 
@@ -1535,6 +1506,7 @@ bun test --run benchmark.bench.ts
 - ESLint plugin
 - VS Code extension
 - Webpack plugin
+
 
 ## Development
 
