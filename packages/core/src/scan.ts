@@ -120,10 +120,10 @@ function extractCssFromFile(filePath: string): ScanResult {
   const content = fs.readFileSync(filePath, 'utf-8');
   const cssRules: ScanResult['cssRules'] = [];
 
-  // Match css({ ... }) or css({ ... } as any) or css({ ... } as const)
+  // Match css({ ... }) or css({ ... } as any) or css({ ... } as const) or css({ ... } satisfies Type)
   // This regex is simplified - real implementation should use AST
-  // Matches: css({ ... }), css({ ... } as any), css({ ... } as const), etc.
-  const cssCallRegex = /css\s*\(\s*({[\s\S]*?})\s*(?:as\s+\w+)?\s*\)/g;
+  // Matches: css({ ... }), css({ ... } as any), css({ ... } as const), css({ ... } satisfies X)
+  const cssCallRegex = /css\s*\(\s*({[\s\S]*?})\s*(?:(?:as|satisfies)\s+[\w<>]+)?\s*\)/g;
 
   let match;
   while ((match = cssCallRegex.exec(content)) !== null) {
