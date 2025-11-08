@@ -51,7 +51,10 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "prepublishOnly": "bun run build"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "bun run build && bun run test"
   },
   "dependencies": {
     "lightningcss-wasm": "^1.30.1"
