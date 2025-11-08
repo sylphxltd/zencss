@@ -155,14 +155,14 @@ pub fn extract_styles(obj: &ObjectLit) -> Vec<(String, String)> {
             if let Prop::KeyValue(kv) = &**prop {
                 // Get property name
                 let prop_name = match &kv.key {
-                    PropName::Ident(ident) => ident.sym.to_string(),
-                    PropName::Str(s) => s.value.to_string(),
+                    PropName::Ident(ident) => ident.sym.as_str().to_string(),
+                    PropName::Str(s) => s.value.as_str().unwrap_or("").to_string(),
                     _ => continue,
                 };
 
                 // Get property value (only handle string and number literals for now)
                 let prop_value = match &*kv.value {
-                    Expr::Lit(Lit::Str(s)) => s.value.to_string(),
+                    Expr::Lit(Lit::Str(s)) => s.value.as_str().unwrap_or("").to_string(),
                     Expr::Lit(Lit::Num(n)) => n.value.to_string(),
                     _ => continue,
                 };

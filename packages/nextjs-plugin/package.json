@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/silk-nextjs",
-  "version": "2.1.6",
+  "version": "2.2.0",
   "description": "Next.js integration for Silk - zero-runtime CSS-in-TypeScript with App Router support",
   "keywords": [
     "css",
@@ -36,6 +36,7 @@
     "dist/**/*.js",
     "dist/**/*.d.ts",
     "dist/**/*.d.ts.map",
+    "src/silk-loader.js",
     "README.md",
     "LICENSE"
   ],
@@ -49,10 +50,11 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
+    "@sylphx/babel-plugin-silk": "^2.0.1",
     "@sylphx/silk": "^2.0.2",
     "@sylphx/silk-react": "^2.0.2",
-    "@sylphx/silk-vite-plugin": "^2.0.2",
-    "@sylphx/babel-plugin-silk": "^2.0.0"
+    "@sylphx/silk-vite-plugin": "^2.1.0",
+    "mini-css-extract-plugin": "^2.9.4"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

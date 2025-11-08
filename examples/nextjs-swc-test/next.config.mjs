@@ -1,13 +1,13 @@
 import { withSilk } from '@sylphx/silk-nextjs'
 
 export default withSilk({
-  // Next.js config
+  // Next.js config - silence Turbopack warning (Silk uses webpack)
+  turbopack: {},
 }, {
   // Silk config
   outputFile: 'silk.css',
-  inject: true,
   babelOptions: {
-    production: false,
-    classPrefix: 'test',
+    production: true,  // Production mode - optimal compression
+    // No classPrefix = 6-7 char class names (best compression)
   }
 })

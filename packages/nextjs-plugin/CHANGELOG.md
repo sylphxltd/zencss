@@ -1,5 +1,164 @@
 # @sylphx/silk-nextjs
 
+## 2.2.0
+
+### Minor Changes
+
+- Add content hash and optional PostCSS support
+
+  ## New Features
+
+  ### 1. Content Hash for Cache Busting (Critical Fix)
+
+  **Problem**: CSS files had fixed filenames (silk.css), causing browser cache issues when styles changed after deployment.
+
+  **Solution**: Generate MD5 content hash from CSS and emit multiple filenames:
+
+  - `static/css/silk.{hash}.css` - Content-hashed for production (e.g., silk.ca8116ad.css)
+  - `static/css/silk.css` - Legacy filename for backwards compatibility
+  - `.next/silk.css` - Local reference file
+
+  **Benefits**:
+
+  - ✅ Automatic cache invalidation when CSS changes
+  - ✅ CDN-safe with immutable cache headers
+  - ✅ Follows Next.js cache strategy best practices
+  - ✅ Backwards compatible
+
+  ### 2. Optional PostCSS Support
+
+  **New**: Add autoprefixer and other PostCSS plugins support for legacy browser compatibility.
+
+  **Configuration**:
+
+  ```typescript
+  // next.config.js
+  import { withSilk } from "@sylphx/silk-nextjs";
+  import autoprefixer from "autoprefixer";
+
+  export default withSilk(
+    {},
+    {
+      postCss: {
+        enable: true,
+        plugins: [
+          autoprefixer({
+            overrideBrowserslist: ["> 1%", "last 2 versions", "IE 11"],
+          }),
+        ],
+        sourceMaps: true, // Optional: generate source maps
+      },
+    }
+  );
+  ```
+
+  **Benefits**:
+
+  - ✅ Autoprefixer support for legacy browsers (IE 11, old Safari)
+  - ✅ Source maps for debugging
+  - ✅ Custom PostCSS plugins support
+  - ✅ Zero overhead when disabled (default)
+  - ✅ Only ~5-10ms overhead when enabled
+
+  **Performance**:
+
+  - Basic mode: 26-42ms per file (no change)
+  - With PostCSS: 31-52ms per file
+  - Still 2-3x faster than Vanilla Extract (60-115ms)
+
+  ## Usage
+
+  **Basic (Recommended for modern browsers)**:
+
+  ```tsx
+  // app/layout.tsx
+  <link rel="stylesheet" href="/_next/static/css/silk.ca8116ad.css" />
+  ```
+
+  **With PostCSS (Legacy browser support)**:
+
+  ```bash
+  # Install optional dependencies
+  npm install postcss autoprefixer
+  ```
+
+  ```typescript
+  // next.config.js
+  import { withSilk } from "@sylphx/silk-nextjs";
+  import autoprefixer from "autoprefixer";
+
+  export default withSilk(
+    {},
+    {
+      postCss: {
+        enable: true,
+        plugins: [autoprefixer()],
+        sourceMaps: true,
+      },
+    }
+  );
+  ```
+
+  **Build Output**:
+
+  ```
+  [Silk] Emitted CSS:
+    • silk.css (944 bytes)
+    • static/css/silk.ca8116ad.css (content-hashed, cacheable)
+    • static/css/silk.css (legacy, no hash)
+    • PostCSS: 1 plugins applied
+    • Source map generated
+  ```
+
+  ## Research
+
+  This release is based on comprehensive research of Vanilla Extract's Next.js integration approach. See `/tmp/silk-vs-vanilla-extract-final.md` for full technical analysis and comparison.
+
+  **Key Decision**: Silk's hybrid approach (content hash + optional PostCSS) provides the best balance of:
+
+  - Performance (2-3x faster than Vanilla Extract)
+  - Simplicity (easy to understand and maintain)
+  - Flexibility (PostCSS optional, zero overhead when disabled)
+  - Cross-bundler support (Vite, Rollup, webpack)
+
+  For detailed technical comparison with Vanilla Extract, see research documentation generated in project root.
+
+### Patch Changes
+
+- 981c023: Fix automatic CSS injection in production build mode
+
+  - Replaced virtual modules with real file injection to fix build-time resolution issues
+  - CSS now correctly injected in both dev and build modes
+  - Removed webpack-virtual-modules dependency
+  - Uses .next/silk-auto/ directory for generated inject files
+  - Tested and verified working with Next.js 16 webpack builds
+
+- 21c6035: Add Next.js 16 support to peerDependencies
+
+  - Updated peerDependencies to include `^16.0.0`
+  - Fixes installation issues with Next.js 16.0.1
+  - v2.1.4 virtual module resolution was correct, issue was peer dependency conflict
+
+- b1e819a: Fix webpack virtual module timing issue
+
+  - Create virtual modules with initial content at plugin initialization
+  - Update content in processAssets stage (not create)
+  - Ensures modules exist before webpack starts resolving
+  - Fixes "Module not found: Error: Can't resolve '**silk_auto_inject**'"
+
+- efd881d: Fix virtual module path resolution for automatic CSS injection
+
+  - Changed virtual module structure from flat to directory-based
+  - Virtual modules now in `node_modules/__silk__/` directory
+  - Fixed relative imports within virtual modules
+  - Resolves "Can't resolve '**silk_auto_inject**'" error
+  - Tested and verified working with Next.js 16 webpack mode
+
+- Updated dependencies
+- Updated dependencies
+  - @sylphx/silk-vite-plugin@2.1.0
+  - @sylphx/babel-plugin-silk@2.0.1
+
 ## 2.1.2
 
 ### Patch Changes

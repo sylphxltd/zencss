@@ -9,7 +9,7 @@ import type { PluginOptions } from '../types.js'
  * Generate a unique class name for a CSS property-value pair
  *
  * Development mode: silk_bg_red_a7f3 (descriptive)
- * Production mode: a7f3b2c1 (short)
+ * Production mode: s1a7f3b2 (short, always starts with letter)
  *
  * @param property - CSS property name
  * @param value - CSS property value
@@ -27,8 +27,26 @@ export function generateClassName(
   const hash = hashPropertyValue(property, value, variant)
 
   if (production) {
-    // Short hash for production: a7f3b2c1
-    return hash.slice(0, 8)
+    // Short hash for production (8 chars)
+    // CSS class names cannot start with a digit, so we map 0-9 to g-p
+    // This maintains 8-char length while ensuring valid CSS identifiers
+    let shortHash = hash.slice(0, 8)
+    const firstChar = shortHash[0]
+
+    // Map leading digits to letters (0→g, 1→h, ..., 9→p)
+    if (firstChar >= '0' && firstChar <= '9') {
+      const mapped = String.fromCharCode(
+        firstChar.charCodeAt(0) - '0'.charCodeAt(0) + 'g'.charCodeAt(0)
+      )
+      shortHash = mapped + shortHash.slice(1)
+    }
+
+    // Apply custom prefix if provided (increases length but allows branding)
+    if (classPrefix && classPrefix !== 's') {
+      return `${classPrefix}${shortHash}`
+    }
+
+    return shortHash
   }
 
   // Descriptive for development

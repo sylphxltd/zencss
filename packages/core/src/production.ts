@@ -1,34 +1,10 @@
 /**
- * Production optimization utilities
+ * Production optimization utilities (browser-safe)
  * - Short hashed class names (30-40% smaller CSS)
- * - LightningCSS optimization (5-10x faster builds)
- * - Multi-stage minification
+ * - Multi-stage manual optimization
+ *
+ * NOTE: For LightningCSS optimization (Node.js only), use @sylphx/silk/production-node
  */
-
-// Dynamic import to avoid bundling native dependencies in browser builds
-type LightningCSS = typeof import('lightningcss')
-let lightningcss: LightningCSS | null = null
-
-// Lazy load lightningcss only when needed (server environments: Node.js, Bun, Deno)
-async function loadLightningCSS(): Promise<LightningCSS | null> {
-  if (lightningcss) return lightningcss
-
-  // Check if we're in a server environment (not browser)
-  // Browser has 'window', server environments don't
-  if (typeof window === 'undefined') {
-    try {
-      lightningcss = await import('lightningcss')
-      return lightningcss
-    } catch (error) {
-      // LightningCSS not available or not compatible with runtime
-      // Automatically falls back to manual optimization
-      return null
-    }
-  }
-
-  // Browser environment - lightningcss cannot run (native addons need Node.js/Bun)
-  return null
-}
 
 export interface ProductionConfig {
   /** Enable production mode optimizations */
@@ -304,63 +280,17 @@ export function getShortNameCount(): number {
  * Note: Automatically falls back to manual optimization in browser environments
  * or when LightningCSS is not available.
  */
-export async function optimizeCSSWithLightning(
-  css: string,
-  config: ProductionConfig = {}
-): Promise<CSSOptimizationResult> {
-  const originalSize = new TextEncoder().encode(css).length
-
-  try {
-    const lightning = await loadLightningCSS()
-
-    if (!lightning) {
-      // LightningCSS not available (browser or missing devDependency)
-      return optimizeCSS(css)
-    }
-
-    const { code } = lightning.transform({
-      filename: 'silk.css',
-      code: new TextEncoder().encode(css),
-      minify: config.minify ?? true,
-      ...(config.targets && { targets: config.targets }),
-    })
-
-    const optimized = new TextDecoder().decode(code)
-    const optimizedSize = new TextEncoder().encode(optimized).length
-    const percentage = ((originalSize - optimizedSize) / originalSize) * 100
-
-    return {
-      optimized,
-      savings: {
-        originalSize,
-        optimizedSize,
-        percentage,
-      },
-    }
-  } catch (error) {
-    // Fallback to manual optimization if LightningCSS fails
-    if (typeof console !== 'undefined' && console.warn) {
-      console.warn('LightningCSS optimization failed, falling back to manual optimization:', error)
-    }
-    return optimizeCSS(css)
-  }
-}
-
 /**
- * Smart CSS optimization - uses LightningCSS if enabled, otherwise manual
+ * CSS optimization (browser-safe, no native dependencies)
  *
- * Automatically detects environment and falls back to manual optimization
- * in browser environments or when LightningCSS is not available.
+ * For faster LightningCSS optimization in Node.js, use:
+ *   import { optimizeCSSWithLightning } from '@sylphx/silk/production-node'
  */
-export async function smartOptimizeCSS(
+export function smartOptimizeCSS(
   css: string,
   config: ProductionConfig = {}
-): Promise<CSSOptimizationResult> {
-  const useLightning = config.useLightningCSS ?? true  // Default to Lightning
-
-  if (useLightning) {
-    return await optimizeCSSWithLightning(css, config)
-  }
-
+): CSSOptimizationResult {
+  // Browser-safe manual optimization
+  // For LightningCSS (5-10x faster), use production-node module
   return optimizeCSS(css)
 }

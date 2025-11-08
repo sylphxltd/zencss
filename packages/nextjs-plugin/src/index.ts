@@ -9,6 +9,11 @@ import type { DesignConfig } from '@sylphx/silk'
 import { unpluginSilk, type SilkPluginOptions } from '@sylphx/silk-vite-plugin'
 import * as path from 'node:path'
 import * as fs from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export interface SilkNextConfig extends SilkPluginOptions {
   /**
@@ -31,13 +36,23 @@ export interface SilkNextConfig extends SilkPluginOptions {
 
   /**
    * Automatically inject CSS into HTML
-   * @default true
+   *
+   * ⚠️ DEPRECATED: Auto-injection has fundamental limitations:
+   * - Bypasses Next.js CSS optimization pipeline (no merging/tree-shaking)
+   * - Extra network request (impacts FCP)
+   * - Flash of Unstyled Content (FOUC)
+   * - CDN compatibility issues
+   *
+   * RECOMMENDED: Use manual import instead (see README)
+   *
+   * @default false
+   * @deprecated Use manual CSS import for reliable production builds
    */
   inject?: boolean
 }
 
 /**
- * Silk Next.js plugin with automatic CSS injection
+ * Silk Next.js plugin
  *
  * @example
  * ```typescript
@@ -47,10 +62,12 @@ export interface SilkNextConfig extends SilkPluginOptions {
  * export default withSilk({
  *   // Next.js config
  * }, {
- *   // Silk config (all optional)
- *   outputFile: 'silk.css',
- *   inject: true  // Auto-inject CSS (default)
+ *   // Silk config
+ *   outputFile: 'styles/silk.css',  // Output path
  * })
+ *
+ * // app/layout.tsx - Import the generated CSS
+ * import '../.next/styles/silk.css'
  * ```
  */
 export function withSilk(
@@ -59,7 +76,7 @@ export function withSilk(
 ): NextConfig {
   const {
     outputFile = 'silk.css',
-    inject = true,
+    inject = false,  // Deprecated - CSS is now auto-emitted to static/css
     babelOptions = {},
     compression = {},
     minify,
@@ -87,6 +104,15 @@ export function withSilk(
         ['@sylphx/swc-plugin-silk', babelOptions as Record<string, unknown>] as [string, Record<string, unknown>],
         ...(nextConfig.experimental?.swcPlugins || []),
       ],
+      // Turbopack configuration
+      turbo: {
+        ...nextConfig.turbo,
+        resolveAlias: {
+          ...nextConfig.turbo?.resolveAlias,
+          // Prevent lightningcss from being bundled in client builds
+          'lightningcss': false,
+        },
+      },
     },
   } : {}
 
@@ -101,76 +127,41 @@ export function withSilk(
         config = nextConfig.webpack(config, options)
       }
 
-      // Add Silk unplugin (generates CSS)
+      const cssPath = path.join(dir, '.next', outputFile)
+      const cssDir = path.dirname(cssPath)
+
+      // Create placeholder CSS file before compilation starts
+      // This ensures .next/silk.css exists when Next.js processes CSS imports
       config.plugins = config.plugins || []
+      config.plugins.push({
+        apply(compiler: any) {
+          compiler.hooks.beforeCompile.tapAsync('SilkPlaceholder', (_params: any, callback: () => void) => {
+            if (!fs.existsSync(cssDir)) {
+              fs.mkdirSync(cssDir, { recursive: true })
+            }
+
+            // Create empty placeholder if doesn't exist
+            // Silk plugin will overwrite this with real CSS during compilation
+            if (!fs.existsSync(cssPath)) {
+              fs.writeFileSync(cssPath, '/* Silk CSS - will be generated during build */')
+            }
+
+            callback()
+          })
+        }
+      })
+
+      // Add Silk unplugin (generates CSS to static/css/silk.css)
       config.plugins.push(unpluginSilk.webpack(silkPluginOptions))
 
-      // Automatic CSS injection for client bundles
-      if (!isServer && inject) {
-        // Use .next directory for generated files (cleaned between builds)
-        const silkDir = path.join(dir, '.next', 'silk-auto')
-        const injectPath = path.join(silkDir, 'inject.js')
-
-        // Ensure directory exists
-        if (!fs.existsSync(silkDir)) {
-          fs.mkdirSync(silkDir, { recursive: true })
-        }
-
-        // Create initial inject file
-        fs.writeFileSync(injectPath, `// Silk CSS auto-inject\n// Updated during build\n`)
-
-        // Add custom plugin to collect and inject CSS
-        config.plugins.push({
-          apply(compiler: any) {
-            compiler.hooks.emit.tapAsync('SilkAutoInject', (compilation: any, callback: any) => {
-              // Collect all CSS from Silk-generated assets
-              let allCSS = ''
-
-              // Check for silk.css in compilation assets
-              if (compilation.assets[outputFile]) {
-                allCSS = compilation.assets[outputFile].source()
-              } else {
-                // Fallback: collect from all CSS assets
-                Object.keys(compilation.assets).forEach(filename => {
-                  if (filename.endsWith('.css') && !filename.includes('node_modules')) {
-                    const asset = compilation.assets[filename]
-                    if (asset && typeof asset.source === 'function') {
-                      const content = asset.source()
-                      if (content && content.includes('silk_')) {
-                        allCSS += content
-                      }
-                    }
-                  }
-                })
-              }
-
-              if (allCSS) {
-                // Update inject file with CSS
-                const injectContent = `// Silk CSS auto-inject\nif (typeof document !== 'undefined') {\n  const style = document.createElement('style');\n  style.textContent = ${JSON.stringify(allCSS)};\n  document.head.appendChild(style);\n}\n`
-                fs.writeFileSync(injectPath, injectContent)
-              }
-
-              callback()
-            })
-          },
-        })
-
-        // Inject into all client entries
-        const originalEntry = config.entry
-        config.entry = async () => {
-          const entries = await originalEntry()
-
-          for (const [key, value] of Object.entries(entries)) {
-            if (key.includes('server') || key.includes('middleware')) continue
-
-            if (Array.isArray(value)) {
-              if (!value.includes(injectPath)) {
-                value.unshift(injectPath)
-              }
-            }
-          }
-
-          return entries
+      // Mark lightningcss as external to prevent bundling in client builds
+      // It's only used server-side for CSS optimization via dynamic import
+      config.externals = config.externals || []
+      if (!isServer) {
+        if (Array.isArray(config.externals)) {
+          config.externals.push('lightningcss')
+        } else if (typeof config.externals === 'object') {
+          config.externals = { ...config.externals, lightningcss: 'lightningcss' }
         }
       }
 
@@ -225,3 +216,6 @@ export type { SilkReactSystem } from '@sylphx/silk-react'
 
 // Re-export core
 export * from '@sylphx/silk'
+
+// Export Silk styles component
+export { SilkStyles, getSilkCssLink } from './SilkStyles.js'

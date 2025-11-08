@@ -11,18 +11,20 @@
  * Import from: @sylphx/silk/optimizer
  */
 
-// Production optimizations (with LightningCSS - 5-10x faster)
+// Production optimizations (browser-safe)
 export {
   generateClassName,
   generateShortClassName,
   hashStyleId,
   optimizeCSS,
-  optimizeCSSWithLightning,
   smartOptimizeCSS,
   resetShortNameCounter,
   getShortNameCount,
 } from './production.js'
 export type { ProductionConfig, CSSOptimizationResult } from './production.js'
+
+// LightningCSS optimization (Node.js only - 5-10x faster)
+export { optimizeCSSWithLightning } from './production-node.js'
 
 // Atomic CSS Deduplication (10-20% smaller for large apps)
 export {

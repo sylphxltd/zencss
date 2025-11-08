@@ -22,20 +22,68 @@ export default withSilk({
   // Your Next.js config
 }, {
   // Silk options (all optional)
-  outputFile: 'silk.css',
-  inject: true,            // Auto-inject CSS (default)
+  outputFile: 'silk.css',      // Output to .next/silk.css
   babelOptions: {
     production: true,
     classPrefix: 'silk',
   },
   compression: {
-    brotli: true,          // Pre-compress CSS (15-25% smaller)
+    brotli: true,              // Pre-compress CSS (15-25% smaller)
     gzip: true,
   }
 })
 ```
 
-### 2. Use in Components
+### 2. Add CSS Link to Layout
+
+**Option A: Content-Hashed (Recommended for Production)**
+```typescript
+// app/layout.tsx
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Silk + Next.js',
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        {/*
+          Silk generates CSS with content hash for cache busting
+          Format: silk.{hash}.css (e.g., silk.ca8116ad.css)
+
+          Note: You need to update the hash when CSS changes.
+          For automatic hash injection, see Option B below.
+        */}
+        <link rel="stylesheet" href="/_next/static/css/silk.ca8116ad.css" />
+      </head>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+**Option B: No Hash (Backwards Compatible)**
+```typescript
+// app/layout.tsx
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        {/*
+          Legacy silk.css without content hash
+          ⚠️ May cause cache issues when CSS changes
+        */}
+        <link rel="stylesheet" href="/_next/static/css/silk.css" />
+      </head>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+### 3. Use in Components
 
 ```typescript
 // app/components/Button.tsx
@@ -57,58 +105,51 @@ export function Button({ children }) {
 }
 ```
 
-### 3. Done! CSS is Automatically Injected
+### 4. Done!
 
-That's it! The CSS is automatically generated at build time and injected into your HTML. No manual CSS imports needed.
-
-```typescript
-// app/layout.tsx - No CSS import needed!
-
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <body>{children}</body>
-    </html>
-  )
-}
-```
+That's it! The CSS is automatically generated at build time, and Next.js optimizes it through its CSS pipeline (merging, tree-shaking, minification).
 
 ## Features
 
-### ✅ Fully Automatic CSS Injection
-- **No manual CSS imports required** - CSS automatically injected into HTML
-- Webpack handles everything at build time
-- Works like Vanilla Extract - zero configuration
-- Clean developer experience
-
 ### ✅ Zero-Runtime Compilation
-- CSS extracted at build time via Babel plugin
+- CSS extracted at build time via Babel/SWC plugin
 - No runtime CSS-in-JS overhead
 - Static atomic class names
 - HMR support in development
 
-### ✅ App Router Support
+### ✅ Next.js CSS Pipeline Integration
+- **Fully integrated** with Next.js CSS optimization
+- CSS merging, tree-shaking, and minification
+- No Flash of Unstyled Content (FOUC)
+- Optimal First Contentful Paint (FCP)
+
+### ✅ App Router & RSC Support
 - Full Next.js 13+ App Router compatibility
 - Works with Pages Router too
 - Server and Client Components supported
-
-### ✅ React Server Components (RSC)
-- Zero runtime overhead
-- CSS extracted during build
 - True zero-bundle for server components
 
 ### ✅ Performance
 - **-6.5KB JS bundle** (runtime code eliminated)
 - **Brotli compression** (389B for 1KB CSS, -61%)
 - **Atomic CSS** (one class per property)
-- **Fast builds** (Babel transformation)
+- **Fast builds** (Babel/SWC transformation)
 
-## App Router Example
+## Complete Example
+
+```typescript
+// next.config.js
+import { withSilk } from '@sylphx/silk-nextjs'
+
+export default withSilk({
+  // Your Next.js config
+})
+```
 
 ```typescript
 // app/layout.tsx
 import type { Metadata } from 'next'
-import './globals.css'
+import '../.next/silk.css'  // Import Silk CSS
 
 export const metadata: Metadata = {
   title: 'Silk + Next.js',
@@ -131,12 +172,13 @@ export default function RootLayout({
 // app/page.tsx
 import { css } from '@sylphx/silk'
 
-const container = css({ px: 4, py: 6 })
+const container = css({ px: 4, py: 6, maxW: '800px', mx: 'auto' })
+const title = css({ fontSize: '2xl', fontWeight: 'bold', mb: 4 })
 
 export default function Home() {
   return (
     <div className={container}>
-      <h1>Welcome to Silk + Next.js!</h1>
+      <h1 className={title}>Welcome to Silk + Next.js!</h1>
     </div>
   )
 }
@@ -173,7 +215,7 @@ export function ServerCard({ title, children }) {
 
 ```typescript
 interface SilkNextConfig {
-  // Output CSS file path
+  // Output CSS file path (relative to .next/)
   outputFile?: string        // default: 'silk.css'
 
   // Minify CSS output
@@ -194,73 +236,130 @@ interface SilkNextConfig {
     gzipLevel?: number       // default: 9 (0-9)
   }
 
-  // Inject CSS link into HTML
-  inject?: boolean           // default: true
+  // ⚠️ DEPRECATED: Auto-inject bypasses Next.js CSS optimization
+  inject?: boolean           // default: false (use manual import)
 }
 ```
 
-## How It Works
-
-### Automatic CSS Injection
-
-Silk uses a sophisticated webpack integration that automatically handles CSS injection:
-
-1. **Build Time CSS Generation**
-   - The Babel plugin extracts CSS from your `css()` calls during transformation
-   - CSS rules are collected and deduplicated
-   - A single `silk.css` file is generated
-
-2. **Automatic Injection**
-   - A virtual webpack module is created that imports the generated CSS
-   - This module is automatically added to your client bundle entries
-   - Webpack's CSS loaders handle extraction and link tag injection
-   - No manual imports needed!
-
-3. **Development vs Production**
-   - Development: CSS is served via webpack-dev-server with HMR support
-   - Production: CSS is extracted to static files with compression
-
-### Manual CSS Import (Optional)
-
-If you prefer manual control or need to disable auto-injection:
+### Custom Output Path
 
 ```typescript
 // next.config.js
 export default withSilk({}, {
-  inject: false  // Disable auto-injection
+  outputFile: 'styles/silk.css'  // Output to .next/styles/silk.css
 })
 ```
 
-Then manually import in your layout:
-
 ```typescript
 // app/layout.tsx
-import './silk.css'
+import '../.next/styles/silk.css'  // Import from custom path
 ```
+
+## How It Works
+
+### Build-Time CSS Extraction
+
+Silk uses a zero-runtime approach with Next.js integration:
+
+1. **Component Transformation**
+   - Babel/SWC plugin extracts CSS from your `css()` calls during compilation
+   - Styles are transformed to static class names at build time
+   - No runtime CSS-in-JS overhead
+
+2. **CSS Generation**
+   - CSS rules are collected and deduplicated
+   - Output written to `.next/silk.css` (or custom path)
+   - Atomic CSS classes (one class per property)
+
+3. **Next.js Integration**
+   - You import the generated CSS in `app/layout.tsx`
+   - Next.js CSS pipeline handles optimization (merging, minification, tree-shaking)
+   - CSS bundled with optimal cache headers
+
+4. **Development vs Production**
+   - **Development**: HMR support with instant style updates
+   - **Production**: Minified, compressed, cache-optimized CSS
+
+### How CSS Generation Works
+
+1. **During compilation**: Babel/SWC plugin extracts CSS from your `css()` calls
+2. **Content hash generation**: MD5 hash computed from CSS content (e.g., `ca8116ad`)
+3. **Webpack emit hook**: CSS is directly emitted with multiple filenames:
+   - `static/css/silk.{hash}.css` - Content-hashed for cache busting
+   - `static/css/silk.css` - Legacy filename for backwards compatibility
+   - `.next/silk.css` - Local reference file
+4. **Auto-regeneration**:
+   - ✅ **Dev mode**: HMR automatically updates CSS when styles change
+   - ✅ **Build mode**: Fresh CSS + new hash generated on every build
+   - ✅ **No manual codegen needed**
+   - ✅ **Automatic cache invalidation** via content hash
+
+### Technical Solution
+
+The plugin uses webpack's `compilation.assets` API to directly emit CSS with content hashing:
+
+```typescript
+// Generate content hash for cache busting
+const hash = createHash('md5').update(css).digest('hex').slice(0, 8)
+
+// Emit during webpack compilation with multiple filenames
+compilation.assets[`static/css/silk.${hash}.css`] = {
+  source: () => css,
+  size: () => css.length,
+}
+
+compilation.assets['static/css/silk.css'] = {
+  source: () => css,
+  size: () => css.length,
+}
+```
+
+This solves two critical problems:
+1. **Timing issue** - Direct asset emission bypasses `.next/` directory restrictions
+2. **Cache busting** - Content hash ensures browsers fetch updated CSS
+
+### Why This Works
+
+✅ **Direct asset emission** - CSS is injected into webpack's asset pipeline
+✅ **Correct path** - `static/css/` is Next.js's standard CSS output location
+✅ **No file system dependency** - Everything happens in webpack's in-memory assets
+✅ **Full Next.js integration** - CSS is served with proper cache headers
+✅ **CDN compatible** - Works with `assetPrefix` and edge deployment
 
 ## Troubleshooting
 
+### CSS File Not Found
+
+If you get "Module not found: Can't resolve '../.next/silk.css'":
+
+1. **Run build first** - CSS is generated during build/dev
+   ```bash
+   npm run dev  # or npm run build
+   ```
+
+2. **Check output path** - Make sure import path matches `outputFile` config
+   ```typescript
+   // If outputFile: 'styles/silk.css'
+   import '../.next/styles/silk.css'  // Match the path
+   ```
+
+3. **Development mode** - CSS file is created on first build
+   - First run may show warning
+   - HMR will pick it up automatically
+
 ### Turbopack Compatibility
 
-Silk uses webpack-based plugin. If using Next.js 16 with Turbopack:
+Silk supports both webpack and Turbopack (Next.js 16):
 
-- Silk automatically disables Turbopack and uses webpack
-- For native Turbopack support, use the SWC plugin (coming soon)
+- **Webpack mode**: Uses Babel plugin (default, most stable)
+- **Turbopack mode**: Uses SWC plugin (experimental)
 
 ```typescript
-// next.config.js
-// Silk will automatically set turbo: undefined
+// next.config.js - Force webpack mode
+export default withSilk({
+  turbo: undefined  // Disable Turbopack
+})
 ```
-
-### Build Errors
-
-**"Unexpected token" or SyntaxError**
-- Make sure you're using `'use client'` directive for client components
-- Ensure Babel is configured correctly (Silk handles this automatically)
-
-**Webpack conflicts**
-- If you have custom webpack config, make sure it doesn't conflict with Silk
-- The `withSilk()` wrapper should be the outermost wrapper
 
 ### CSS Not Updating
 
@@ -269,6 +368,16 @@ If you change styles but don't see updates:
 1. **Restart dev server** - Sometimes HMR needs a full restart
 2. **Clear .next cache** - `rm -rf .next && npm run dev`
 3. **Check browser cache** - Hard refresh (Cmd+Shift+R / Ctrl+Shift+R)
+
+### TypeScript Errors
+
+If you get "Cannot find module '../.next/silk.css'":
+
+```typescript
+// silk.d.ts (create in project root)
+declare module '../.next/silk.css'
+declare module '../.next/*.css'
+```
 
 ## Ecosystem
 

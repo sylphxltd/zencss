@@ -59,12 +59,15 @@ const button = css({ bg: 'red', p: 4 })
 // Output (Development)
 const button = 'silk_bg_red_a7f3 silk_p_4_b2e1'
 
-// Output (Production)
-const button = 'a7f3b2c1'
+// Output (Production - optimal compression)
+const button = 'ka5tyn p2rk1o'
 
-// Generated CSS
+// Generated CSS (Development)
 .silk_bg_red_a7f3 { background-color: red; }
 .silk_p_4_b2e1 { padding: 1rem; }
+
+// Generated CSS (Production - minified)
+.ka5tyn{background-color:red}.p2rk1o{padding:1rem}
 ```
 
 ### Dynamic Styles (Partial Compilation)
@@ -86,10 +89,26 @@ Static properties are extracted at build-time, dynamic properties remain at runt
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `production` | `boolean` | `false` | Enable production optimizations |
-| `classPrefix` | `string` | `'silk'` (dev), `''` (prod) | Class name prefix |
+| `production` | `boolean` | `false` | Enable production optimizations (6-7 char hashes) |
+| `classPrefix` | `string` | `'silk'` (dev), none (prod) | Class name prefix for branding |
 | `importSources` | `string[]` | `['@sylphx/silk']` | Import sources to transform |
 | `functions` | `string[]` | `['css']` | Function names to transform |
+
+### Production Class Names
+
+In production mode, class names are optimized for minimal file size using Base-36 hashes:
+
+```typescript
+// No prefix (optimal compression: 6-7 chars)
+{ production: true }
+// Output: .hgv0lpf, .yfr0d6, .ka5tyn
+
+// Custom prefix (branding support)
+{ production: true, classPrefix: 'app' }
+// Output: .apphgv0lpf, .appyfr0d6, .appka5tyn
+```
+
+**CSS Identifier Compliance**: Leading digits (0-9) are automatically mapped to letters (g-p) to ensure valid CSS identifiers. This maintains optimal compression while guaranteeing 100% browser compatibility.
 
 ## Integration with Bundlers
 

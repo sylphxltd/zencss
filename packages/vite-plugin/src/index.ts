@@ -9,6 +9,7 @@ import { createUnplugin } from 'unplugin'
 import type { SilkMetadata } from '@sylphx/babel-plugin-silk'
 import * as path from 'node:path'
 import { gzipSync, brotliCompressSync, constants } from 'node:zlib'
+import { createHash } from 'node:crypto'
 // @ts-ignore - Babel preset types not needed
 import presetReact from '@babel/preset-react'
 // @ts-ignore - Babel preset types not needed
@@ -40,6 +41,36 @@ export interface CompressionOptions {
   gzipLevel?: number
 }
 
+export interface PostCssOptions {
+  /**
+   * Enable PostCSS processing
+   * @default false
+   */
+  enable?: boolean
+
+  /**
+   * PostCSS plugins (e.g., autoprefixer, cssnano)
+   * @example
+   * ```typescript
+   * import autoprefixer from 'autoprefixer'
+   *
+   * postCss: {
+   *   enable: true,
+   *   plugins: [
+   *     autoprefixer({ overrideBrowserslist: ['> 1%', 'last 2 versions'] })
+   *   ]
+   * }
+   * ```
+   */
+  plugins?: any[]
+
+  /**
+   * Generate source maps
+   * @default false
+   */
+  sourceMaps?: boolean
+}
+
 export interface SilkPluginOptions {
   /**
    * Output CSS file path
@@ -57,6 +88,25 @@ export interface SilkPluginOptions {
    * Pre-compression options
    */
   compression?: CompressionOptions
+
+  /**
+   * PostCSS processing (optional)
+   * Add autoprefixer for legacy browser support or custom PostCSS plugins
+   *
+   * @example
+   * ```typescript
+   * import autoprefixer from 'autoprefixer'
+   *
+   * {
+   *   postCss: {
+   *     enable: true,
+   *     plugins: [autoprefixer()],
+   *     sourceMaps: true
+   *   }
+   * }
+   * ```
+   */
+  postCss?: PostCssOptions
 
   /**
    * Babel plugin options
@@ -94,6 +144,39 @@ function formatBytes(bytes: number): string {
 }
 
 /**
+ * Process CSS with PostCSS (optional)
+ */
+async function processWithPostCss(
+  css: string,
+  postCssOptions?: PostCssOptions
+): Promise<{ css: string; map?: string }> {
+  if (!postCssOptions?.enable || !postCssOptions?.plugins?.length) {
+    return { css }
+  }
+
+  try {
+    // Dynamic import to avoid forcing PostCSS as a dependency
+    const postcss = await import('postcss').then(m => m.default || m)
+
+    const result = await postcss(postCssOptions.plugins).process(css, {
+      from: undefined,
+      map: postCssOptions.sourceMaps ? { inline: false } : false
+    })
+
+    return {
+      css: result.css,
+      map: result.map?.toString()
+    }
+  } catch (error) {
+    if ((error as any)?.code === 'ERR_MODULE_NOT_FOUND') {
+      console.warn('[Silk] PostCSS enabled but not installed. Run: npm install postcss')
+      return { css }
+    }
+    throw error
+  }
+}
+
+/**
  * Silk unplugin instance
  */
 export const unpluginSilk = createUnplugin<SilkPluginOptions>((options = {}) => {
@@ -102,6 +185,7 @@ export const unpluginSilk = createUnplugin<SilkPluginOptions>((options = {}) => 
     minify: shouldMinify,
     compression = {},
     babelOptions = {},
+    postCss,
   } = options
 
   const compressionConfig = {
@@ -270,15 +354,70 @@ export const unpluginSilk = createUnplugin<SilkPluginOptions>((options = {}) => 
         if (cssRules.size === 0) return
 
         let css = Array.from(cssRules.values()).join('\n')
+        let sourceMap: string | undefined
 
+        // Minify CSS
         if (shouldMinify ?? true) {
           css = minifyCSS(css)
         }
 
+        // PostCSS processing (optional)
+        if (postCss?.enable) {
+          const result = await processWithPostCss(css, postCss)
+          css = result.css
+          sourceMap = result.map
+        }
+
+        // Generate content hash for cache busting
+        const hash = createHash('md5').update(css).digest('hex').slice(0, 8)
+        const baseName = outputFile.replace('.css', '')
+        const hashedFileName = `${baseName}.${hash}.css`
+
+        // Emit to both locations for Next.js compatibility
         compilation.assets[outputFile] = {
           source: () => css,
           size: () => css.length,
         }
+
+        // Emit with content hash to static/css directory (production)
+        const staticCssPath = `static/css/${hashedFileName}`
+        compilation.assets[staticCssPath] = {
+          source: () => css,
+          size: () => css.length,
+        }
+
+        // Also emit non-hashed version for backwards compatibility
+        const staticCssPathLegacy = `static/css/${outputFile}`
+        compilation.assets[staticCssPathLegacy] = {
+          source: () => css,
+          size: () => css.length,
+        }
+
+        // Emit source map if PostCSS generated one
+        if (sourceMap) {
+          compilation.assets[`${staticCssPath}.map`] = {
+            source: () => sourceMap,
+            size: () => sourceMap.length,
+          }
+          compilation.assets[`${outputFile}.map`] = {
+            source: () => sourceMap,
+            size: () => sourceMap.length,
+          }
+        }
+
+        console.log(`[Silk] Emitted CSS:`)
+        console.log(`  • ${outputFile} (${css.length} bytes)`)
+        console.log(`  • ${staticCssPath} (content-hashed, cacheable)`)
+        console.log(`  • ${staticCssPathLegacy} (legacy, no hash)`)
+        if (postCss?.enable) {
+          console.log(`  • PostCSS: ${postCss.plugins?.length || 0} plugins applied`)
+        }
+        if (sourceMap) {
+          console.log(`  • Source map generated`)
+        }
+
+        // Store the hashed filename for potential use in HTML injection
+        ;(compilation as any).__silkCssFileName = hashedFileName
       })
     },
   }

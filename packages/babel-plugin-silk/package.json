@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/babel-plugin-silk",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Babel plugin for zero-runtime Silk CSS-in-TypeScript compilation",
   "keywords": [
     "babel-plugin",
