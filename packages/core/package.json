@@ -36,6 +36,10 @@
     "./optimizer": {
       "import": "./dist/build-optimizer.js",
       "types": "./dist/build-optimizer.d.ts"
+    },
+    "./codegen": {
+      "import": "./dist/codegen-node.js",
+      "types": "./dist/codegen-node.d.ts"
     }
   },
   "files": [
