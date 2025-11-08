@@ -1,73 +1,81 @@
 /**
  * @sylphx/silk-nextjs
- * Next.js integration for Silk with App Router and RSC support
- * Uses unplugin for zero-runtime CSS compilation with automatic CSS injection
+ * Next.js integration for Silk with webpack virtual module support
+ *
+ * Architecture:
+ * - Webpack mode: Use SilkWebpackPlugin (virtual module, no-codegen)
+ * - Turbopack mode: Manual import (semi-codegen, requires CLI)
  */
 
-import type { NextConfig } from 'next'
-import type { DesignConfig } from '@sylphx/silk'
-import { unpluginSilk, type SilkPluginOptions } from '@sylphx/silk-vite-plugin'
-import * as path from 'node:path'
-import * as fs from 'node:fs'
-import { fileURLToPath } from 'node:url'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import type { NextConfig } from 'next';
+import SilkWebpackPlugin, { type SilkWebpackPluginOptions } from '@sylphx/silk-webpack-plugin';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-export interface SilkNextConfig extends SilkPluginOptions {
+export interface SilkNextConfig extends SilkWebpackPluginOptions {
   /**
-   * Enable App Router optimizations
-   * @default true
-   */
-  appRouter?: boolean
-
-  /**
-   * Enable React Server Components optimizations
-   * @default true
-   */
-  rsc?: boolean
-
-  /**
-   * Generate critical CSS for initial page load
-   * @default true
-   */
-  criticalCSS?: boolean
-
-  /**
-   * Automatically inject CSS into HTML
+   * Enable Turbopack mode (experimental)
    *
-   * ⚠️ DEPRECATED: Auto-injection has fundamental limitations:
-   * - Bypasses Next.js CSS optimization pipeline (no merging/tree-shaking)
-   * - Extra network request (impacts FCP)
-   * - Flash of Unstyled Content (FOUC)
-   * - CDN compatibility issues
-   *
-   * RECOMMENDED: Use manual import instead (see README)
+   * Note: Turbopack mode requires semi-codegen:
+   * 1. Run: silk generate
+   * 2. Import: import '../src/silk.generated.css'
    *
    * @default false
-   * @deprecated Use manual CSS import for reliable production builds
    */
-  inject?: boolean
+  turbopack?: boolean;
 }
 
 /**
  * Silk Next.js plugin
  *
  * @example
- * ```typescript
+ * Webpack mode (recommended, no-codegen):
+ * ```javascript
  * // next.config.js
- * import { withSilk } from '@sylphx/silk-nextjs'
+ * const { withSilk } = require('@sylphx/silk-nextjs');
  *
- * export default withSilk({
+ * module.exports = withSilk({
+ *   // Next.js config
+ * });
+ * ```
+ *
+ * ```typescript
+ * // app/layout.tsx
+ * import 'silk.css'  // Virtual module → Next.js CSS pipeline
+ * ```
+ *
+ * @example
+ * Turbopack mode (semi-codegen):
+ * ```javascript
+ * // next.config.js
+ * const { withSilk } = require('@sylphx/silk-nextjs');
+ *
+ * module.exports = withSilk({
  *   // Next.js config
  * }, {
- *   // Silk config
- *   outputFile: 'styles/silk.css',  // Output path
- * })
+ *   turbopack: true
+ * });
+ * ```
  *
- * // app/layout.tsx - Import the generated CSS
- * import '../.next/styles/silk.css'
+ * ```json
+ * // package.json
+ * {
+ *   "scripts": {
+ *     "predev": "silk generate",
+ *     "prebuild": "silk generate",
+ *     "dev": "next dev --turbo",
+ *     "build": "next build"
+ *   }
+ * }
+ * ```
+ *
+ * ```typescript
+ * // app/layout.tsx
+ * import '../src/silk.generated.css'  // Physical file → Next.js CSS pipeline
  * ```
  */
 export function withSilk(
@@ -75,138 +83,61 @@ export function withSilk(
   silkConfig: SilkNextConfig = {}
 ): NextConfig {
   const {
-    outputFile = 'silk.css',
-    inject = false,  // Deprecated - CSS is now auto-emitted to static/css
-    babelOptions = {},
-    compression = {},
-    minify,
-  } = silkConfig
+    turbopack: enableTurbopack = false,
+    srcDir = './src',
+    virtualModuleId = 'silk.css',
+    debug = false,
+    ...generateOptions
+  } = silkConfig;
 
-  // Configure Silk plugin with Next.js specific settings
-  const silkPluginOptions: SilkPluginOptions = {
-    outputFile,
-    minify,
-    compression,
-    babelOptions: {
-      ...babelOptions,
-      production: babelOptions.production ?? process.env.NODE_ENV === 'production',
-    },
-  }
-
-  // Path to the bundled WASM file (shipped with this package)
-  const wasmPath = path.join(__dirname, 'swc_plugin_silk.wasm')
-
-  // SWC plugin configuration for Turbopack (only enabled when turbopack config exists)
-  const hasTurbopackConfig = nextConfig.turbopack !== undefined || nextConfig.turbo !== undefined
-  const swcPluginConfig = hasTurbopackConfig ? {
-    experimental: {
-      ...nextConfig.experimental,
-      swcPlugins: [
-        [wasmPath, babelOptions as Record<string, unknown>] as [string, Record<string, unknown>],
-        ...(nextConfig.experimental?.swcPlugins || []),
-      ],
-    },
-  } : {}
-
-  // Ensure .next directory and placeholder CSS exist
-  const ensureCSSPlaceholder = (dir: string) => {
-    const cssPath = path.join(dir, '.next', outputFile)
-    const cssDir = path.dirname(cssPath)
-
-    if (!fs.existsSync(cssDir)) {
-      fs.mkdirSync(cssDir, { recursive: true })
+  // Turbopack mode: User must use CLI tool
+  if (enableTurbopack) {
+    if (debug) {
+      console.log('[Silk] Turbopack mode enabled (semi-codegen)');
+      console.log('[Silk] Please run: silk generate');
+      console.log('[Silk] Then import: import "../src/silk.generated.css"');
     }
 
-    if (!fs.existsSync(cssPath)) {
-      fs.writeFileSync(cssPath, '/* Silk CSS - will be generated during build */')
-    }
+    // Return config as-is (no webpack modifications)
+    return nextConfig;
   }
 
+  // Webpack mode: Inject SilkWebpackPlugin
   return {
     ...nextConfig,
-    ...swcPluginConfig,
 
-    // Turbopack configuration (Next.js 16+)
-    turbopack: {
-      ...nextConfig.turbopack,
-    },
+    webpack(config: any, options: any) {
+      // Only apply plugin for client build (not server)
+      if (!options.isServer) {
+        if (debug) {
+          console.log('[Silk] Webpack mode: Injecting SilkWebpackPlugin');
+        }
 
-    webpack(config, options) {
-      const { isServer, dev, dir } = options
+        // Add SilkWebpackPlugin
+        config.plugins = config.plugins || [];
+        config.plugins.push(
+          new SilkWebpackPlugin({
+            srcDir,
+            virtualModuleId,
+            debug,
+            ...generateOptions
+          })
+        );
+      }
 
       // Call user's webpack config if exists
       if (typeof nextConfig.webpack === 'function') {
-        config = nextConfig.webpack(config, options)
+        return nextConfig.webpack(config, options);
       }
 
-      // Ensure placeholder exists for CSS imports
-      ensureCSSPlaceholder(dir)
-
-      // Create placeholder hook for Webpack builds
-      config.plugins = config.plugins || []
-      config.plugins.push({
-        apply(compiler: any) {
-          compiler.hooks.beforeCompile.tapAsync('SilkPlaceholder', (_params: any, callback: () => void) => {
-            ensureCSSPlaceholder(dir)
-            callback()
-          })
-        }
-      })
-
-      // Add Silk unplugin (generates CSS to static/css/silk.css)
-      config.plugins.push(unpluginSilk.webpack(silkPluginOptions))
-
-      return config
-    },
-  }
+      return config;
+    }
+  };
 }
 
-/**
- * Get Silk configuration for Next.js
- */
-export function getSilkConfig<C extends DesignConfig>(config: C) {
-  return {
-    config,
-    // App Router helpers
-    appRouter: {
-      /**
-       * Generate CSS for server components
-       */
-      generateServerCSS: () => {
-        // Extract CSS during SSR
-        return ''
-      },
+// Default export for convenience
+export default withSilk;
 
-      /**
-       * Get critical CSS for route
-       */
-      getCriticalCSS: (route: string) => {
-        // Extract critical CSS for specific route
-        return ''
-      },
-    },
-
-    // React Server Components helpers
-    rsc: {
-      /**
-       * Mark styles as RSC-safe
-       */
-      serverOnly: <T>(styles: T): T => styles,
-
-      /**
-       * Client-only styles
-       */
-      clientOnly: <T>(styles: T): T => styles,
-    },
-  }
-}
-
-// Re-export Silk React bindings
-export { createSilkReact } from '@sylphx/silk-react'
-export type { SilkReactSystem } from '@sylphx/silk-react'
-
-// Re-export core
-export * from '@sylphx/silk'
-
-// Export Silk styles component
-export { SilkStyles, getSilkCssLink } from './SilkStyles.js'
+// Named exports
+export { withSilk as silk };
+export type { SilkNextConfig, SilkWebpackPluginOptions };

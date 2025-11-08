@@ -42,9 +42,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "bun run build:rust && tsc",
-    "build:rust": "cd ../swc-plugin && cargo build --release --target wasm32-wasip1 && mkdir -p ../nextjs-plugin/dist && cp target/wasm32-wasip1/release/swc_plugin_silk.wasm ../nextjs-plugin/dist/",
-    "test:rust": "cd ../swc-plugin && cargo test",
+    "build": "tsc",
     "dev": "tsc --watch",
     "prepublishOnly": "bun run build"
   },
@@ -53,11 +51,7 @@
     "react": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
-    "@sylphx/babel-plugin-silk": "^2.0.1",
-    "@sylphx/silk": "^2.0.2",
-    "@sylphx/silk-react": "^2.0.2",
-    "@sylphx/silk-vite-plugin": "^2.1.0",
-    "mini-css-extract-plugin": "^2.9.4"
+    "@sylphx/silk-webpack-plugin": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
