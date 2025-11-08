@@ -402,18 +402,51 @@ If you get "Module not found: Can't resolve '../.next/silk.css'":
    - First run may show warning
    - HMR will pick it up automatically
 
-### Turbopack Compatibility
+### Turbopack Compatibility & Native Bindings Issues
 
-Silk supports both webpack and Turbopack (Next.js 16):
+Silk supports both webpack and Turbopack (Next.js 15/16):
 
-- **Webpack mode**: Uses Babel plugin (default, most stable)
-- **Turbopack mode**: Uses SWC plugin (experimental)
+- **Webpack mode**: Uses Babel plugin (most stable, recommended)
+- **Turbopack mode**: Uses SWC plugin (20-70x faster)
+
+**Known Issue: lightningcss Native Bindings**
+
+If you encounter errors related to native modules (`.node` files) in Turbopack:
+
+```
+Error: Module not found: Can't resolve '../lightningcss.darwin-arm64.node'
+```
+
+**Solution: Force Webpack Mode**
 
 ```typescript
-// next.config.js - Force webpack mode
+// next.config.js
+import { withSilk } from '@sylphx/silk-nextjs'
+
 export default withSilk({
-  turbo: undefined  // Disable Turbopack
+  // Your Next.js config
+}, {
+  forceWebpack: true  // ✅ Force Webpack mode (disables Turbopack)
 })
+```
+
+**What this does:**
+- ✅ Disables Turbopack automatically
+- ✅ Uses stable Babel plugin
+- ✅ Avoids native binding issues
+- ✅ Maximum compatibility
+
+**Alternative methods:**
+
+```typescript
+// Method 1: Use forceWebpack (recommended)
+export default withSilk({}, { forceWebpack: true })
+
+// Method 2: Disable Turbopack in Next.js config
+export default withSilk({ turbo: undefined })
+
+// Method 3: Run without --turbo flag
+// npm run dev (instead of npm run dev --turbo)
 ```
 
 ### CSS Not Updating

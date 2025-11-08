@@ -49,6 +49,33 @@ export interface SilkNextConfig extends SilkPluginOptions {
    * @deprecated Use manual CSS import for reliable production builds
    */
   inject?: boolean
+
+  /**
+   * Force Webpack mode (disable Turbopack)
+   *
+   * Use this if you encounter issues with Turbopack + native bindings (e.g., lightningcss).
+   *
+   * **When to use:**
+   * - Turbopack fails to resolve native modules
+   * - Build errors related to .node bindings
+   * - You prefer stable Webpack behavior
+   *
+   * **How it works:**
+   * - Sets `turbo: undefined` to disable Turbopack
+   * - Uses Babel plugin instead of SWC plugin
+   * - Ensures maximum compatibility
+   *
+   * @default false
+   *
+   * @example
+   * ```typescript
+   * // next.config.js
+   * export default withSilk({}, {
+   *   forceWebpack: true  // Force Webpack mode
+   * })
+   * ```
+   */
+  forceWebpack?: boolean
 }
 
 /**
@@ -80,6 +107,7 @@ export function withSilk(
     babelOptions = {},
     compression = {},
     minify,
+    forceWebpack = false,
   } = silkConfig
 
   // Configure Silk plugin with Next.js specific settings
@@ -93,8 +121,19 @@ export function withSilk(
     },
   }
 
-  // Detect Turbopack mode
-  const useTurbopack = nextConfig.turbo !== undefined || process.env.TURBOPACK === '1'
+  // Detect Turbopack mode (unless forceWebpack is enabled)
+  const useTurbopack = !forceWebpack && (nextConfig.turbo !== undefined || process.env.TURBOPACK === '1')
+
+  // Log mode information in development
+  if (process.env.NODE_ENV !== 'production') {
+    if (forceWebpack) {
+      console.log('[Silk] ⚙️  Webpack mode (forced)')
+    } else if (useTurbopack) {
+      console.log('[Silk] ⚡ Turbopack mode (SWC plugin)')
+    } else {
+      console.log('[Silk] ⚙️  Webpack mode (Babel plugin)')
+    }
+  }
 
   // Path to the bundled WASM file (shipped with this package)
   const wasmPath = path.join(__dirname, 'swc_plugin_silk.wasm')
@@ -120,9 +159,16 @@ export function withSilk(
     },
   } : {}
 
-  return {
+  // If forceWebpack is enabled, explicitly disable Turbopack
+  const finalConfig = {
     ...nextConfig,
     ...swcPluginConfig,
+    // Disable Turbopack when forceWebpack is true
+    ...(forceWebpack ? { turbo: undefined } : {}),
+  }
+
+  return {
+    ...finalConfig,
     webpack(config, options) {
       const { isServer, dev, dir } = options
 
