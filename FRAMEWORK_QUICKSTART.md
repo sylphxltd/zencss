@@ -1,0 +1,724 @@
+# 🚀 Framework Quick Start
+
+Complete setup guides for all supported frameworks.
+
+---
+
+## 📚 Table of Contents
+
+### React Ecosystem
+- [Next.js (Recommended)](#nextjs)
+- [Vite + React](#vite--react)
+- [Create React App](#create-react-app)
+
+### Vue Ecosystem
+- [Nuxt 3 (Recommended)](#nuxt-3)
+- [Vue 3 + Vite](#vue-3--vite)
+- [Vue 2 / Vue CLI](#vue-2--vue-cli)
+
+### Svelte Ecosystem
+- [SvelteKit (Recommended)](#sveltekit)
+- [Svelte + Vite](#svelte--vite)
+
+### Other Frameworks
+- [Astro](#astro)
+- [Remix](#remix)
+- [Solid](#solid)
+- [Qwik](#qwik)
+- [Angular](#angular)
+
+---
+
+## Next.js
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-nextjs
+```
+
+### Setup (Webpack Mode - Recommended)
+
+```javascript
+// next.config.mjs
+import { withSilk } from '@sylphx/silk-nextjs'
+
+export default withSilk({
+  // Your Next.js config
+})
+```
+
+```typescript
+// app/layout.tsx
+import 'silk.css'
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+### Usage
+
+```typescript
+// app/page.tsx
+import { createStyleSystem } from '@sylphx/silk'
+
+const { css } = createStyleSystem({})
+
+const styles = {
+  container: css({
+    display: 'flex',
+    padding: '2rem'
+  } as any)
+}
+
+export default function Page() {
+  return <div className={styles.container.className}>Hello</div>
+}
+```
+
+### Turbopack Mode (Experimental)
+
+```bash
+npm install @sylphx/silk @sylphx/silk-cli
+```
+
+```json
+// package.json
+{
+  "scripts": {
+    "prebuild": "silk generate",
+    "build": "next build"
+  }
+}
+```
+
+```typescript
+// app/layout.tsx
+import '../src/silk.generated.css'
+```
+
+📖 [Full Next.js Documentation](./packages/nextjs-plugin/README.md)
+
+---
+
+## Vite + React
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-vite-plugin
+```
+
+### Setup
+
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import silk from '@sylphx/silk-vite-plugin'
+
+export default defineConfig({
+  plugins: [react(), silk()]
+})
+```
+
+```typescript
+// main.tsx
+import 'silk.css'
+
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root')!).render(<App />)
+```
+
+### Usage
+
+```typescript
+// App.tsx
+import { createStyleSystem } from '@sylphx/silk'
+
+const { css } = createStyleSystem({})
+
+const styles = {
+  app: css({
+    textAlign: 'center',
+    padding: '2rem'
+  } as any)
+}
+
+export default function App() {
+  return <div className={styles.app.className}>Vite + Silk ✅</div>
+}
+```
+
+---
+
+## Create React App
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-webpack-plugin @craco/craco
+```
+
+### Setup
+
+```javascript
+// craco.config.js
+const SilkWebpackPlugin = require('@sylphx/silk-webpack-plugin');
+
+module.exports = {
+  webpack: {
+    plugins: {
+      add: [new SilkWebpackPlugin()]
+    }
+  }
+}
+```
+
+```json
+// package.json
+{
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build"
+  }
+}
+```
+
+```javascript
+// src/index.js
+import 'silk.css'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+
+ReactDOM.render(<App />, document.getElementById('root'))
+```
+
+---
+
+## Nuxt 3
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-nuxt
+```
+
+### Setup
+
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@sylphx/silk-nuxt']
+})
+```
+
+That's it! The module auto-imports `silk.css` for you.
+
+### Usage
+
+```vue
+<!-- pages/index.vue -->
+<script setup lang="ts">
+import { createStyleSystem } from '@sylphx/silk'
+
+const { css } = createStyleSystem({})
+
+const styles = {
+  hero: css({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '4rem'
+  } as any),
+  title: css({
+    fontSize: '3rem',
+    fontWeight: 'bold',
+    color: '#00DC82'
+  } as any)
+}
+</script>
+
+<template>
+  <div :class="styles.hero.className">
+    <h1 :class="styles.title.className">Nuxt + Silk ✅</h1>
+  </div>
+</template>
+```
+
+### Configuration (Optional)
+
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@sylphx/silk-nuxt'],
+
+  silk: {
+    srcDir: './app',      // Custom source directory
+    debug: true,          // Enable debug logging
+    minify: true,         // Force minification
+    autoImport: true      // Auto-import silk.css (default: true)
+  }
+})
+```
+
+📖 [Full Nuxt Documentation](./packages/nuxt-module/README.md)
+
+---
+
+## Vue 3 + Vite
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-vite-plugin
+```
+
+### Setup
+
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import silk from '@sylphx/silk-vite-plugin'
+
+export default defineConfig({
+  plugins: [vue(), silk()]
+})
+```
+
+```typescript
+// main.ts
+import { createApp } from 'vue'
+import App from './App.vue'
+import 'silk.css'
+
+createApp(App).mount('#app')
+```
+
+### Usage
+
+```vue
+<!-- App.vue -->
+<script setup lang="ts">
+import { createStyleSystem } from '@sylphx/silk'
+
+const { css } = createStyleSystem({})
+
+const styles = {
+  container: css({
+    padding: '2rem',
+    textAlign: 'center'
+  } as any),
+  title: css({
+    fontSize: '2rem',
+    color: '#42b983'
+  } as any)
+}
+</script>
+
+<template>
+  <div :class="styles.container.className">
+    <h1 :class="styles.title.className">Vue 3 + Silk ✅</h1>
+  </div>
+</template>
+```
+
+---
+
+## Vue 2 / Vue CLI
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-webpack-plugin
+```
+
+### Setup
+
+```javascript
+// vue.config.js
+const SilkWebpackPlugin = require('@sylphx/silk-webpack-plugin');
+
+module.exports = {
+  configureWebpack: {
+    plugins: [new SilkWebpackPlugin()]
+  }
+}
+```
+
+```javascript
+// main.js
+import Vue from 'vue'
+import App from './App.vue'
+import 'silk.css'
+
+new Vue({
+  render: h => h(App)
+}).$mount('#app')
+```
+
+---
+
+## SvelteKit
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-vite-plugin
+```
+
+### Setup
+
+```javascript
+// vite.config.js
+import { sveltekit } from '@sveltejs/kit/vite'
+import silk from '@sylphx/silk-vite-plugin'
+
+/** @type {import('vite').UserConfig} */
+const config = {
+  plugins: [sveltekit(), silk()]
+}
+
+export default config
+```
+
+```svelte
+<!-- src/routes/+layout.svelte -->
+<script>
+  import 'silk.css'
+</script>
+
+<slot />
+```
+
+### Usage
+
+```svelte
+<!-- src/routes/+page.svelte -->
+<script lang="ts">
+  import { createStyleSystem } from '@sylphx/silk'
+
+  const { css } = createStyleSystem({})
+
+  const styles = {
+    hero: css({
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      minHeight: '100vh',
+      justifyContent: 'center'
+    } as any)
+  }
+</script>
+
+<div class={styles.hero.className}>
+  <h1>SvelteKit + Silk ✅</h1>
+</div>
+```
+
+---
+
+## Svelte + Vite
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-vite-plugin
+```
+
+### Setup
+
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
+import silk from '@sylphx/silk-vite-plugin'
+
+export default defineConfig({
+  plugins: [svelte(), silk()]
+})
+```
+
+```typescript
+// main.ts
+import App from './App.svelte'
+import 'silk.css'
+
+const app = new App({
+  target: document.getElementById('app')!
+})
+
+export default app
+```
+
+---
+
+## Astro
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-vite-plugin
+```
+
+### Setup
+
+```javascript
+// astro.config.mjs
+import { defineConfig } from 'astro/config'
+import silk from '@sylphx/silk-vite-plugin'
+
+export default defineConfig({
+  vite: {
+    plugins: [silk()]
+  }
+})
+```
+
+```astro
+---
+// src/pages/index.astro
+import 'silk.css'
+import { createStyleSystem } from '@sylphx/silk'
+
+const { css } = createStyleSystem({})
+
+const styles = {
+  hero: css({
+    textAlign: 'center',
+    padding: '4rem'
+  } as any)
+}
+---
+
+<div class={styles.hero.className}>
+  <h1>Astro + Silk ✅</h1>
+</div>
+```
+
+---
+
+## Remix
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-vite-plugin
+```
+
+### Setup
+
+```javascript
+// vite.config.js
+import { vitePlugin as remix } from '@remix-run/dev'
+import silk from '@sylphx/silk-vite-plugin'
+
+export default {
+  plugins: [remix(), silk()]
+}
+```
+
+```typescript
+// app/root.tsx
+import 'silk.css'
+
+export default function App() {
+  return (
+    <html>
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <Outlet />
+        <Scripts />
+      </body>
+    </html>
+  )
+}
+```
+
+---
+
+## Solid
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-vite-plugin
+```
+
+### Setup
+
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite'
+import solid from 'vite-plugin-solid'
+import silk from '@sylphx/silk-vite-plugin'
+
+export default defineConfig({
+  plugins: [solid(), silk()]
+})
+```
+
+```typescript
+// index.tsx
+import 'silk.css'
+import { render } from 'solid-js/web'
+import App from './App'
+
+render(() => <App />, document.getElementById('root')!)
+```
+
+---
+
+## Qwik
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-vite-plugin
+```
+
+### Setup
+
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite'
+import { qwikVite } from '@builder.io/qwik/optimizer'
+import silk from '@sylphx/silk-vite-plugin'
+
+export default defineConfig({
+  plugins: [qwikVite(), silk()]
+})
+```
+
+```typescript
+// src/root.tsx
+import 'silk.css'
+
+export default component$(() => {
+  return <QwikCityProvider><RouterOutlet /></QwikCityProvider>
+})
+```
+
+---
+
+## Angular
+
+### Installation
+
+```bash
+npm install @sylphx/silk @sylphx/silk-webpack-plugin @angular-builders/custom-webpack
+```
+
+### Setup
+
+```javascript
+// custom-webpack.config.js
+const SilkWebpackPlugin = require('@sylphx/silk-webpack-plugin');
+
+module.exports = {
+  plugins: [new SilkWebpackPlugin()]
+}
+```
+
+```json
+// angular.json
+{
+  "architect": {
+    "build": {
+      "builder": "@angular-builders/custom-webpack:browser",
+      "options": {
+        "customWebpackConfig": {
+          "path": "./custom-webpack.config.js"
+        }
+      }
+    }
+  }
+}
+```
+
+```typescript
+// main.ts
+import 'silk.css'
+import { bootstrapApplication } from '@angular/platform-browser'
+import { AppComponent } from './app/app.component'
+
+bootstrapApplication(AppComponent)
+```
+
+---
+
+## 🎯 Common Patterns
+
+### TypeScript Type Assertions
+
+All frameworks require `as any` for style objects due to strict CSS type checking:
+
+```typescript
+const styles = {
+  button: css({
+    padding: '1rem 2rem',
+    backgroundColor: '#3b82f6'
+  } as any)  // ← Required for now
+}
+```
+
+We're working on improving type definitions to remove this requirement.
+
+### Component Pattern
+
+```typescript
+import { createStyleSystem } from '@sylphx/silk'
+
+const { css } = createStyleSystem({})
+
+const Button = ({ children }) => {
+  const styles = {
+    button: css({
+      padding: '0.5rem 1rem',
+      borderRadius: '0.25rem',
+      backgroundColor: '#3b82f6',
+      color: 'white',
+      _hover: {
+        backgroundColor: '#2563eb'
+      }
+    } as any)
+  }
+
+  return <button className={styles.button.className}>{children}</button>
+}
+```
+
+---
+
+## 📚 Further Reading
+
+- [Framework Support Matrix](./FRAMEWORK_SUPPORT.md) - Complete framework compatibility
+- [Vue & Svelte Guide](./QUICK_START_VUE_SVELTE.md) - Detailed Vue/Svelte examples
+- [Test Results](./TEST_RESULTS.md) - Build test results for all frameworks
+
+---
+
+## 🤔 Need Help?
+
+- 📖 [Full Documentation](./README.md)
+- 🐛 [Report Issues](https://github.com/sylphxltd/silk/issues)
+- 💬 [Discussions](https://github.com/sylphxltd/silk/discussions)
+
+---
+
+## License
+
+MIT © SylphX Ltd
