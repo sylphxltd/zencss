@@ -110,8 +110,8 @@ export function withSilk(
         // Create virtual modules with initial empty content
         // This ensures the module exists when webpack starts resolving
         const virtualModules = new VirtualModulesPlugin({
-          'node_modules/__silk_styles__.css': '/* Silk CSS - Generated at build time */',
-          'node_modules/__silk_auto_inject__.js': "import '__silk_styles__.css';"
+          'node_modules/__silk__/styles.css': '/* Silk CSS - Generated at build time */',
+          'node_modules/__silk__/auto-inject.js': "import './styles.css';"
         })
         config.plugins.push(virtualModules)
 
@@ -134,7 +134,7 @@ export function withSilk(
                   const cssContent = cssAsset.source()
 
                   // Update virtual CSS file with actual generated content
-                  virtualModules.writeModule(`node_modules/__silk_styles__.css`, cssContent)
+                  virtualModules.writeModule(`node_modules/__silk__/styles.css`, cssContent)
                 }
               )
             })
@@ -153,8 +153,8 @@ export function withSilk(
 
             if (Array.isArray(value)) {
               // Inject at the beginning so CSS loads first
-              if (!value.includes('__silk_auto_inject__')) {
-                value.unshift('__silk_auto_inject__')
+              if (!value.includes('__silk__/auto-inject')) {
+                value.unshift('__silk__/auto-inject')
               }
             }
           }
