@@ -31,7 +31,7 @@ export interface ScanResult {
 export interface ScanOptions {
   /** Source directory to scan (default: './src') */
   srcDir?: string;
-  /** File patterns to include (default: ['**\/*.{ts,tsx,js,jsx}']) */
+  /** File patterns to include (default: ['**\/*.{ts,tsx,js,jsx,vue,svelte}']) */
   include?: string[];
   /** File patterns to exclude (default: ['**\/node_modules/**', '**\/.next/**', '**\/dist/**']) */
   exclude?: string[];
@@ -44,7 +44,7 @@ export interface ScanOptions {
  */
 function findFiles(
   dir: string,
-  include: string[] = ['**/*.{ts,tsx,js,jsx}'],
+  include: string[] = ['**/*.{ts,tsx,js,jsx,vue,svelte}'],
   exclude: string[] = ['**/node_modules/**', '**/.next/**', '**/dist/**']
 ): string[] {
   const files: string[] = [];
@@ -120,9 +120,10 @@ function extractCssFromFile(filePath: string): ScanResult {
   const content = fs.readFileSync(filePath, 'utf-8');
   const cssRules: ScanResult['cssRules'] = [];
 
-  // Match css({ ... }) or css`...`
+  // Match css({ ... }) or css({ ... } as any) or css({ ... } as const)
   // This regex is simplified - real implementation should use AST
-  const cssCallRegex = /css\s*\(\s*({[\s\S]*?})\s*\)/g;
+  // Matches: css({ ... }), css({ ... } as any), css({ ... } as const), etc.
+  const cssCallRegex = /css\s*\(\s*({[\s\S]*?})\s*(?:as\s+\w+)?\s*\)/g;
 
   let match;
   while ((match = cssCallRegex.exec(content)) !== null) {
@@ -169,7 +170,7 @@ function extractCssFromFile(filePath: string): ScanResult {
 export function scanSourceFiles(options: ScanOptions = {}): ScanResult[] {
   const {
     srcDir = './src',
-    include = ['**/*.{ts,tsx,js,jsx}'],
+    include = ['**/*.{ts,tsx,js,jsx,vue,svelte}'],
     exclude = ['**/node_modules/**', '**/.next/**', '**/dist/**'],
     debug = false
   } = options;

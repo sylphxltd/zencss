@@ -1,1 +1,75 @@
-@layer reset, base, tokens, recipes, utilities;
+@layer reset, base, tokens, recipes;
+
+@layer utilities {
+  .a0 {
+    display: flex;
+  }
+
+  .a1 {
+    flex-direction: column;
+  }
+
+  .a2 {
+    align-items: center;
+  }
+
+  .a3 {
+    justify-content: center;
+  }
+
+  .a4 {
+    min-height: 100vh;
+  }
+
+  .a5 {
+    background-color: #f0f0f0;
+  }
+
+  .a6 {
+    font-size: 3rem;
+  }
+
+  .a7 {
+    font-weight: bold;
+  }
+
+  .a8 {
+    color: #111;
+  }
+
+  .a9 {
+    margin-bottom: 1.5rem;
+  }
+
+  .b0 {
+    background-color: #f59e0b;
+  }
+
+  .b1 {
+    color: #fff;
+  }
+
+  .b2 {
+    padding: 1rem 2.5rem;
+  }
+
+  .b3 {
+    border-radius: .75rem;
+  }
+
+  .b4 {
+    font-size: 1.25rem;
+  }
+
+  .b5 {
+    font-weight: 600;
+  }
+
+  .b6 {
+    cursor: pointer;
+  }
+
+  .b7 {
+    border: none;
+  }
+}
