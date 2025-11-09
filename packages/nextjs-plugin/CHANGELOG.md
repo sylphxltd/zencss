@@ -1,5 +1,17 @@
 # @sylphx/silk-nextjs
 
+## 3.3.0
+
+### Minor Changes
+
+- Add full Next.js 15+ Turbopack support via babel-loader
+
+  - Add Turbopack support using turbopack.rules + babel-loader
+  - Remove WASM from distribution (SWC plugin kept in source)
+  - Add babel-loader as dependency for Turbopack mode
+  - Automatic detection and configuration for both Webpack and Turbopack modes
+  - Both modes provide same zero-runtime developer experience
+
 ## 3.2.0
 
 ### Minor Changes
