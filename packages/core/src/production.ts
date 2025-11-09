@@ -73,17 +73,25 @@ export function generateShortClassName(styleId: string): string {
 }
 
 /**
+ * MurmurHash2 implementation (matches babel-plugin-silk)
+ * Fast, collision-resistant, deterministic
+ */
+function murmurHash2(str: string): string {
+  let h = 0
+  for (let i = 0; i < str.length; i++) {
+    const c = str.charCodeAt(i)
+    h = Math.imul(h ^ c, 0x5bd1e995)
+    h ^= h >>> 13
+  }
+  return (h >>> 0).toString(36)
+}
+
+/**
  * Hash function for consistent class name generation
  * Used in development mode for readable class names
  */
 export function hashStyleId(str: string): string {
-  let hash = 0
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i)
-    hash = (hash << 5) - hash + char
-    hash = hash & hash // Convert to 32bit integer
-  }
-  return Math.abs(hash).toString(36)
+  return murmurHash2(str)
 }
 
 /**
@@ -106,7 +114,10 @@ export function generateClassName(
   // Development: readable name with prefix
   const prefix = classPrefix || (production ? 's' : 'silk')
   const hash = hashStyleId(styleId)
-  return `${prefix}-${hash}`
+
+  // Production: s{hash} (no separator, shorter)
+  // Development: silk-{hash} (with separator for readability)
+  return production ? `${prefix}${hash}` : `${prefix}-${hash}`
 }
 
 /**

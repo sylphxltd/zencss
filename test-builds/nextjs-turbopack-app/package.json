@@ -10,15 +10,15 @@
     "start": "next start"
   },
   "dependencies": {
-    "@sylphx/silk": "file:../../packages/core",
-    "@sylphx/silk-nextjs": "file:../../packages/nextjs-plugin",
-    "next": "^15.0.0",
+    "@sylphx/silk": "^2.1.0",
+    "@sylphx/silk-nextjs": "^3.3.1",
+    "next": "^16.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@sylphx/silk-cli": "file:../../packages/cli",
-    "@sylphx/babel-plugin-silk": "file:../../packages/babel-plugin-silk",
+    "@sylphx/silk-cli": "^1.0.2",
+    "@sylphx/babel-plugin-silk": "^2.0.3",
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",

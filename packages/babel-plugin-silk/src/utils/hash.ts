@@ -40,6 +40,7 @@ export function simpleHash(str: string): string {
 
 /**
  * Generate a stable hash for a property-value pair
+ * Matches runtime format for deterministic class names
  *
  * @param property - CSS property name
  * @param value - CSS property value
@@ -51,6 +52,6 @@ export function hashPropertyValue(
   value: any,
   variant = ''
 ): string {
-  const content = `${property}:${JSON.stringify(value)}:${variant}`
+  const content = `${property}-${value}${variant}`
   return murmurHash2(content)
 }

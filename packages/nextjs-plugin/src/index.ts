@@ -101,6 +101,8 @@ export function withSilk(
 
     // Turbopack mode: Use .babelrc for css() transformation
     ...(enableTurbopack ? {
+      // Add empty turbopack config to silence Next.js 16 warning
+      turbopack: {},
       experimental: {
         // Ensure babel processes user code
         forceSwcTransforms: false

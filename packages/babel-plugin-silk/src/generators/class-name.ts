@@ -27,26 +27,10 @@ export function generateClassName(
   const hash = hashPropertyValue(property, value, variant)
 
   if (production) {
-    // Short hash for production (8 chars)
-    // CSS class names cannot start with a digit, so we map 0-9 to g-p
-    // This maintains 8-char length while ensuring valid CSS identifiers
-    let shortHash = hash.slice(0, 8)
-    const firstChar = shortHash[0]
-
-    // Map leading digits to letters (0→g, 1→h, ..., 9→p)
-    if (firstChar >= '0' && firstChar <= '9') {
-      const mapped = String.fromCharCode(
-        firstChar.charCodeAt(0) - '0'.charCodeAt(0) + 'g'.charCodeAt(0)
-      )
-      shortHash = mapped + shortHash.slice(1)
-    }
-
-    // Apply custom prefix if provided (increases length but allows branding)
-    if (classPrefix && classPrefix !== 's') {
-      return `${classPrefix}${shortHash}`
-    }
-
-    return shortHash
+    // Production: s{hash} format (matches runtime)
+    // Use prefix 's' to avoid leading digits (valid CSS identifier)
+    const prefix = classPrefix || 's'
+    return `${prefix}${hash}`
   }
 
   // Descriptive for development

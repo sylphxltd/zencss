@@ -62,8 +62,11 @@ export async function generateCSS(
   }
 
   // Create style system with production mode enabled
+  // Use hash-based class names (not counter-based) for deterministic output
+  // This ensures CLI and Babel plugin generate the same class names
   const styleSystem = createStyleSystem(config, {
     production: true,
+    shortClassNames: false,  // Disable counter-based, use hash-based
     optimize: true
   });
 
