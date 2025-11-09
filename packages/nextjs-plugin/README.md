@@ -113,15 +113,11 @@ my-app/
 
 ## Build Modes
 
-Silk **automatically adapts** to whatever Next.js is using:
-- ✅ `next dev` / `next build` → **Webpack mode** (zero-codegen, virtual CSS)
-- ✅ `next dev --turbo` / `next build --turbo` → **Turbopack mode** (CLI-based)
+Silk supports both Webpack and Turbopack with different approaches:
 
-No configuration needed! Silk detects at runtime which bundler Next.js is actually using.
+### Webpack Mode (Recommended for Dev)
 
-### Webpack Mode (Auto-enabled)
-
-When you run `next dev` or `next build`, Silk automatically uses webpack mode:
+**Zero-codegen** approach with virtual CSS modules:
 
 ```javascript
 // next.config.mjs
@@ -138,8 +134,8 @@ import 'silk.css';  // ✅ Virtual CSS module (auto-generated)
 ```
 
 ```bash
-next dev          # Silk auto-injects webpack plugin
-next build        # Works automatically
+next dev          # Webpack mode
+next build        # Production build
 ```
 
 **Pros:**
@@ -147,20 +143,20 @@ next build        # Works automatically
 - ✅ Automatic CSS regeneration on file changes
 - ✅ Zero setup
 
-### Turbopack Mode (Auto-enabled)
+### Turbopack Mode (Faster Builds)
 
-When you run `next dev --turbo`, Silk expects CLI-generated CSS:
+**CLI-based** approach with generated CSS file:
 
 ```bash
-npm install -D @sylphx/silk-cli
+bun add -D @sylphx/silk-cli
 ```
 
 ```json
 // package.json
 {
   "scripts": {
-    "predev": "silk generate --src ./src",
-    "prebuild": "silk generate --src ./src",
+    "predev": "silk generate --src ./app",
+    "prebuild": "silk generate --src ./app",
     "dev": "next dev --turbo",
     "build": "next build --turbo"
   }
@@ -171,22 +167,22 @@ npm install -D @sylphx/silk-cli
 // next.config.mjs
 import { withSilk } from '@sylphx/silk-nextjs';
 
-export default withSilk({
-  // Same config! Auto-detects turbopack
+export default withSilk({}, {
+  turbopack: true  // Enable Turbopack mode
 });
 ```
 
 ```typescript
 // app/layout.tsx
-import '../src/silk.generated.css';  // ✅ CLI-generated file
+import './silk.generated.css';  // ✅ CLI-generated file
 ```
 
 **Pros:**
 - ✅ **10x faster builds** (Turbopack vs Webpack)
 - ✅ Future of Next.js (Vercel's focus)
-- ✅ Universal WASM optimization
+- ✅ Works with Next.js 15+
 
-**Note:** Requires `@sylphx/silk-cli` and package.json scripts
+**Note:** Requires `@sylphx/silk-cli` and package.json scripts for CSS generation
 
 ## Compatibility
 

@@ -99,25 +99,11 @@ export function withSilk(
   return {
     ...nextConfig,
 
-    // Turbopack mode: Use babel-loader for css() transformation
+    // Turbopack mode: Use .babelrc for css() transformation
     ...(enableTurbopack ? {
-      turbopack: {
-        ...(nextConfig.turbopack || {}),
-        rules: {
-          ...(nextConfig.turbopack?.rules || {}),
-          '*.{js,jsx,ts,tsx}': {
-            loaders: [
-              {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['next/babel'],
-                  plugins: ['@sylphx/babel-plugin-silk']
-                }
-              }
-            ],
-            as: '*.js'
-          }
-        }
+      experimental: {
+        // Ensure babel processes user code
+        forceSwcTransforms: false
       }
     } : {}),
 
@@ -125,7 +111,7 @@ export function withSilk(
       // If user explicitly enabled turbopack mode, skip webpack plugin
       if (enableTurbopack === true) {
         if (debug) {
-          console.log('[Silk] Turbopack mode: Using babel-loader for css() transformation');
+          console.log('[Silk] Turbopack mode: Expecting CLI-generated CSS (silk.generated.css)');
         }
         // Call user's webpack config if exists
         if (typeof nextConfig.webpack === 'function') {

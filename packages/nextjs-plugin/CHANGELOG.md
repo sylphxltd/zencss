@@ -1,5 +1,33 @@
 # @sylphx/silk-nextjs
 
+## 3.3.1
+
+### Patch Changes
+
+- Fix Turbopack mode to use Next.js 16 built-in Babel integration
+
+  **What changed:**
+
+  - Remove manual `turbopack.rules` configuration that caused babel-loader to process node_modules
+  - Rely on Next.js 16's built-in Babel support which automatically excludes node_modules
+  - Turbopack mode now works with just `.babelrc` + `@sylphx/babel-plugin-silk`
+  - No need for CLI-based workflow or `silk generate` in Turbopack mode
+
+  **How Turbopack mode works now:**
+
+  1. Install `@sylphx/babel-plugin-silk`
+  2. Create `.babelrc`:
+     ```json
+     {
+       "presets": ["next/babel"],
+       "plugins": ["@sylphx/babel-plugin-silk"]
+     }
+     ```
+  3. Next.js 16 automatically uses Babel for user code (excludes node_modules)
+  4. Works exactly like Webpack mode - zero additional configuration needed
+
+  **Note**: v3.3.0 had a bug where manually configuring babel-loader in turbopack.rules caused it to process node_modules. This violated Next.js 16's design where "Files in node_modules are excluded, unless you manually configure babel-loader."
+
 ## 3.3.0
 
 ### Minor Changes

@@ -26,15 +26,52 @@ export default withSilk({
 })
 ```
 
-That's it! Silk automatically configures itself for both Webpack and Turbopack modes.
+That's it for Webpack mode! For Turbopack mode, see the section below.
 
-::: tip Turbopack Support
-Silk fully supports Next.js 15+ with Turbopack. The plugin automatically detects and configures the optimal build strategy:
-- **Webpack mode**: Uses virtual CSS modules (zero-codegen)
-- **Turbopack mode**: Uses babel-loader for transformation (zero-runtime)
+::: tip Turbopack vs Webpack
+Silk supports both build modes with different approaches:
+- **Webpack mode** (zero-codegen): Virtual CSS modules, automatic regeneration
+- **Turbopack mode** (CLI-based): Requires `@sylphx/silk-cli` and `silk generate` command
 
-Both modes provide the same developer experience with zero runtime overhead.
+Both modes provide zero runtime overhead.
 :::
+
+### Turbopack Mode Setup
+
+If using Turbopack (`next dev --turbo`), you need the CLI tool:
+
+```bash
+bun add -D @sylphx/silk-cli
+```
+
+Add generation scripts:
+
+```json
+// package.json
+{
+  "scripts": {
+    "predev": "silk generate --src ./app",
+    "prebuild": "silk generate --src ./app",
+    "dev": "next dev --turbo",
+    "build": "next build --turbo"
+  }
+}
+```
+
+Import the generated CSS:
+
+```tsx
+// app/layout.tsx
+import './silk.generated.css'  // CLI-generated file
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
+```
 
 ## App Router (Recommended)
 
@@ -309,11 +346,17 @@ const grid = css({
 
 ### "css() should be transformed at build-time"
 
-This error means the Babel plugin isn't running. Check:
+This error means the transformation isn't happening. Check:
 
+**Webpack mode:**
 1. ✅ `@sylphx/babel-plugin-silk` is installed
 2. ✅ `withSilk()` is wrapping your Next.js config
 3. ✅ Restart dev server after config changes
+
+**Turbopack mode:**
+1. ✅ `@sylphx/silk-cli` is installed
+2. ✅ `predev` and `prebuild` scripts run `silk generate`
+3. ✅ Importing `./silk.generated.css` in layout
 
 ### Styles not updating in dev
 
