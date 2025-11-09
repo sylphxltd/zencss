@@ -20,43 +20,21 @@ export default withSilk({
   // Your Next.js config
   reactStrictMode: true,
 }, {
-  // Silk config
+  // Silk config (optional)
   srcDir: './app',     // or './src' if using src folder
   debug: false         // Enable for debugging
 })
 ```
 
-### 2. Babel Configuration
+That's it! Silk automatically configures itself for both Webpack and Turbopack modes.
 
-Create `.babelrc` in your project root:
+::: tip Turbopack Support
+Silk fully supports Next.js 15+ with Turbopack. The plugin automatically detects and configures the optimal build strategy:
+- **Webpack mode**: Uses virtual CSS modules (zero-codegen)
+- **Turbopack mode**: Uses babel-loader for transformation (zero-runtime)
 
-```json
-{
-  "presets": ["next/babel"],
-  "plugins": ["@sylphx/babel-plugin-silk"]
-}
-```
-
-::: warning Important
-The Babel plugin is **required** to transform `css()` calls at build time.
+Both modes provide the same developer experience with zero runtime overhead.
 :::
-
-### 3. Package Scripts
-
-::: danger Next.js 16+ Users
-Next.js 16 defaults to **Turbopack**, which doesn't support Babel plugins yet.
-
-You **must** use the `--webpack` flag:
-:::
-
-```json
-{
-  "scripts": {
-    "dev": "next dev --webpack",
-    "build": "next build"
-  }
-}
-```
 
 ## App Router (Recommended)
 
@@ -228,7 +206,7 @@ export default withSilk(nextConfig, {
   // Enable debug logging
   debug: true,               // Default: false
 
-  // Custom virtual module ID (advanced)
+  // Virtual module ID (advanced)
   virtualModuleId: 'silk.css' // Default: 'silk.css'
 })
 ```
@@ -333,24 +311,33 @@ const grid = css({
 
 This error means the Babel plugin isn't running. Check:
 
-1. ✅ `.babelrc` exists and includes `@sylphx/babel-plugin-silk`
-2. ✅ Using `next dev --webpack` (not `next dev --turbo`)
-3. ✅ `@sylphx/babel-plugin-silk` is installed
-
-### "Module not found: lightningcss"
-
-Update to latest version:
-
-```bash
-bun add @sylphx/silk@latest @sylphx/silk-nextjs@latest
-```
-
-Latest versions use `lightningcss-wasm` which is browser-safe.
+1. ✅ `@sylphx/babel-plugin-silk` is installed
+2. ✅ `withSilk()` is wrapping your Next.js config
+3. ✅ Restart dev server after config changes
 
 ### Styles not updating in dev
 
 1. Delete `.next` folder: `rm -rf .next`
 2. Restart dev server
+
+### TypeScript errors
+
+Make sure you have the correct types installed:
+
+```bash
+bun add -D @types/react @types/node
+```
+
+## Performance
+
+Silk adds **zero runtime overhead**:
+
+| Metric | Traditional CSS-in-JS | Silk |
+|--------|----------------------|------|
+| Runtime JS | ~15-30KB | **0KB** ✅ |
+| Style injection | Runtime (slow) | **None** ✅ |
+| CSS size | 100% | **45-65%** ✅ |
+| Hydration | Required | **Not needed** ✅ |
 
 ## Best Practices
 
@@ -371,4 +358,5 @@ Latest versions use `lightningcss-wasm` which is browser-safe.
 
 - [Responsive Design](/guide/responsive)
 - [Theming](/guide/theming)
+- [Configuration Reference](/api/configuration)
 - [Troubleshooting](/guide/troubleshooting)

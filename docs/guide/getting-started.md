@@ -22,7 +22,7 @@ bun add @sylphx/silk @sylphx/silk-nuxt
 
 ## Quick Setup
 
-### Next.js (Recommended)
+### Next.js (App Router)
 
 1. **Install dependencies**
 
@@ -39,41 +39,10 @@ import { withSilk } from '@sylphx/silk-nextjs'
 export default withSilk({
   // Your Next.js config
   reactStrictMode: true,
-}, {
-  // Silk config
-  srcDir: './src',  // or './app' for App Router
-  debug: false
 })
 ```
 
-3. **Configure Babel**
-
-```json
-// .babelrc
-{
-  "presets": ["next/babel"],
-  "plugins": ["@sylphx/babel-plugin-silk"]
-}
-```
-
-4. **Update package.json**
-
-::: warning Next.js 16+ Users
-Next.js 16 defaults to **Turbopack**, but Silk requires **Webpack** for `css()` transformation.
-
-Add the `--webpack` flag:
-:::
-
-```json
-{
-  "scripts": {
-    "dev": "next dev --webpack",
-    "build": "next build"
-  }
-}
-```
-
-5. **Start coding!**
+3. **Start coding!**
 
 ```tsx
 // app/page.tsx
@@ -100,6 +69,10 @@ export default function Home() {
   )
 }
 ```
+
+::: tip Turbopack Support
+Silk fully supports Next.js 15+ with Turbopack enabled. No special configuration needed!
+:::
 
 ### Vite + React
 
@@ -145,6 +118,42 @@ export function App() {
     </div>
   )
 }
+```
+
+### Nuxt 3
+
+1. **Install**
+
+```bash
+bun add @sylphx/silk @sylphx/silk-nuxt
+```
+
+2. **Configure Nuxt**
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@sylphx/silk-nuxt']
+})
+```
+
+3. **Start coding!**
+
+```vue
+<script setup>
+import { css } from '@sylphx/silk'
+
+const container = css({
+  padding: '2rem',
+  textAlign: 'center'
+})
+</script>
+
+<template>
+  <div :class="container">
+    <h1>Hello Silk!</h1>
+  </div>
+</template>
 ```
 
 ## Basic Usage
@@ -206,6 +215,8 @@ const container = css({
 })
 ```
 
+Learn more about [responsive design](/guide/responsive).
+
 ### Combining Styles
 
 ```tsx
@@ -224,9 +235,31 @@ const primary = css({
 </button>
 ```
 
+## How It Works
+
+Silk uses **build-time transformation** to extract CSS from your TypeScript code:
+
+```tsx
+// Your code (input)
+const button = css({ color: 'red', padding: '1rem' })
+
+// After build (output)
+const button = 'silk-a7f3 silk-b2e1'
+
+// Generated CSS (extracted to .css file)
+.silk-a7f3 { color: red; }
+.silk-b2e1 { padding: 1rem; }
+```
+
+**Key benefits:**
+- ✅ **Zero runtime** - No JavaScript for styling in the browser
+- ✅ **Atomic CSS** - Automatic deduplication, 45-65% smaller bundles
+- ✅ **Type-safe** - Full TypeScript support with IntelliSense
+- ✅ **Framework agnostic** - Works with React, Vue, Svelte, and more
+
 ## Next Steps
 
 - Learn about [Next.js integration](/guide/nextjs)
 - Explore [responsive design](/guide/responsive)
 - Check out [theming](/guide/theming)
-- See [all configuration options](/api/configuration)
+- See [configuration options](/api/configuration)

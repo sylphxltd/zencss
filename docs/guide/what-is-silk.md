@@ -24,11 +24,11 @@ All `css()` calls are transformed at **build time** into static class names:
 const button = css({ color: 'red', padding: '1rem' })
 
 // Output (what ships to browser)
-const button = 'silk_color_red_a7f3 silk_padding_1rem_b2e1'
+const button = 'silk-a7f3 silk-b2e1'
 
 // Generated CSS (extracted to .css file)
-.silk_color_red_a7f3 { color: red; }
-.silk_padding_1rem_b2e1 { padding: 1rem; }
+.silk-a7f3 { color: red; }
+.silk-b2e1 { padding: 1rem; }
 ```
 
 ### ✅ Zero Runtime JavaScript
@@ -44,10 +44,10 @@ Every unique style becomes a reusable atomic class:
 const button1 = css({ color: 'red', padding: '1rem' })
 const button2 = css({ color: 'red', margin: '2rem' })
 
-// Only generates TWO classes:
-// .silk_color_red_a7f3 { color: red; }
-// .silk_padding_1rem_b2e1 { padding: 1rem; }
-// .silk_margin_2rem_c3d4 { margin: 2rem; }
+// Only generates THREE classes:
+// .silk-a7f3 { color: red; }
+// .silk-b2e1 { padding: 1rem; }
+// .silk-c3d4 { margin: 2rem; }
 ```
 
 Result: **45-65% smaller CSS** compared to traditional CSS-in-JS.
@@ -67,39 +67,45 @@ const styles = css({
 
 ## How It Works
 
-Silk uses **two complementary approaches**:
+Silk uses **Babel transformation** at build time to extract CSS and generate atomic class names.
 
-### 1. Babel Plugin (Webpack)
+### Next.js Integration
 
-For Webpack-based builds (Next.js with `--webpack` flag):
+For Next.js, Silk provides seamless integration with both Webpack and Turbopack:
 
-```tsx
-// Before compilation
-const button = css({ color: 'red' })
+**Webpack mode** (Next.js < 15 or custom webpack config):
+- Virtual CSS module injection
+- Zero-codegen approach
+- Automatic regeneration on file changes
 
-// After Babel transformation
-const button = 'silk_color_red_a7f3'
-```
+**Turbopack mode** (Next.js 15+ with Turbopack):
+- Uses `turbopack.rules` + `babel-loader`
+- Same zero-runtime benefits
+- Faster builds than webpack
 
-The Babel plugin:
-1. Finds all `css()` calls
-2. Extracts styles to CSS file
-3. Replaces `css()` with class name string
+Both modes use the Babel plugin for transformation, just different bundler integration strategies.
 
-### 2. CLI + Virtual Module (Turbopack/Vite)
+### Vite Integration
 
-For bundlers that don't support Babel (Turbopack, Vite with SWC):
+For Vite projects:
+
+1. Vite plugin scans source files for `css()` calls
+2. Extracts styles and generates atomic CSS
+3. Babel plugin transforms `css()` to class names
+4. Generated CSS is imported into your app
+
+### CLI Integration
+
+For other build tools or standalone usage:
 
 ```bash
-# Pre-build step
-silk generate --src ./src --output ./src/silk.css
+silk generate --src ./src --output ./dist/silk.css
 ```
 
-Then import the generated CSS:
-
-```tsx
-import './silk.css'  // All extracted styles
-```
+The CLI:
+1. Scans source files for `css()` calls
+2. Generates atomic CSS file
+3. You manually import the generated CSS
 
 ## Performance Benefits
 
@@ -149,9 +155,97 @@ const button = css({
 
 Similar approach to Silk, but Silk is:
 - **Simpler** - No config file needed
-- **Faster** - Babel plugin is faster than Panda's AST parsing
+- **Faster** - Babel plugin is optimized
 - **Smaller** - Better atomic deduplication
 - **Framework agnostic** - Works with any framework
+
+### vs Vanilla Extract
+
+```tsx
+// ⚠️ Vanilla Extract - Separate .css.ts files required
+// button.css.ts
+import { style } from '@vanilla-extract/css'
+export const button = style({ color: 'red' })
+
+// ✅ Silk - Inline with components
+import { css } from '@sylphx/silk'
+const button = css({ color: 'red' })
+```
+
+## Features
+
+### Modern CSS Support
+
+Silk supports all modern CSS features:
+
+```tsx
+const styles = css({
+  // CSS Nesting
+  '& .child': {
+    color: 'blue'
+  },
+
+  // Modern color functions
+  color: 'oklch(0.7 0.2 350)',
+
+  // Container queries
+  '@container (min-width: 400px)': {
+    fontSize: '2rem'
+  },
+
+  // Cascade layers
+  '@layer utilities': {
+    padding: '1rem'
+  }
+})
+```
+
+### Responsive Design
+
+```tsx
+const responsive = css({
+  padding: {
+    base: '1rem',    // Mobile
+    md: '2rem',      // Tablet
+    lg: '4rem'       // Desktop
+  }
+})
+```
+
+### Pseudo-classes
+
+```tsx
+const interactive = css({
+  color: 'blue',
+
+  _hover: {
+    color: 'darkblue'
+  },
+
+  _focus: {
+    outline: '2px solid blue'
+  },
+
+  _active: {
+    transform: 'scale(0.98)'
+  }
+})
+```
+
+### Dark Mode
+
+```tsx
+const themed = css({
+  backgroundColor: 'var(--bg-primary)',
+  color: 'var(--text-primary)',
+
+  // Automatic dark mode via CSS variables
+  '@media (prefers-color-scheme: dark)': {
+    '--bg-primary': '#1a202c',
+    '--text-primary': '#f7fafc'
+  }
+})
+```
 
 ## When to Use Silk
 
@@ -161,15 +255,103 @@ Similar approach to Silk, but Silk is:
 - **Component libraries** - Zero runtime overhead
 - **SSR/SSG apps** - No hydration issues
 - **Type-safe projects** - Full TypeScript support
+- **Modern frameworks** - Next.js, Vite, Nuxt, etc.
 
 ### ⚠️ Consider alternatives if:
 
-- **Rapid prototyping** - Inline styles might be faster
-- **Legacy browser support** - Need IE11? Use traditional CSS
-- **Learning CSS** - Tailwind might be more approachable
+- **Legacy browsers** - Need IE11? Use traditional CSS
+- **Rapid prototyping** - Tailwind might be faster initially
+- **Learning CSS** - Plain CSS might be more educational
+
+## Architecture
+
+Silk's architecture is simple:
+
+```
+Source Code (TypeScript/JSX)
+           ↓
+    Babel Plugin
+           ↓
+    CSS Extraction
+           ↓
+   Atomic CSS Generation
+           ↓
+  Class Name Replacement
+           ↓
+   Optimized Output
+```
+
+**Build time:**
+- Source files are parsed by Babel
+- `css()` calls are extracted
+- Atomic CSS is generated
+- Function calls are replaced with class names
+
+**Runtime:**
+- Zero JavaScript execution
+- Static CSS loaded by browser
+- Class names already in HTML
+
+## Browser Support
+
+Silk generates modern CSS that works in all evergreen browsers:
+
+- Chrome/Edge 88+
+- Firefox 87+
+- Safari 14+
+
+For older browsers, configure LightningCSS autoprefixer:
+
+```ts
+// silk.config.ts
+export default defineConfig({
+  optimize: {
+    browserslist: ['> 0.5%', 'last 2 versions', 'not dead']
+  }
+})
+```
+
+## Framework Support
+
+Silk works with all major frameworks:
+
+- ✅ Next.js (App Router + Pages Router)
+- ✅ Vite (React, Vue, Svelte, Preact)
+- ✅ Nuxt 3
+- ✅ SvelteKit
+- ✅ Remix
+- ✅ Astro
+- ✅ Qwik
+
+## Getting Started
+
+Ready to try Silk?
+
+```bash
+bun add @sylphx/silk @sylphx/silk-nextjs
+```
+
+```tsx
+import { css } from '@sylphx/silk'
+
+const button = css({
+  background: 'linear-gradient(135deg, #667eea, #764ba2)',
+  color: 'white',
+  padding: '12px 24px',
+  borderRadius: '8px',
+
+  _hover: {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 10px 20px rgba(0,0,0,0.2)'
+  }
+})
+
+<button className={button}>Get Started</button>
+```
 
 ## Next Steps
 
-- [Get started](/guide/getting-started) with Silk
-- [Next.js integration](/guide/nextjs) guide
-- [API reference](/api/configuration)
+- [Getting Started](/guide/getting-started) - Installation and setup
+- [Next.js Integration](/guide/nextjs) - Framework-specific guide
+- [Responsive Design](/guide/responsive) - Build responsive layouts
+- [Configuration](/api/configuration) - Advanced configuration options
