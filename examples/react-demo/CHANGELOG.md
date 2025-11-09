@@ -1,5 +1,13 @@
 # react-demo
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [dd5353d]
+  - @sylphx/silk@2.2.2
+  - @sylphx/silk-react@2.0.5
+
 ## 0.0.14
 
 ### Patch Changes

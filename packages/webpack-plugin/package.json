@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/silk-webpack-plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Webpack plugin for Silk - Zero-codegen CSS-in-TypeScript with virtual modules",
   "keywords": [
     "silk",
@@ -41,7 +41,7 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@sylphx/silk": "^2.1.1",
+    "@sylphx/silk": "^2.2.2",
     "webpack-virtual-modules": "^0.6.2"
   },
   "devDependencies": {

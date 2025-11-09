@@ -11,16 +11,27 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
+    "test:performance": "vitest run --reporter=verbose packages/core/src/performance-benchmark.test.ts",
+    "test:e2e": "vitest run --reporter=verbose packages/core/src/cli-babel-consistency.test.ts",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "size-check": "size-limit",
+    "audit": "bun audit",
+    "audit:fix": "bun audit fix",
+    "clean": "turbo run clean && rm -rf .next node_modules/.cache",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@changesets/cli": "^2.29.7",
+    "@size-limit/preset-small-lib": "^11.1.5",
     "@types/bun": "^1.1.0",
     "@types/node": "^20.10.0",
+    "size-limit": "^11.1.5",
     "turbo": "^1.11.0",
     "typescript": "^5.3.0",
     "vitest": "^1.6.0"
