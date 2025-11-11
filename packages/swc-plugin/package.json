@@ -17,11 +17,11 @@
   "homepage": "https://sylphx.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sylphxltd/silk.git",
+    "url": "https://github.com/SylphxAI/silk.git",
     "directory": "packages/swc-plugin"
   },
   "bugs": {
-    "url": "https://github.com/sylphxltd/silk/issues"
+    "url": "https://github.com/SylphxAI/silk/issues"
   },
   "scripts": {
     "build": "cargo build --release --target wasm32-wasip1 && mkdir -p dist && cp target/wasm32-wasip1/release/swc_plugin_silk.wasm dist/",

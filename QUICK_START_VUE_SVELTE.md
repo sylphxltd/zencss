@@ -327,7 +327,7 @@ A: TypeScript strict mode 下，CSS 屬性值的類型檢查比較嚴格。用 `
 
 ```bash
 # Vue 3 示例
-git clone https://github.com/sylphxltd/silk-examples
+git clone https://github.com/SylphxAI/silk-examples
 cd silk-examples/vue-vite-app
 npm install
 npm run dev

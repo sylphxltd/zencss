@@ -278,7 +278,7 @@ const MaterialFAB = styled('button', {
 ## Documentation
 
 - **Material Design 3**: https://m3.material.io/
-- **Silk Documentation**: [GitHub Repository](https://github.com/sylphxltd/silk)
+- **Silk Documentation**: [GitHub Repository](https://github.com/SylphxAI/silk)
 
 ## License
 

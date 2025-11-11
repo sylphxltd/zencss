@@ -548,6 +548,6 @@ ZenCSS has successfully achieved its goal of challenging Tailwind CSS and Panda 
 
 ---
 
-**Repository**: https://github.com/sylphxltd/zencss
+**Repository**: https://github.com/SylphxAI/zencss
 **Last Commit**: feat(core): add cascade layers (@layer) and :where() selector support
 **Next Focus**: Critical CSS extraction + Tree shaking (P1 features)

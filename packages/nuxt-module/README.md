@@ -1,6 +1,6 @@
 # @sylphx/silk-nuxt
 
-Nuxt 3 module for [Silk](https://github.com/sylphxltd/silk) - Zero-codegen, zero-runtime CSS-in-TypeScript.
+Nuxt 3 module for [Silk](https://github.com/SylphxAI/silk) - Zero-codegen, zero-runtime CSS-in-TypeScript.
 
 ## Features
 

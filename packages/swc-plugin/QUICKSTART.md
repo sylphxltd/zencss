@@ -40,7 +40,7 @@ rustup target add wasm32-wasip1
 
 ```bash
 # Clone the repository
-git clone https://github.com/sylphxltd/silk.git
+git clone https://github.com/SylphxAI/silk.git
 cd silk/packages/swc-plugin
 
 # Install dependencies
@@ -223,7 +223,7 @@ Once you have the plugin working:
    - Integration with CSS collection
 
 3. **Report issues:**
-   - [GitHub Issues](https://github.com/sylphxltd/silk/issues)
+   - [GitHub Issues](https://github.com/SylphxAI/silk/issues)
 
 ## Performance Comparison
 
@@ -257,8 +257,8 @@ npm run dev
 ## Help & Support
 
 - **Documentation:** See README.md and other .md files
-- **Issues:** https://github.com/sylphxltd/silk/issues
-- **Discussions:** https://github.com/sylphxltd/silk/discussions
+- **Issues:** https://github.com/SylphxAI/silk/issues
+- **Discussions:** https://github.com/SylphxAI/silk/discussions
 
 ## Summary
 
@@ -268,7 +268,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 rustup target add wasm32-wasip1
 
-git clone https://github.com/sylphxltd/silk.git
+git clone https://github.com/SylphxAI/silk.git
 cd silk/packages/swc-plugin
 npm install
 npm run build

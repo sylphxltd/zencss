@@ -29,7 +29,7 @@ git clone https://github.com/YOUR_USERNAME/silk.git
 cd silk/packages/swc-plugin
 
 # Add upstream remote
-git remote add upstream https://github.com/sylphxltd/silk.git
+git remote add upstream https://github.com/SylphxAI/silk.git
 ```
 
 ## Development Setup

@@ -232,7 +232,7 @@ Qwik's resumability + Silk's zero-runtime = **Fastest possible web application**
 
 ## Documentation
 
-Full documentation: [GitHub Repository](https://github.com/sylphxltd/silk)
+Full documentation: [GitHub Repository](https://github.com/SylphxAI/silk)
 
 ## License
 

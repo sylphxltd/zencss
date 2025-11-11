@@ -383,9 +383,9 @@ packages/swc-plugin/
 
 ## 📞 Contact
 
-- **GitHub:** [@sylphxltd](https://github.com/sylphxltd)
-- **Issues:** [Report bugs](https://github.com/sylphxltd/silk/issues)
-- **Discussions:** [Ask questions](https://github.com/sylphxltd/silk/discussions)
+- **GitHub:** [@SylphxAI](https://github.com/SylphxAI)
+- **Issues:** [Report bugs](https://github.com/SylphxAI/silk/issues)
+- **Discussions:** [Ask questions](https://github.com/SylphxAI/silk/discussions)
 
 ## 📄 License
 

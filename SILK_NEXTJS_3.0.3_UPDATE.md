@@ -228,7 +228,7 @@ export default withSilk({
 
 ## 🔗 相關資源
 
-- **GitHub:** https://github.com/sylphxltd/silk
+- **GitHub:** https://github.com/SylphxAI/silk
 - **npm:** https://www.npmjs.com/package/@sylphx/silk-nextjs
 - **文檔:** `/Users/kyle/new_project/NEXTJS_ROOT_APP_DIRECTORY.md`
 - **Changelog:** `/Users/kyle/new_project/packages/nextjs-plugin/CHANGELOG.md`
@@ -244,4 +244,4 @@ export default withSilk({
 4. 完整錯誤訊息
 5. Debug log (`debug: true` 的輸出)
 
-**GitHub Issues:** https://github.com/sylphxltd/silk/issues
+**GitHub Issues:** https://github.com/SylphxAI/silk/issues

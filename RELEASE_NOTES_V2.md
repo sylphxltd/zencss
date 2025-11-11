@@ -520,8 +520,8 @@ None! All issues from Phase 2B testing resolved.
 
 ## 💬 Community & Support
 
-- **GitHub Issues:** [github.com/sylphxltd/silk/issues](https://github.com/sylphxltd/silk/issues)
-- **Discussions:** [github.com/sylphxltd/silk/discussions](https://github.com/sylphxltd/silk/discussions)
+- **GitHub Issues:** [github.com/SylphxAI/silk/issues](https://github.com/SylphxAI/silk/issues)
+- **Discussions:** [github.com/SylphxAI/silk/discussions](https://github.com/SylphxAI/silk/discussions)
 - **Discord:** Coming soon
 - **Twitter:** [@sylphx](https://twitter.com/sylphx)
 

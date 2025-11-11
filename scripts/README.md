@@ -218,5 +218,5 @@ See: `.github/workflows/swc-plugin-test.yml`
 
 ## Support
 
-- **GitHub Issues:** https://github.com/sylphxltd/silk/issues
-- **Discussions:** https://github.com/sylphxltd/silk/discussions
+- **GitHub Issues:** https://github.com/SylphxAI/silk/issues
+- **Discussions:** https://github.com/SylphxAI/silk/discussions

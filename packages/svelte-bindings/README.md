@@ -250,7 +250,7 @@ Svelte's compiler + Silk's zero-runtime = **Fastest possible styling solution**.
 
 ## Documentation
 
-Full documentation: [GitHub Repository](https://github.com/sylphxltd/silk)
+Full documentation: [GitHub Repository](https://github.com/SylphxAI/silk)
 
 ## License
 

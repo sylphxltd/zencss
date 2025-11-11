@@ -549,9 +549,9 @@ git checkout vite.config.ts
 If you're stuck:
 
 1. **Check documentation:** [README.md](./README.md)
-2. **Search issues:** [GitHub Issues](https://github.com/sylphxltd/silk/issues)
-3. **Ask questions:** [GitHub Discussions](https://github.com/sylphxltd/silk/discussions)
-4. **Report bugs:** [New Issue](https://github.com/sylphxltd/silk/issues/new)
+2. **Search issues:** [GitHub Issues](https://github.com/SylphxAI/silk/issues)
+3. **Ask questions:** [GitHub Discussions](https://github.com/SylphxAI/silk/discussions)
+4. **Report bugs:** [New Issue](https://github.com/SylphxAI/silk/issues/new)
 
 ---
 
@@ -581,6 +581,6 @@ Runtime Cost: 0ms (zero overhead!)
 
 **Questions? Issues? We're here to help!**
 
-[GitHub Issues](https://github.com/sylphxltd/silk/issues) • [Discussions](https://github.com/sylphxltd/silk/discussions)
+[GitHub Issues](https://github.com/SylphxAI/silk/issues) • [Discussions](https://github.com/SylphxAI/silk/discussions)
 
 </div>

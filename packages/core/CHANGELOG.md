@@ -561,7 +561,7 @@
 
   ## 🔗 Links
 
-  - Repository: https://github.com/sylphxltd/silk
+  - Repository: https://github.com/SylphxAI/silk
   - Website: https://sylphx.com
   - Documentation: See README.md
 
@@ -628,4 +628,4 @@
   });
   ```
 
-  See [documentation](https://github.com/sylphxltd/zencss) for more details.
+  See [documentation](https://github.com/SylphxAI/zencss) for more details.

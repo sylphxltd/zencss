@@ -4,7 +4,7 @@ version = "0.2.0"
 edition = "2021"
 license = "MIT"
 description = "SWC plugin for Silk zero-runtime CSS-in-TypeScript"
-repository = "https://github.com/sylphxltd/silk"
+repository = "https://github.com/SylphxAI/silk"
 authors = ["SylphX Ltd"]
 
 [lib]

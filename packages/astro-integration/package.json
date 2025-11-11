@@ -17,11 +17,11 @@
   "homepage": "https://sylphx.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sylphxltd/silk.git",
+    "url": "https://github.com/SylphxAI/silk.git",
     "directory": "packages/astro-integration"
   },
   "bugs": {
-    "url": "https://github.com/sylphxltd/silk/issues"
+    "url": "https://github.com/SylphxAI/silk/issues"
   },
   "type": "module",
   "main": "./dist/index.js",

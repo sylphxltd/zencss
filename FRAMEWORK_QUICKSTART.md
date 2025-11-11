@@ -772,8 +772,8 @@ const Button = ({ children }) => {
 ## 🤔 Need Help?
 
 - 📖 [Full Documentation](./README.md)
-- 🐛 [Report Issues](https://github.com/sylphxltd/silk/issues)
-- 💬 [Discussions](https://github.com/sylphxltd/silk/discussions)
+- 🐛 [Report Issues](https://github.com/SylphxAI/silk/issues)
+- 💬 [Discussions](https://github.com/SylphxAI/silk/discussions)
 
 ---
 

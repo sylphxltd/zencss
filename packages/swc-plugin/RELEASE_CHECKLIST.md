@@ -243,7 +243,7 @@ npm publish --otp=123456
 
 ### 7. Create GitHub Release
 
-1. Go to https://github.com/sylphxltd/silk/releases/new
+1. Go to https://github.com/SylphxAI/silk/releases/new
 2. Choose tag `v0.1.0`
 3. Title: `SWC Plugin v0.1.0`
 4. Description: Copy from CHANGELOG.md

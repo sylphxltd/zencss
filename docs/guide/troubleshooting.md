@@ -309,7 +309,7 @@ bun add @sylphx/silk@latest @sylphx/silk-nextjs@latest @sylphx/babel-plugin-silk
 
 If you're still stuck:
 
-1. **Check GitHub Issues:** [github.com/sylphxltd/silk/issues](https://github.com/sylphxltd/silk/issues)
+1. **Check GitHub Issues:** [github.com/SylphxAI/silk/issues](https://github.com/SylphxAI/silk/issues)
 2. **File a Bug Report:** Include:
    - Silk version (`package.json`)
    - Next.js version

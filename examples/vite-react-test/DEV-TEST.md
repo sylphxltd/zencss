@@ -253,4 +253,4 @@ bun run build && tsc --noEmit
 ## Questions?
 
 Check the main README or create an issue at:
-https://github.com/sylphxltd/silk/issues
+https://github.com/SylphxAI/silk/issues

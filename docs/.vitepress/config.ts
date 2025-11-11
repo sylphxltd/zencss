@@ -11,7 +11,7 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'API', link: '/api/configuration' },
-      { text: 'GitHub', link: 'https://github.com/sylphxltd/silk' }
+      { text: 'GitHub', link: 'https://github.com/SylphxAI/silk' }
     ],
 
     sidebar: [
@@ -49,7 +49,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/sylphxltd/silk' }
+      { icon: 'github', link: 'https://github.com/SylphxAI/silk' }
     ],
 
     footer: {

@@ -74,7 +74,7 @@ The default `css()` function throws an error if not transformed by the build plu
 
 ## Documentation
 
-Full documentation: [GitHub Repository](https://github.com/sylphxltd/silk)
+Full documentation: [GitHub Repository](https://github.com/SylphxAI/silk)
 
 ## License
 

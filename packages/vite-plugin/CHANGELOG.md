@@ -472,7 +472,7 @@
 
   ## 🔗 Links
 
-  - Repository: https://github.com/sylphxltd/silk
+  - Repository: https://github.com/SylphxAI/silk
   - Website: https://sylphx.com
   - Documentation: See README.md
 

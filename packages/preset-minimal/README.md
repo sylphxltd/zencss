@@ -291,7 +291,7 @@ const MinimalInput = styled('input', {
 
 ## Documentation
 
-- **Silk Documentation**: [GitHub Repository](https://github.com/sylphxltd/silk)
+- **Silk Documentation**: [GitHub Repository](https://github.com/SylphxAI/silk)
 
 ## License
 

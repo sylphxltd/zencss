@@ -538,9 +538,9 @@ The SWC plugin will be considered complete when:
 
 ## 📞 Contact & Support
 
-- **GitHub:** [sylphxltd/silk](https://github.com/sylphxltd/silk)
-- **Issues:** [Report bugs](https://github.com/sylphxltd/silk/issues)
-- **Discussions:** [Ask questions](https://github.com/sylphxltd/silk/discussions)
+- **GitHub:** [SylphxAI/silk](https://github.com/SylphxAI/silk)
+- **Issues:** [Report bugs](https://github.com/SylphxAI/silk/issues)
+- **Discussions:** [Ask questions](https://github.com/SylphxAI/silk/discussions)
 - **Documentation:** `packages/swc-plugin/` directory
 
 ---

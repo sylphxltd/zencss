@@ -208,7 +208,7 @@ export default function InteractiveCard({ children }) {
 
 ## Documentation
 
-Full documentation: [GitHub Repository](https://github.com/sylphxltd/silk)
+Full documentation: [GitHub Repository](https://github.com/SylphxAI/silk)
 
 ## License
 

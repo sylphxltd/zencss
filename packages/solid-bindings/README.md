@@ -214,7 +214,7 @@ Solid's fine-grained reactivity + Silk's zero-runtime = **Fastest possible styli
 
 ## Documentation
 
-Full documentation: [GitHub Repository](https://github.com/sylphxltd/silk)
+Full documentation: [GitHub Repository](https://github.com/SylphxAI/silk)
 
 ## License
 
