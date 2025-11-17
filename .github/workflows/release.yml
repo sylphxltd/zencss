@@ -1,0 +1,13 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    uses: SylphxAI/.github/.github/workflows/publish-npm.yml@main
+    secrets: inherit
